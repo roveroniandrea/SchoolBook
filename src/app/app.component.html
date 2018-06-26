@@ -7,3 +7,6 @@
   <br>
   <mat-checkbox>Cliccami!</mat-checkbox>
 </div>
+<ul>
+  <li *ngFor="let book of books | async">{{ book.titolo }}</li>
+</ul>
