@@ -3,9 +3,9 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list (click)="drawer.toggle()">
-      <a mat-list-item routerLink="">Link 1</a>
-      <a mat-list-item routerLink="catalogo">Link 2</a>
-      <a mat-list-item routerLink="contatti">Link 3</a>
+      <a mat-list-item routerLink="" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">Link 1</a>
+      <a mat-list-item routerLink="catalogo" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">Link 2</a>
+      <a mat-list-item routerLink="contatti" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">Link 3</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -15,9 +15,9 @@
       </button>
       <!--<span>Application Title</span>-->
       <div *ngIf="!(isHandset$ | async)" class="menu-bar">
-        <button mat-button class="menu-link" routerLink="">Basic 1</button>
-        <button mat-button class="menu-link" routerLink="catalogo">Basic 2</button>
-        <button mat-button class="menu-link" routerLink="contatti">Basic 3</button>
+        <button mat-button class="menu-link" routerLink="" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">Basic 1</button>
+        <button mat-button class="menu-link" routerLink="catalogo" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">Basic 2</button>
+        <button mat-button class="menu-link" routerLink="contatti" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">Basic 3</button>
       </div>
     </mat-toolbar>
     <ng-content></ng-content>

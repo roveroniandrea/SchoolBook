@@ -23,3 +23,9 @@ div.menu-bar{
     width: 100%;
     align-content: center!important;
 }
+button.rottaActive{
+    border-bottom: 2px solid red!important;
+}
+a.rottaActive{
+    color:red!important;
+}
