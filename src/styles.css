@@ -15,3 +15,11 @@ body {
 .hidden{
     display: none!important;
 }
+.menu-link {
+    padding: 1em 4em!important;
+}
+
+div.menu-bar{
+    width: 100%;
+    padding: auto;
+}
