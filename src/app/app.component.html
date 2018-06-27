@@ -1,12 +1,14 @@
-<main-menu></main-menu>
-<div style="text-align:center">
-  <h1 style="color:red">
-    Welcome to {{ title }}!
-  </h1>
-  <button mat-raised-button color="primary" (click)="title='School Book'">Clicca</button>
-  <br>
-  <mat-checkbox>Cliccami!</mat-checkbox>
+<div class="immagine-sfondo"><main-menu>
+  <div style="text-align:center">
+    <h1 style="color:red">
+      Welcome to {{ title }}!
+    </h1>
+    <button mat-raised-button color="primary" (click)="title='School Book'">Clicca</button>
+    <br>
+    <mat-checkbox>Cliccami!</mat-checkbox>
+  </div>
+  <ul>
+    <li *ngFor="let book of books">{{ book.titolo }}</li>
+  </ul>
+</main-menu>
 </div>
-<ul>
-  <li *ngFor="let book of books">{{ book.titolo }}</li>
-</ul>
