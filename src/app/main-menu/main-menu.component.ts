@@ -13,7 +13,11 @@ export class MainMenuComponent {
   link = [
     "Home",
     "Catalogo libri",
-    "Contatti"
+    "Contatti",
+    "Preferiti",
+    "Login",
+    "Registrati",
+    "Logout"
   ]
 /*
   @ViewChild("drawer") menuReference;

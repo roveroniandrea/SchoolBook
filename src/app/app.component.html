@@ -1,10 +1,10 @@
 <div style="height: 100%;" [ngClass]="{'immagine-sfondo': !(isHandset$|async)}">
-  <div class="positionDiv">
+  <div class="positionDiv" *ngIf="!(isHandset$|async)">
     <h1 style="display: inline">SchoolBook</h1>
-      <button mat-fab color="primary" style="left:63%">
+      <button mat-fab color="primary" style="left:63%" routerLink="login">
         <mat-icon>input</mat-icon>
       </button>
-      <button mat-fab color="primary" style="left:65%">
+      <button mat-fab color="primary" style="left:65%" routerLink="registrazione">
         <mat-icon>person_add</mat-icon>
       </button>
   </div>
