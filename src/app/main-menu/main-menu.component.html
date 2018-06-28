@@ -3,21 +3,21 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list (click)="drawer.toggle()">
-      <a mat-list-item routerLink="" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">Link 1</a>
-      <a mat-list-item routerLink="catalogo" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">Link 2</a>
-      <a mat-list-item routerLink="contatti" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">Link 3</a>
+      <a mat-list-item routerLink="" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">{{link[0]}}</a>
+      <a mat-list-item routerLink="catalogo" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">{{link[1]}}</a>
+      <a mat-list-item routerLink="contatti" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">{{link[2]}}</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+      <button #menuButton type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <!--<span>Application Title</span>-->
+      <span *ngIf="(isHandset$ | async)" style="margin: 1em">SchoolBook</span>
       <div *ngIf="!(isHandset$ | async)" class="menu-bar">
-        <button mat-button class="menu-link" routerLink="" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">Basic 1</button>
-        <button mat-button class="menu-link" routerLink="catalogo" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">Basic 2</button>
-        <button mat-button class="menu-link" routerLink="contatti" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">Basic 3</button>
+        <button mat-button class="menu-link" routerLink="" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">{{link[0]}}</button>
+        <button mat-button class="menu-link" routerLink="catalogo" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">{{link[1]}}</button>
+        <button mat-button class="menu-link" routerLink="contatti" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">{{link[2]}}</button>
       </div>
     </mat-toolbar>
     <ng-content></ng-content>
