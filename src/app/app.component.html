@@ -1,4 +1,4 @@
-<div style="height: 100%;" [ngClass]="{'immagine-sfondo': !(isHandset$|async)}">
+<div style="height: 100%;" [ngClass]="{'immagine-sfondo': !(isHandset$|async)}" *ngIf="!confrontaPercorso()">
   <div class="positionDiv" *ngIf="!(isHandset$|async)">
     <h1 style="display: inline">SchoolBook</h1>
       <button mat-fab color="primary" style="left:63%" routerLink="login">
@@ -11,4 +11,7 @@
   <main-menu>
     <router-outlet></router-outlet>
   </main-menu>
+</div>
+<div *ngIf="confrontaPercorso()">
+  <router-outlet></router-outlet>
 </div>
