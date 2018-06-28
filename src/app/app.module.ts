@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { CatalogoLibriComponent } from './catalogo-libri/catalogo-libri.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrazioneComponent } from './registrazione/registrazione.component';
+import { LibroComponent } from './libro/libro.component';
 
 const appRoutes: Routes =[
   {path: "", component: HomeComponent},
@@ -32,7 +33,8 @@ const appRoutes: Routes =[
     HomeComponent,
     CatalogoLibriComponent,
     LoginComponent,
-    RegistrazioneComponent
+    RegistrazioneComponent,
+    LibroComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,8 @@ const appRoutes: Routes =[
     MatIconModule,
     MatListModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
