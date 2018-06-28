@@ -8,9 +8,8 @@ body {
     margin: 0;
 }
 .immagine-sfondo{
-    padding: 10% 5% 5% 5%;
+    padding: 3.5% 5% 5% 5%;
     background-color: lightgreen;
-    height: 100%;
 }
 .hidden{
     display: none!important;
