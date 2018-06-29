@@ -1,7 +1,20 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <button mat-raised-button color="primary" (click)="title='School Book'">Clicca</button>
+<div style="height: 100%;" [ngClass]="{'immagine-sfondo': !(isHandset$|async)}" *ngIf="!confrontaPercorso()">
+  <div class="positionDiv" *ngIf="!(isHandset$|async)">
+    <h1 style="display: inline">SchoolBook</h1>
+    <div style = "text-align: right">
+      <button mat-fab color="primary" routerLink="login" style="margin-right: 1.5%">
+        <mat-icon>input</mat-icon>
+      </button>
+      <button mat-fab color="primary" routerLink="registrazione" style="margin-left: 1.5%">
+        <mat-icon>person_add</mat-icon>
+      </button>
+    </div>
+
+  </div>
+  <main-menu>
+    <router-outlet></router-outlet>
+  </main-menu>
+</div>
+<div *ngIf="confrontaPercorso()">
+  <router-outlet></router-outlet>
 </div>

@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +10,26 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  location: Location;
+  percorsiVuoti= [
+    "/login",
+    "/registrazione"
+  ]
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches)
+    );
+
+  constructor(private breakpointObserver: BreakpointObserver, location: Location) {
+    this.location = location;
+  }
+
+  confrontaPercorso(){
+    for(var i = 0; i<this.percorsiVuoti.length;i++){
+      if(this.percorsiVuoti[i]==location.pathname){
+        return true;
+      }
+    }
+    return false;
+  }
 }

@@ -1,0 +1,17 @@
+<h1>{{libro.titolo}}</h1>
+<mat-grid-list cols="6" rowHeight="15em">
+  <mat-grid-tile [colspan]="2" [rowspan]="1" style="background-color: green">
+    <!--<img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
+    Immagine del libro
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="2" style="background-color: blue"></mat-grid-tile>
+  <mat-grid-tile [colspan]="3" [rowspan]="2" style="background-color: red">
+    <div>
+      <h2>Dati del libro</h2>
+      <p>ISBN: {{libro.isbn}}</p>
+      <p>Prezzo: {{libro.prezzo}} €</p>
+      <hr>
+      <h2>Dati dell'autore</h2>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
