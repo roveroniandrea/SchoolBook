@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 
 @Component({
   selector: 'app-libro',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./libro.component.css']
 })
 export class LibroComponent implements OnInit {
-  constructor() { }
+  @Input() libro: Object;   //@Input specifica che input è un valore passato da un altro component (il padre)
+  constructor() {}
 
   ngOnInit() {
   }
