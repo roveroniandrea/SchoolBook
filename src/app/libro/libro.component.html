@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card class="card" routerLink="infoLibro" [queryParams]="{id: libro.id}">
   <div style="display: block">
     <img 
     mat-card-image 
@@ -6,13 +6,13 @@
     alt="Photo of a Shiba Inu" 
     class="headerCard">
     <p>
-      <b>Nuovi Orizzonti</b>
+      <b>{{libro.titolo}}</b>
       <br><br>
-      13.50 $
+      {{libro.prezzo}} €
     </p>
   </div>
   <p>
-    ISBN: 1234567891234
+    ISBN: {{libro.isbn}}
   </p>
   
 <!--
