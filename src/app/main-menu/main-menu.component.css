@@ -1,6 +1,7 @@
 .sidenav-container {
   height: 100%;
   padding-bottom: 2em;
+  min-height: 500px;
 }
 
 .sidenav {

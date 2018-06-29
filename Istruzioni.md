@@ -176,3 +176,12 @@ nel css
 	flex: 1 1 auto;
 }
 ```
+
+# query params
+```
+[queryParams] = "{}"
+//per riottenerle:
+constructor(private route: ActivatedRoute){}
+ngOnInit(){
+	console.log(this.route.snapshot.queryParams);
+}

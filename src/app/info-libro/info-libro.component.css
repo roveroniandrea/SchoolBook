@@ -1,0 +1,10 @@
+.float-left{
+    float: left;
+}
+img{
+    max-width: 30%;
+}
+.ciao{
+    align-items: left!important;
+    justify-content: top!important;
+}
