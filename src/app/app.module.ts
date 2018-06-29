@@ -16,13 +16,15 @@ import { CatalogoLibriComponent } from './catalogo-libri/catalogo-libri.componen
 import { LoginComponent } from './login/login.component';
 import { RegistrazioneComponent } from './registrazione/registrazione.component';
 import { LibroComponent } from './libro/libro.component';
+import { InfoLibroComponent } from './info-libro/info-libro.component';
 
 const appRoutes: Routes =[
   {path: "", component: HomeComponent},
   {path: "catalogo", component: CatalogoLibriComponent},
   {path: "contatti", component: ContattiComponent},
   {path: "login", component: LoginComponent},
-  {path: "registrazione", component: RegistrazioneComponent}
+  {path: "registrazione", component: RegistrazioneComponent},
+  {path: "infoLibro", component: InfoLibroComponent}
 ]
 
 @NgModule({
@@ -34,7 +36,8 @@ const appRoutes: Routes =[
     CatalogoLibriComponent,
     LoginComponent,
     RegistrazioneComponent,
-    LibroComponent
+    LibroComponent,
+    InfoLibroComponent
   ],
   imports: [
     BrowserModule,

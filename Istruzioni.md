@@ -176,3 +176,7 @@ nel css
 	flex: 1 1 auto;
 }
 ```
+
+# query params
+```
+[queryParams] = "{}"
