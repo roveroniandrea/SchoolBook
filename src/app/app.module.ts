@@ -7,9 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router'
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-import { MainMenuComponent } from './main-menu/main-menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule } from '@angular/forms';
+import {MatGridListModule} from '@angular/material/grid-list';
+
+import { MainMenuComponent } from './main-menu/main-menu.component';
 import { ContattiComponent } from './contatti/contatti.component';
 import { HomeComponent } from './home/home.component';
 import { CatalogoLibriComponent } from './catalogo-libri/catalogo-libri.component';
@@ -53,7 +55,8 @@ const appRoutes: Routes =[
     MatListModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    MatCardModule
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

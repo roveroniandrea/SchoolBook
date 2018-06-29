@@ -7,8 +7,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 })
 export class HomeComponent{
   title = 'app';
-  books : any[];
-
+  books : any[];   //non riesco ad utilizzare la classse Libro
   constructor(db : AngularFirestore) {
     db.collection("books").valueChanges().subscribe(
       (items)=>{

@@ -1,3 +1,14 @@
-<p>
-  info-libro works!
-</p>
+<h1>{{libro.titolo}}</h1>
+<mat-grid-list cols="6" rowHeight="15em">
+  <mat-grid-tile [colspan]="2" [rowspan]="1" style="background-color: green">
+    <!--<img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
+    ciao
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="2" style="background-color: blue"></mat-grid-tile>
+  <mat-grid-tile [colspan]="3" [rowspan]="2" style="background-color: red">
+    <div>
+      <h2>Dati del libro</h2>
+      <p>{{libro.prezzo}}</p>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
