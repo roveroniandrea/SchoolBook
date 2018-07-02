@@ -9,17 +9,16 @@ import { Libro } from '../classe-libro/classe-libro';
   styleUrls: ['./info-libro.component.css']
 })
 export class InfoLibroComponent implements OnInit {
-  idLibro: String;
+  idLibro: string;
   libro: Libro = new Libro();
   constructor(private route: ActivatedRoute, private database: AngularFirestore) { }
-
+//todo modificare subbmit
   ngOnInit() {
-    this.idLibro = this.route.snapshot.queryParams.id;//ottengo l'id del libro dai query params. Lo uso per ottenere info sul libro
-    this.database.collection("books", (ref) =>  //query per ottenere tutti i libri con questo id
-      ref.where('id', "==", this.idLibro)
-    )
-    .valueChanges().subscribe((val)=>{
-      this.libro = (<Libro>val[0]);   //volo solo il prim libro (tanto id saranno diversi)
+    this.idLibro = this.route.snapshot.queryParams.id;   //ottengo l'id del libro dai query params. Lo uso per ottenere info sul libro
+    
+    this.database.collection("books").doc(this.idLibro)
+    .valueChanges().subscribe(val=>{
+      this.libro = (<Libro>val);
     })
   }
 
