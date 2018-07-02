@@ -57,7 +57,9 @@ const appRoutes: Routes =[
     FormsModule,
     RouterModule.forRoot(appRoutes),
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTooltipModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
