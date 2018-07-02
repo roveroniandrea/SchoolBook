@@ -23,13 +23,4 @@ export class AppComponent {
   constructor(private breakpointObserver: BreakpointObserver, location: Location) {
     this.location = location;
   }
-
-  confrontaPercorso(){
-    for(var i = 0; i<this.percorsiVuoti.length;i++){
-      if(this.percorsiVuoti[i]==location.pathname){
-        return true;
-      }
-    }
-    return false;
-  }
 }
