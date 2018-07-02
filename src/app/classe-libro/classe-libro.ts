@@ -1,8 +1,9 @@
 export class Libro {
-    titolo : String;
+    titolo : string;
     prezzo: number;
-    descrizione: String;
-    id: String;
+    descrizione: string;
+    id: string;
+    isbn: string;
     constructor() {
         this.titolo = "";
         this.prezzo = 0;
