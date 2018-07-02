@@ -1,3 +1,6 @@
-<p>
-  catalogo-libri works!
-</p>
+<form [formGroup]="searchForm" (ngSubmit)="submitRicerca()">
+    <input formControlName="parametroRicerca">
+    <button type="submit" [disabled]="!searchForm.valid">Submit</button>
+</form>
+<br>
+<app-libro *ngFor="let book of allBooks" [libro]="book"></app-libro>
