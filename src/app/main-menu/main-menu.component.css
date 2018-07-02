@@ -1,6 +1,6 @@
 .sidenav-container { /* fix the right menu height and btn*/
   height: 100%;
-  padding-bottom: 2em;
+  /* padding-bottom: 2em; */
 }
 
 .sidenav { /* fix the right menu width*/
