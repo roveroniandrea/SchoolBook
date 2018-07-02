@@ -185,3 +185,8 @@ constructor(private route: ActivatedRoute){}
 ngOnInit(){
 	console.log(this.route.snapshot.queryParams);
 }
+```
+# spread operator
+```
+{id,...doc}
+```
