@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatDividerModule } from "@angular/material/divider";
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { ContattiComponent } from './contatti/contatti.component';
@@ -64,9 +65,10 @@ const appRoutes: Routes =[
     MatCardModule,
     MatGridListModule,
     MatTooltipModule,
-    MatInputModule
+    MatInputModule,
     ReactiveFormsModule,
-    MatDividerModule
+    MatDividerModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

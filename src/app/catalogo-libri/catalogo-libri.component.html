@@ -8,12 +8,7 @@
     </button>
 </form>
 <br>
-<!-- da sistemare per Andrea kiss
-    promemoria: Progress spinner (in material)
-<div *ngIf="allBooks.lenght">
+<div>
     <app-libro *ngFor="let book of allBooks" [libro]="book"></app-libro>
 </div>
-<div *ngIf="!allBooks.lenght">
-    <p>Errore 404. Nessun libro trovato.</p>
-</div>
--->
+<p *ngIf="nessunLibroTrovato">Nessun libro trovato!</p>

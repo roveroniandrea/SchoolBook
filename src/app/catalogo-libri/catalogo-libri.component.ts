@@ -12,7 +12,7 @@ import { StringService } from '../servizi/string.service';
 export class CatalogoLibriComponent implements OnInit {
   searchForm: FormGroup;
   allBooks: Libro[];
-
+  nessunLibroTrovato = false;
   constructor(private db: AngularFirestore, private stringService: StringService) { }
 
   ngOnInit() {
@@ -22,11 +22,13 @@ export class CatalogoLibriComponent implements OnInit {
   }
 
   submitRicerca() {
+    this.nessunLibroTrovato = false;
     const parametroRicerca = (<string>this.searchForm.get("parametroRicerca").value).toLowerCase();   //ottengo la query da cercare inserita nel form e la rendo lowercase
     let cercaTra = "titolo";
     if (this.stringService.hasOnlyNumber(parametroRicerca)) {
       cercaTra = "isbn";
     }
+
     this.db.collection("books", ref => ref.orderBy(cercaTra).startAt(parametroRicerca).endAt(parametroRicerca + "\uf8ff")).snapshotChanges().subscribe(val => {
       let nbooks: any[];   //nell'observable recupero tutti i libri corrispondenti alla stringa cercata
       nbooks = val.map(item => {
@@ -34,6 +36,9 @@ export class CatalogoLibriComponent implements OnInit {
         const data = item.payload.doc.data();
         return { id, ...data }            //recupero il loro id e i dati
       });
+      if(nbooks.length<=0){
+        this.nessunLibroTrovato= true;
+      }
       this.allBooks = <Libro[]>nbooks;
     });
   }
