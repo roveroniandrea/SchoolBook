@@ -7,7 +7,7 @@
       alt="Photo of a Shiba Inu">
     </mat-grid-tile>
     <mat-grid-tile [colspan]="16" [rowspan]="5" class="titolo">
-      {{libro.titolo}}
+      {{libro.titolo  | cutText: 32}}
     </mat-grid-tile>
     <mat-grid-tile [colspan]="16" [rowspan]="1" class="prezzo">
       {{libro.prezzo}}
