@@ -10,6 +10,7 @@ import { environment } from '../environments/environment';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatDividerModule } from "@angular/material/divider";
 
@@ -63,6 +64,7 @@ const appRoutes: Routes =[
     MatCardModule,
     MatGridListModule,
     MatTooltipModule,
+    MatInputModule
     ReactiveFormsModule,
     MatDividerModule
   ],
