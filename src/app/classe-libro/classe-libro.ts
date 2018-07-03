@@ -7,6 +7,7 @@ export class Libro {
     id: string;
     isbn: string;
     data : Data;
+    id_utente : string;
     constructor() {
         this.titolo = "";
         this.prezzo = 0;
