@@ -11,6 +11,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { MatDividerModule } from "@angular/material/divider";
 
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { ContattiComponent } from './contatti/contatti.component';
@@ -20,6 +21,8 @@ import { LoginComponent } from './login/login.component';
 import { RegistrazioneComponent } from './registrazione/registrazione.component';
 import { LibroComponent } from './libro/libro.component';
 import { InfoLibroComponent } from './info-libro/info-libro.component';
+import { CutTextPipe } from './pipes/cut-text.pipe';
+
 
 const appRoutes: Routes =[
   {path: "", component: HomeComponent},
@@ -40,7 +43,8 @@ const appRoutes: Routes =[
     LoginComponent,
     RegistrazioneComponent,
     LibroComponent,
-    InfoLibroComponent
+    InfoLibroComponent,
+    CutTextPipe
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,8 @@ const appRoutes: Routes =[
     MatCardModule,
     MatGridListModule,
     MatTooltipModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

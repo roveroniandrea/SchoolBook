@@ -1,2 +1,10 @@
-<h1>Home</h1>
-<app-libro *ngFor="let book of books" [libro]="book"></app-libro>
+<h2>Prezzo più basso</h2>
+<mat-divider></mat-divider>
+<div style="min-height: 500px;">
+    <app-libro *ngFor="let bookPrice of booksPrice" [libro]="bookPrice"></app-libro>
+</div>
+<br>
+<mat-divider></mat-divider>
+<br>
+<h2 style="display: block;">Ultimi aggiunti</h2>
+<app-libro *ngFor="let bookData of booksData" [libro]="bookData"></app-libro>
