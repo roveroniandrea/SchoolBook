@@ -7,7 +7,12 @@ export class StringService {
 
   constructor() { }
 
-  hasOnlyNumber(stringa){
+  /**
+ * Controlla se la stringa passata contiene solo numeri, utile per sapere se è isbn o titolo
+ * @param stringa La stringa da controllare, che altro? @return booleano
+ */
+  hasOnlyNumber(stringa) {
     return /^\d+$/.test(stringa);
   }
+
 }
