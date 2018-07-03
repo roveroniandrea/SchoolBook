@@ -1,6 +1,19 @@
+<h2>Ricerca</h2>
 <form [formGroup]="searchForm" (ngSubmit)="submitRicerca()">
-    <input formControlName="parametroRicerca">
-    <button type="submit" [disabled]="!searchForm.valid">Submit</button>
+    <mat-form-field class="search">
+        <input matInput placeholder="Inserise codice ISBN o un titolo" formControlName="parametroRicerca">
+    </mat-form-field>
+    <button mat-fab color="primary" [disabled]="!searchForm.valid">
+        <mat-icon>search</mat-icon>
+    </button>
 </form>
 <br>
-<app-libro *ngFor="let book of allBooks" [libro]="book"></app-libro>
+<!-- da sistemare per Andrea kiss
+    promemoria: Progress spinner (in material)
+<div *ngIf="allBooks.lenght">
+    <app-libro *ngFor="let book of allBooks" [libro]="book"></app-libro>
+</div>
+<div *ngIf="!allBooks.lenght">
+    <p>Errore 404. Nessun libro trovato.</p>
+</div>
+-->
