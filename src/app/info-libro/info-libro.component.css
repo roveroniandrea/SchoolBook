@@ -1,10 +1,31 @@
-.float-left{
-    float: left;
+img {
+    height: 100%;
+    width: 70%;
 }
-img{
-    max-width: 30%;
+
+.center {
+    text-align: center;
 }
-.ciao{
-    align-items: left!important;
-    justify-content: top!important;
+
+.desc {
+    margin: 2.58em 0.86em 0.86em 0.86em!important;
+}
+
+h2 {
+    margin: 2em;
+}
+
+p {
+    margin-left: 2em!important;
+    margin-right: 2em!important;
+}
+
+.btn {
+    float: right;
+    margin-top: 2em;
+}
+
+button {
+    padding: 0.5em;
+    margin-right: 0.5em; 
 }
