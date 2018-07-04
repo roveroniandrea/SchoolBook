@@ -1,12 +1,15 @@
-@media (min-width: 0px){
-    @media(min-width: 773px){
+@media(max-width: 687px){
+    .separatore{
+        height: 1170px;
+    }
+}
+@media(min-width: 688px) and (max-width:975px){
         .separatore{
-            height: 1000px;
+            height: 600px;
         }
-        @media (min-width: 1090px) {
-            .separatore{
-                height: 500px!important;
-            }
-        }
+}
+@media(min-width: 976px){
+    .separatore{
+        height: 400px;
     }
 }
