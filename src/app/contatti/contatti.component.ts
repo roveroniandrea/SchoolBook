@@ -16,23 +16,15 @@ export class ContattiComponent implements OnInit {
   constructor(private route: ActivatedRoute, private db: AngularFirestore) { }
 
   ngOnInit() {
-    const id_utente = this.route.snapshot.queryParams.id_autore;
-    const id_libro = this.route.snapshot.queryParams.id_libro;
-    if(id_utente){
-      this.utente.id = id_utente;
-      this.cercaUtente();
-    }
-    if(id_libro){
+    const id_libro = this.route.snapshot.params["id_libro"];
       this.libro.id = id_libro;
       this.cercaLibro();
-    }
   }
 
-  cercaUtente(){
-    this.db.collection("users").doc(this.utente.id).valueChanges().subscribe(val=>{
+  cercaUtente(id_utente){
+    this.db.collection("users").doc(id_utente).valueChanges().subscribe(val=>{
       let datiUtente = val;
-      this.utente = <Autore>{id: this.utente.id, ...datiUtente};
-      //console.log(this.utente);
+      this.utente = <Autore>{id: id_utente, ...datiUtente};
     })
   }
 
@@ -40,7 +32,7 @@ export class ContattiComponent implements OnInit {
     this.db.collection("books").doc(this.libro.id).valueChanges().subscribe(val=>{
       let datiLibro = val;
       this.libro = <Libro>{id: this.libro.id, ...datiLibro};
-      //console.log(this.utente);
+      this.cercaUtente(this.libro.id_utente);
     })
   }
 

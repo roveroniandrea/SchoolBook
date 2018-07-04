@@ -26,16 +26,20 @@ import { LibroComponent } from './libro/libro.component';
 import { InfoLibroComponent } from './info-libro/info-libro.component';
 import { CutTextPipe } from './pipes/cut-text.pipe';
 import { AccountComponent } from './account/account.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 const appRoutes: Routes =[
   {path: "", component: HomeComponent},
   {path: "catalogo", component: CatalogoLibriComponent},
-  {path: "contatti", component: ContattiComponent},
+  {path: "contatti/:id_libro", component: ContattiComponent},
   {path: "login", component: LoginComponent},
   {path: "registrazione", component: RegistrazioneComponent},
   {path: "infoLibro", component: InfoLibroComponent},
-  {path: "account", component: AccountComponent}
+  {path: "account", component: AccountComponent},
+  {path: "not-found", component: NotFoundComponent},
+  //lasciare per ultimo il path: "**"!
+  {path: "**", redirectTo: "not-found"},
 ]
 
 @NgModule({
@@ -50,7 +54,8 @@ const appRoutes: Routes =[
     LibroComponent,
     InfoLibroComponent,
     CutTextPipe,
-    AccountComponent
+    AccountComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
