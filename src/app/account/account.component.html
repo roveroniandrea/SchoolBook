@@ -56,3 +56,7 @@
 <div class="btn inline">
   <button mat-raised-button color="primary">Aggiungi Libro</button>
 </div>
+<br>
+<br>
+<br>
+<app-libro *ngFor="let book of myBooks" [libro]="book"></app-libro>
