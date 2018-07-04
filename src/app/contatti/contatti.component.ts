@@ -9,6 +9,7 @@ import { Libro } from '../classe-libro/classe-libro';
   styleUrls: ['./contatti.component.css']
 })
 export class ContattiComponent implements OnInit {
+  panelOpenState = false;
   utente: Autore = new Autore();
   libro: Libro = new Libro();
   // value = this.utente.mail; non ancora creata la mail quindi da errore
