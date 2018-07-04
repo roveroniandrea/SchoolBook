@@ -1,3 +1,19 @@
-<p>
-  contatti works!
-</p>
+<h2>Contatta Proprietario</h2>
+<mat-divider></mat-divider>
+<br>
+<!--
+<p>Proprietario:</p> 
+<p class="capitalize">{{ autore.nome }}</p> per ora vuoto
+-->
+<p>Proprietario:</p>
+<p class="capitalize">Nome Test</p> <!-- come prova -->
+<br>
+<p>Libro:</p>
+<app-libro [libro]="libro"></app-libro>
+<br>
+<p>Testo:</p>
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Leave a comment"></textarea>
+  </mat-form-field>
+</form>
