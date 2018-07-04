@@ -1,3 +1,30 @@
+.margin {
+  margin-left: 1em;
+}
+
+.width {
+  width: 70%;
+}
+
+.alert {
+  font-size: 0.8em;
+}
+
 .dimension {
-    width: 15em;
-  }
+  width: 30em!important;
+}
+
+div {
+  height: 14em;
+  margin-bottom: 1em;
+}
+
+.btn {
+  float: right;
+  margin-top: 2em;
+}
+
+button {
+  padding: 0.5em;
+  margin-right: 0.5em; 
+}

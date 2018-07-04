@@ -1,19 +1,31 @@
 <h2>Contatta Proprietario</h2>
 <mat-divider></mat-divider>
 <br>
-<!--
-<p>Proprietario:</p> 
-<p class="capitalize">{{ autore.nome }}</p> per ora vuoto
--->
-<p>Proprietario:</p>
-<p class="capitalize">Nome Test</p> <!-- come prova -->
-<br>
-<p>Libro:</p>
-<app-libro [libro]="libro"></app-libro>
-<br>
-<p>Testo:</p>
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Leave a comment"></textarea>
+<mat-accordion>
+  <mat-expansion-panel class="dimension" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Proprietario
+      </mat-panel-title>
+      <mat-panel-description class="capitalize">
+        {{ utente.nome }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <!-- info del proprietario qua dentro al posto del p-->
+    <p>I'm visible because I am open</p>
+  </mat-expansion-panel>
+</mat-accordion>
+<div>
+  <p>Libro:</p>
+  <app-libro [libro]="libro"></app-libro>
+</div>
+<form class="width">
+  <mat-form-field class="width">
+      <textarea matInput placeholder="Testo"></textarea>
   </mat-form-field>
 </form>
+<p class="alert">Ricordati di lasciare un tuo contatto nel testo, altrimenti il proprietario non riuscirà a risponderti!</p>
+<div class="btn">
+  <button mat-raised-button color="primary">Annulla</button>
+  <button mat-raised-button color="primary">Invio</button>
+</div>
