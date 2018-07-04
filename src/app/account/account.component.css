@@ -12,3 +12,11 @@ button {
     display: inline!important;
     margin-top: 0!important;
 }
+
+.inputAccount{
+    display: block;
+}
+
+.divider{
+    margin-bottom: 1em;
+}
