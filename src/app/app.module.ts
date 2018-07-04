@@ -24,6 +24,7 @@ import { RegistrazioneComponent } from './registrazione/registrazione.component'
 import { LibroComponent } from './libro/libro.component';
 import { InfoLibroComponent } from './info-libro/info-libro.component';
 import { CutTextPipe } from './pipes/cut-text.pipe';
+import { AccountComponent } from './account/account.component';
 
 
 const appRoutes: Routes =[
@@ -32,7 +33,8 @@ const appRoutes: Routes =[
   {path: "contatti", component: ContattiComponent},
   {path: "login", component: LoginComponent},
   {path: "registrazione", component: RegistrazioneComponent},
-  {path: "infoLibro", component: InfoLibroComponent}
+  {path: "infoLibro", component: InfoLibroComponent},
+  {path: "account", component: AccountComponent}
 ]
 
 @NgModule({
@@ -46,7 +48,8 @@ const appRoutes: Routes =[
     RegistrazioneComponent,
     LibroComponent,
     InfoLibroComponent,
-    CutTextPipe
+    CutTextPipe,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
