@@ -12,23 +12,27 @@ import { Autore } from '../classe-autore/classe-autore';
 export class InfoLibroComponent implements OnInit {
   idLibro: string;
   libro: Libro = new Libro();
-  autore: Autore;
+  autore: Autore = new Autore();
   constructor(private route: ActivatedRoute, private database: AngularFirestore) { }
-//todo modificare subbmit
+  //todo modificare subbmit
   ngOnInit() {
     this.idLibro = this.route.snapshot.queryParams.id;   //ottengo l'id del libro dai query params. Lo uso per ottenere info sul libro
-    
     this.database.collection("books").doc(this.idLibro)  //cerco un libro con quell'id
-    .valueChanges().subscribe(val=>{
-      this.libro = (<Libro>val);
-      this.cercaAutore();
-    })
+      .valueChanges().subscribe(val => {
+        this.libro = (<Libro>val);
+        //console.log(this.libro.id_utente);
+        this.cercaAutore();
+      })
   }
 
-    cercaAutore(){
+  cercaAutore() {
+    if (this.libro.id_utente) {
       this.database.collection("users").doc(this.libro.id_utente)
-      .valueChanges().subscribe(val=>{
-        this.autore = <Autore>val;
-      })
+        .snapshotChanges().subscribe(val => {
+          const id = val.payload.id;
+          this.autore = <Autore>{ id, ...val.payload.data() };
+          //console.log(this.autore);
+        })
     }
+  }
 }
