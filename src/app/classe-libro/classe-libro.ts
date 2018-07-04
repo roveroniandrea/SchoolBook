@@ -13,5 +13,7 @@ export class Libro {
         this.prezzo = 0;
         this.descrizione = "";
         this.id = "";
+        this.id_utente = "";
+        this.isbn = "";
     }
 }
