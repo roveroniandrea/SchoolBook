@@ -29,7 +29,7 @@
   uvdugewugsdnodsnbowengoiewhboi uvdugewugsdnodsnbowengoiewhboi
 </p>
 <div class="btn">
-  <button mat-raised-button color="primary" routerLink="/contatti" [queryParams]="{id_autore:autore.id, id_libro:idLibro}" [disabled]="!autore.id">Contatta Proprietario</button>
+  <button mat-raised-button color="primary" [routerLink]="['/contatti',idLibro]" [disabled]="!autore.id">Contatta Proprietario</button>
   <button mat-raised-button color="primary">Aggiungi ai Preferiti</button>
   <!-- (click)="" aggiunge ai preferiti -->
 </div>

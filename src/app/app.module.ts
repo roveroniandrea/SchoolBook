@@ -30,7 +30,7 @@ import { AccountComponent } from './account/account.component';
 const appRoutes: Routes =[
   {path: "", component: HomeComponent},
   {path: "catalogo", component: CatalogoLibriComponent},
-  {path: "contatti", component: ContattiComponent},
+  {path: "contatti/:id_libro", component: ContattiComponent},
   {path: "login", component: LoginComponent},
   {path: "registrazione", component: RegistrazioneComponent},
   {path: "infoLibro", component: InfoLibroComponent},
