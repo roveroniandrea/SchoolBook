@@ -1,10 +1,10 @@
 <h2>Prezzo più basso</h2>
-<mat-divider></mat-divider>
+<mat-divider class="spaziatore"></mat-divider>
 <div class="separatore">
     <app-libro *ngFor="let bookPrice of booksPrice" [libro]="bookPrice"></app-libro>
 </div>
-<br>
-<mat-divider></mat-divider>
-<br>
-<h2 style="display: block;">Ultimi aggiunti</h2>
-<app-libro *ngFor="let bookData of booksData" [libro]="bookData"></app-libro>
+<h2>Ultimi aggiunti</h2>
+<mat-divider class="spaziatore"></mat-divider>
+<div>
+    <app-libro *ngFor="let bookData of booksData" [libro]="bookData"></app-libro>
+</div>
