@@ -27,6 +27,7 @@ import { InfoLibroComponent } from './info-libro/info-libro.component';
 import { CutTextPipe } from './pipes/cut-text.pipe';
 import { AccountComponent } from './account/account.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { NuovoLibroComponent } from './nuovo-libro/nuovo-libro.component';
 
 
 const appRoutes: Routes =[
@@ -38,6 +39,7 @@ const appRoutes: Routes =[
   {path: "infoLibro", component: InfoLibroComponent},
   {path: "account", component: AccountComponent},
   {path: "not-found", component: NotFoundComponent},
+  {path: "new-book", component: NuovoLibroComponent},
   //lasciare per ultimo il path: "**"!
   {path: "**", redirectTo: "not-found"},
 ]
@@ -55,7 +57,8 @@ const appRoutes: Routes =[
     InfoLibroComponent,
     CutTextPipe,
     AccountComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    NuovoLibroComponent
   ],
   imports: [
     BrowserModule,
