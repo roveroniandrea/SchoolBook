@@ -3,6 +3,8 @@ import { UserService } from '../servizi/utente.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Autore } from '../classe-autore/classe-autore';
+import { Libro } from '../classe-libro/classe-libro';
+import { LibroUrlService } from '../servizi/libro-url.service';
 
 @Component({
   selector: 'app-account',
@@ -12,8 +14,8 @@ import { Autore } from '../classe-autore/classe-autore';
 export class AccountComponent implements OnInit {
   mode = "see";
   accountForm: FormGroup;
-  myBooks: Autore[];
-  constructor(private userService: UserService, private db: AngularFirestore) { }
+  myBooks: Libro[];
+  constructor(private userService: UserService, private db: AngularFirestore, private libroUrlService: LibroUrlService) { }
 
   ngOnInit() {
     this.accountForm = new FormGroup({
@@ -35,7 +37,8 @@ export class AccountComponent implements OnInit {
   cercaMieiLibri() {
     this.db.collection("books", ref => ref.where("id_utente", "==", this.userService.utente.id)).snapshotChanges().subscribe(val => {
       this.myBooks = val.map(item => {
-        return <Autore>{id: item.payload.doc.id, ...item.payload.doc.data()};
+        const libro = <Libro>{id: item.payload.doc.id, ...item.payload.doc.data()}
+        return this.libroUrlService.setLibroUrl(libro);
       });
     })
   }
