@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { PerditaModificheComponent } from '../perdita-modifiche/perdita-modifiche.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nuovo-libro',
@@ -9,7 +12,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class NuovoLibroComponent implements OnInit {
   uploadForm : FormGroup;
   patternPrezzo = "^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$";
-  constructor() { }
+  constructor(private confermaUscita: MatDialog, private router: Router) { }
 
   ngOnInit() {
     this.uploadForm = new FormGroup({
@@ -25,6 +28,11 @@ export class NuovoLibroComponent implements OnInit {
   }
 
   annullaForm(){
-    
+    const dialogRef = this.confermaUscita.open(PerditaModificheComponent);
+    dialogRef.afterClosed().subscribe(result=>{
+      if(result){
+        this.router.navigateByUrl("account");
+      }
+    })
   }
 }
