@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatDialogModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,6 +29,7 @@ import { CutTextPipe } from './pipes/cut-text.pipe';
 import { AccountComponent } from './account/account.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NuovoLibroComponent } from './nuovo-libro/nuovo-libro.component';
+import { PerditaModificheComponent } from './perdita-modifiche/perdita-modifiche.component';
 
 
 const appRoutes: Routes =[
@@ -59,7 +60,8 @@ const appRoutes: Routes =[
     CutTextPipe,
     AccountComponent,
     NotFoundComponent,
-    NuovoLibroComponent
+    NuovoLibroComponent,
+    PerditaModificheComponent
   ],
   imports: [
     BrowserModule,
@@ -83,9 +85,13 @@ const appRoutes: Routes =[
     MatDividerModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    PerditaModificheComponent
+  ]
 })
 export class AppModule { }
