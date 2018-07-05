@@ -24,14 +24,16 @@ export class NuovoLibroComponent implements OnInit {
   }
 
   submitForm(){
-    console.log(this.uploadForm.value)
+    console.log(this.uploadForm.value);
+    // manca il caricamento su firebase
+    this.router.navigate(["/account"], { queryParams: { inserimentoLibro : 2 }});
   }
 
   annullaForm(){
     const dialogRef = this.confermaUscita.open(PerditaModificheComponent);
     dialogRef.afterClosed().subscribe(result=>{
-      if(result){
-        this.router.navigateByUrl("account");
+      if(result) {
+        this.router.navigate(["/account"], { queryParams: { inserimentoLibro : 1 }});
       }
     })
   }

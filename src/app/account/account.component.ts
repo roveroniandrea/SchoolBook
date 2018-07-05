@@ -5,6 +5,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Autore } from '../classe-autore/classe-autore';
 import { Libro } from '../classe-libro/classe-libro';
 import { LibroUrlService } from '../servizi/libro-url.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-account',
@@ -12,10 +13,13 @@ import { LibroUrlService } from '../servizi/libro-url.service';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
+  inserimentoLibro = null;
   mode = "see";
   accountForm: FormGroup;
   myBooks: Libro[];
-  constructor(private userService: UserService, private db: AngularFirestore, private libroUrlService: LibroUrlService) { }
+  constructor(private route: ActivatedRoute, private userService: UserService, private db: AngularFirestore, private libroUrlService: LibroUrlService) { 
+    this.inserimentoLibro = route.snapshot.queryParams.inserimentoLibro;
+  }
 
   ngOnInit() {
     this.accountForm = new FormGroup({
