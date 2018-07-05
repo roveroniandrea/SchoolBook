@@ -15,6 +15,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from "@angular/material/divider";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { AngularFireStorageModule } from "angularfire2/storage";
 
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { ContattiComponent } from './contatti/contatti.component';
@@ -81,7 +82,8 @@ const appRoutes: Routes =[
     ReactiveFormsModule,
     MatDividerModule,
     MatProgressSpinnerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
