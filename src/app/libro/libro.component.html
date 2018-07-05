@@ -3,8 +3,8 @@
     <mat-grid-tile [colspan]="14" [rowspan]="8">
       <img 
       mat-card-image 
-      src="https://material.angular.io/assets/img/examples/shiba2.jpg" 
-      alt="Photo of a Shiba Inu">
+      [src]="libro.imageUrl"
+      alt="No foto, ops :(">
     </mat-grid-tile>
     <mat-grid-tile [colspan]="16" [rowspan]="5" class="titolo capitalize">
       {{libro.titolo  | cutText: 32}}

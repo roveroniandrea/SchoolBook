@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Libro } from '../classe-libro/classe-libro';
 import { StringService } from '../servizi/string.service';
+import { LibroUrlService } from '../servizi/libro-url.service';
 
 @Component({
   selector: 'app-catalogo-libri',
@@ -13,7 +14,7 @@ export class CatalogoLibriComponent implements OnInit {
   searchForm: FormGroup;
   allBooks: Libro[];
   nessunLibroTrovato = false;
-  constructor(private db: AngularFirestore, private stringService: StringService) { }
+  constructor(private db: AngularFirestore, private stringService: StringService, private libroUrlService: LibroUrlService) { }
 
   ngOnInit() {
     this.searchForm = new FormGroup({
@@ -34,7 +35,7 @@ export class CatalogoLibriComponent implements OnInit {
       nbooks = val.map(item => {
         const id = item.payload.doc.id;
         const data = item.payload.doc.data();
-        return { id, ...data }            //recupero il loro id e i dati
+        return this.libroUrlService.setLibroUrl(<Libro>{ id, ...data })            //recupero il loro id e i dati
       });
       if(nbooks.length<=0){
         this.nessunLibroTrovato= true;
