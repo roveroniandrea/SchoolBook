@@ -56,8 +56,7 @@
 <div class="btn inline">
   <button mat-raised-button color="primary" routerLink="/new-book">Aggiungi Libro</button>
 </div>
-<p *ngIf="inserimentoLibro == null"></p>
-<p *ngIf="inserimentoLibro == 1">Libro non salvato.</p>
-<p *ngIf="inserimentoLibro == 2">Libro salvato correttamente.</p>
+<br>
+<br>
 <br>
 <app-libro *ngFor="let book of myBooks" [libro]="book"></app-libro>

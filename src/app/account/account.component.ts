@@ -6,6 +6,7 @@ import { Autore } from '../classe-autore/classe-autore';
 import { Libro } from '../classe-libro/classe-libro';
 import { LibroUrlService } from '../servizi/libro-url.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-account',
@@ -17,8 +18,9 @@ export class AccountComponent implements OnInit {
   mode = "see";
   accountForm: FormGroup;
   myBooks: Libro[];
-  constructor(private route: ActivatedRoute, private userService: UserService, private db: AngularFirestore, private libroUrlService: LibroUrlService) { 
-    this.inserimentoLibro = route.snapshot.queryParams.inserimentoLibro;
+  constructor(private route: ActivatedRoute, private userService: UserService, private db: AngularFirestore, private libroUrlService: LibroUrlService, private snackBar: MatSnackBar) {
+    this.inserimentoLibro = this.route.snapshot.queryParams.inserimentoLibro;
+    this.controllaUploadLibro();
   }
 
   ngOnInit() {
@@ -41,9 +43,23 @@ export class AccountComponent implements OnInit {
   cercaMieiLibri() {
     this.db.collection("books", ref => ref.where("id_utente", "==", this.userService.utente.id)).snapshotChanges().subscribe(val => {
       this.myBooks = val.map(item => {
-        const libro = <Libro>{id: item.payload.doc.id, ...item.payload.doc.data()}
+        const libro = <Libro>{ id: item.payload.doc.id, ...item.payload.doc.data() }
         return this.libroUrlService.setLibroUrl(libro);
       });
     })
+  }
+
+  controllaUploadLibro() {
+    if (this.inserimentoLibro != null) {
+      if (this.inserimentoLibro == 0) {
+        this.snackBar.open("Caricamento libro annullato", "", { duration: 2000 })
+      }
+      if (this.inserimentoLibro == 1) {
+        this.snackBar.open("Libro caricato correttamente!", "", { duration: 2000 })
+      }
+      if (this.inserimentoLibro == 2) {
+        this.snackBar.open("Errore nel caricamento del libro :(", "", { duration: 2000 })
+      }
+    }
   }
 }

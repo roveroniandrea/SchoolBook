@@ -39,15 +39,19 @@ export class NuovoLibroComponent implements OnInit {
     newLibro.id_utente = this.userService.utente.id;
     //console.log(newLibro)
     this.db.collection("books").add(newLibro)
-    .then(val=>console.log(val),err=>console.log(err))
-    this.router.navigate(["/account"], { queryParams: { inserimentoLibro : 2 }});
+    .then(val=>{
+      this.router.navigate(["/account"], { queryParams: { inserimentoLibro : 1 }});
+    },err=>{
+      this.router.navigate(["/account"], { queryParams: { inserimentoLibro : 2 }});
+    })
+    
   }
 
   annullaForm() {
     const dialogRef = this.confermaUscita.open(PerditaModificheComponent);
     dialogRef.afterClosed().subscribe(result=>{
       if(result) {
-        this.router.navigate(["/account"], { queryParams: { inserimentoLibro : 1 }});
+        this.router.navigate(["/account"], { queryParams: { inserimentoLibro : 0 }});
       }
     })
   }
