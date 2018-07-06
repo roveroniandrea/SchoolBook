@@ -39,10 +39,7 @@
     </div>
   </form>
 </div>
-<br>
-<br>
-<br>
-<br>
+<div class="secondaParte">
 <h3>I miei Libri</h3>
 <mat-divider class="spaziatore"></mat-divider>
 <br>
@@ -53,5 +50,5 @@
 <p *ngIf="inserimentoLibro == null"></p>
 <p *ngIf="inserimentoLibro == 1">Libro non salvato.</p>
 <p *ngIf="inserimentoLibro == 2">Libro salvato correttamente.</p>
-<br>
+</div>
 <app-libro *ngFor="let book of myBooks" [libro]="book"></app-libro>
