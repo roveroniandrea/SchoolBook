@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Libro } from '../classe-libro/classe-libro';
 import { UserService } from '../servizi/utente.service';
-
+import { AngularFireStorage, AngularFireStorageReference } from 'angularfire2/storage';
 @Component({
   selector: 'app-nuovo-libro',
   templateUrl: './nuovo-libro.component.html',
@@ -15,14 +15,12 @@ import { UserService } from '../servizi/utente.service';
 export class NuovoLibroComponent implements OnInit {
   uploadForm: FormGroup;
   patternPrezzo = "^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$";
-  afuConfig = {
-    uploadAPI: {
-      url: "/uploadImage"
-    },
-    formatsAllowed: ".jpg,.png,.jpeg",
-  };
+  immagine: File;
+  filePath: string;  //conterrà il percorso generato dall'uuid
+  imageRef: any;
+  uuidv4 = require('uuid/v4');
 
-  constructor(private confermaUscita: MatDialog, private router: Router, private db : AngularFirestore,private userService: UserService) { }
+  constructor(private confermaUscita: MatDialog, private router: Router, private db: AngularFirestore, private userService: UserService, private storage: AngularFireStorage) { }
 
   ngOnInit() {
     this.uploadForm = new FormGroup({
@@ -34,25 +32,44 @@ export class NuovoLibroComponent implements OnInit {
   }
 
   submitForm() {
-    //console.log(this.uploadForm.value);
-    let newLibro = <Libro>this.uploadForm.value;
-    newLibro.id_utente = this.userService.utente.id;
-    //console.log(newLibro)
-    this.db.collection("books").add(newLibro)
-    .then(val=>{
-      this.router.navigate(["/account"], { queryParams: { inserimentoLibro : 1 }});
-    },err=>{
-      this.router.navigate(["/account"], { queryParams: { inserimentoLibro : 2 }});
-    })
-    
+    //console.log(this.uploadForm);
+    this.caricaImmagineStorage();
   }
 
   annullaForm() {
     const dialogRef = this.confermaUscita.open(PerditaModificheComponent);
-    dialogRef.afterClosed().subscribe(result=>{
-      if(result) {
-        this.router.navigate(["/account"], { queryParams: { inserimentoLibro : 0 }});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 0 } });
       }
     })
+  }
+
+  immagineCaricata(event) {
+    this.immagine = <File>event.target.files[0];
+  }
+
+  caricaImmagineStorage() {
+    this.filePath = this.uuidv4();
+    let upload = this.storage.upload(this.filePath, this.immagine)
+      .then(result => {
+        console.log(result)
+      }, err => {
+        console.log("errore", err)
+      })
+  }
+
+  caricaLibro() {
+    let newLibro = <Libro>this.uploadForm.value;
+    newLibro.id_utente = this.userService.utente.id;
+    if(this.imageRef){
+      newLibro.imageUrl = this.imageRef.getDownloadURL().subscribe();
+    }
+    this.db.collection("books").add(newLibro)
+      .then(val => {
+        this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 1 } });
+      }, err => {
+        this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 2 } });
+      })
   }
 }
