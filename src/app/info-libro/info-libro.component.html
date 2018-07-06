@@ -1,30 +1,30 @@
 <h2>Info Libro</h2>
 <mat-divider class="spaziatore"></mat-divider>
-<div class="esterno">
-  <div class="sinistro">
-    <img [src]="libro.imageUrl" alt="Photo of a Shiba Inu">
-  </div>
-  <div class="destro">
-    <br>
-    <h3>Libro</h3>
-    <p>ISBN: {{libro.isbn}}</p>
-    <p>Prezzo: {{libro.prezzo}} €</p>
-    <mat-divider class="divisore"></mat-divider>
-    <h3>Proprietario</h3>
-    <p>Nome:</p>
-    <p>Cognome:</p> 
-    <p>Mail:</p>
-    <p>Telefono:</p>
-    <p>Località o Scuola:</p>
-  </div>
+<div class="sinistro sinistro2">
+  <img [src]="libro.imageUrl" alt="Photo of a Shiba Inu">
+</div>
+<div class="destro destro2"> 
+  <br>
+  <h3>Libro</h3>
+  <p>ISBN: {{libro.isbn}}</p>
+  <p>Prezzo: {{libro.prezzo}} €</p>
+  <mat-divider class="divisore"></mat-divider>
+  <h3>Proprietario</h3>
+  <p>Nome:</p>
+  <p>Cognome:</p>
+  <p>Mail:</p>
+  <p>Telefono:</p>
+  <p>Località o Scuola:</p>
 </div>
 <h3 class="desc">Descrizione</h3>
 <p>{{libro.descrizione}}</p>
 <div class="btn">
-  <button mat-raised-button color="primary" [routerLink]="['/contatti',idLibro]" [disabled]="!autore.id">Contatta Proprietario</button>
-  <button mat-raised-button color="primary">Aggiungi ai Preferiti</button>
+  <button class="btn2" mat-raised-button color="primary" [routerLink]="['/contatti',idLibro]" [disabled]="!autore.id">Contatta Proprietario</button>
+  <button class="btn2" mat-raised-button color="primary">Aggiungi ai Preferiti</button>
   <!-- (click)="" aggiunge ai preferiti -->
 </div>
+
+
 
 
 
