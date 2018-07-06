@@ -21,9 +21,11 @@
       </div>
     </mat-grid-tile>
   </mat-grid-list>
-  <mat-form-field class="full-width desc">
-    <input matInput placeholder="Descrizione:" formControlName="descrizione">
+  <br>
+  <mat-form-field class="width">
+    <textarea matInput placeholder="Descrizione:" formControlName="descrizione"></textarea>
   </mat-form-field>
+  <br>
   <div class="btn">
     <button mat-raised-button color="primary" (click)="annullaForm()" type="button">Annulla</button>
     <button mat-raised-button color="primary" type="submit" [disabled]="!uploadForm.valid">Salva</button>

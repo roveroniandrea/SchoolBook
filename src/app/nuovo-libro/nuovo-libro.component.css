@@ -2,12 +2,12 @@
     text-align: center;
 }
 
-.desc {
-    margin: 2.58em 0.86em 0.86em 0.86em!important;
+.block {
+    display: block;
 }
 
-.checkbox {
-    margin-right: 1em;
+.width {
+    width: 70%;
 }
 
 .btn {
@@ -18,14 +18,6 @@
 button {
     padding: 0.5em;
     margin-right: 0.5em; 
-}
-
-.full-width {
-    width: 100%;
-  }
-
-.block {
-    display: block;
 }
 
 p {
