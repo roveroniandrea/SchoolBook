@@ -1,13 +1,39 @@
-.center {
-    text-align: center;
-}
-
-.block {
-    display: block;
-}
-
 .width {
     width: 70%;
+}
+
+.sinistro {
+    width: 50%; 
+    height: 25em; 
+    float: left;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.destro {
+    width: 50%; 
+    height: 25em; 
+    float: right;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+img {
+    height: 100%;
+    width: 70%;
+}
+
+.divisore {
+    width: 50%;
+    margin: auto!important;
+}
+
+.desc {
+    margin: 2.58em 0.86em 0.86em 0.86em!important;
+}
+
+p {
+    font-size: 0.8em
 }
 
 .btn {
@@ -20,6 +46,26 @@ button {
     margin-right: 0.5em; 
 }
 
-p {
-    font-size: 0.8em
+@media(max-width: 499px){
+    .sinistro {
+        width: 50%; 
+        float: none;
+        height: 10em;
+        text-align: center;
+        margin-bottom: 1em;
+    }
+    
+    .destro {
+        width: 50%; 
+        float: none;
+        height: 20em;
+        text-align: center;
+        margin-bottom: 1em;
+    }
+    
+    .button {
+        padding: 0.5em;
+    margin-right: 0.5em; 
+        margin-top: 1em;
+    }
 }
