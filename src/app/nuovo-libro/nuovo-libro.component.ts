@@ -25,10 +25,10 @@ export class NuovoLibroComponent implements OnInit {
 
   ngOnInit() {
     this.uploadForm = new FormGroup({
-      "titolo": new FormControl("", Validators.required),
-      "isbn": new FormControl(null, Validators.required),
-      "prezzo": new FormControl("00.00", Validators.required), //inserire pattern moneta
-      "descrizione": new FormControl("", Validators.required)
+      "titolo" : new FormControl("",Validators.required),
+      "isbn" : new FormControl(null,Validators.required),
+      "prezzo" : new FormControl("",Validators.required), //inserire pattern moneta
+      "descrizione": new FormControl("",Validators.required)
     })
   }
 

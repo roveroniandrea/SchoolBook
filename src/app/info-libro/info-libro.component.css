@@ -1,10 +1,27 @@
+.sinistro {
+    width: 50%; 
+    height: 25em; 
+    float: left;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.destro {
+    width: 50%; 
+    height: 25em; 
+    float: right;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
 img {
     height: 100%;
     width: 70%;
 }
 
-.center {
-    text-align: center;
+.divisore {
+    width: 50%;
+    margin: auto!important;
 }
 
 .desc {
@@ -12,16 +29,41 @@ img {
 }
 
 p {
-    margin-left: 2em!important;
-    margin-right: 2em!important;
+    width: 100%;
+    margin-left: 1em!important;
+    margin-right: 1em!important;
 }
 
 .btn {
     float: right;
-    margin-top: 2em;
+    margin-top: 1em;
 }
 
 button {
     padding: 0.5em;
     margin-right: 0.5em; 
+}
+
+@media(max-width: 499px){
+    .sinistro {
+        width: 50%; 
+        float: none;
+        height: 10em;
+        text-align: center;
+        margin-bottom: 1em;
+    }
+    
+    .destro {
+        width: 50%; 
+        height: 25em; 
+        float: none;
+        text-align: center;
+        margin-bottom: 1em;
+    }
+    
+    button {
+        padding: 0.5em;
+        margin-right: 0.5em; 
+        margin-top: 1em;
+    }
 }

@@ -2,3 +2,10 @@
     width: 20em;
     margin-right: 1em; 
   }
+
+  @media(max-width: 504px){
+    .search {
+      width: 10em;
+      margin-right: 0.5em; 
+    }
+}
