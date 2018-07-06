@@ -2,12 +2,12 @@
 <mat-divider class="spaziatore"></mat-divider>
 <div *ngIf="mode==='see'">
   <div>
-    <p>Nome: {{userService.utente.nome}}</p>
-    <p>Cognome: {{userService.utente.cognome}}</p>
-    <p>Mail: {{userService.utente.mail}}</p>
-    <p>Telefono: {{userService.utente.telefono}}</p>
-    <p>Località o Scuola: {{userService.utente.scuola}}</p>
-    <p>Forse Password</p>
+    <p class="capitalize">Nome: {{userService.utente.nome}}</p>
+    <p class="capitalize">Cognome: {{userService.utente.cognome}}</p>
+    <p class="capitalize">Mail: {{userService.utente.mail}}</p>
+    <p class="capitalize">Telefono: {{userService.utente.telefono}}</p>
+    <p class="capitalize">Località o Scuola: {{userService.utente.scuola}}</p>
+    <p class="capitalize">Forse Password</p>
   </div>
   <div class="btn">
     <button mat-raised-button color="primary">Elimina Account</button>
@@ -16,28 +16,29 @@
 </div>
 <div *ngIf="mode==='edit'">
   <form [formGroup]="accountForm" (ngSubmit)="submitAccount()">
-    <mat-form-field class="inputAccount">
-      <input matInput placeholder="Nome: " formControlName="nome">
-    </mat-form-field>
-    <mat-form-field class="inputAccount">
-      <input matInput placeholder="Cognome: " formControlName="cognome">
-    </mat-form-field>
-    <mat-form-field class="inputAccount">
-      <input matInput placeholder="Mail: " formControlName="mail">
-    </mat-form-field>
-    <mat-form-field class="inputAccount">
-      <input matInput placeholder="Telefono: " formControlName="telefono">
-    </mat-form-field>
-    <mat-form-field class="inputAccount">
-      <input matInput placeholder="Località o Scuola: " formControlName="scuola">
-    </mat-form-field>
+    <div class="inserimento">
+      <mat-form-field class="inputAccount">
+        <input matInput placeholder="Nome: " formControlName="nome">
+      </mat-form-field>
+      <mat-form-field class="inputAccount">
+        <input matInput placeholder="Cognome: " formControlName="cognome">
+      </mat-form-field>
+      <mat-form-field class="inputAccount">
+        <input matInput placeholder="Mail: " formControlName="mail">
+      </mat-form-field>
+      <mat-form-field class="inputAccount">
+        <input matInput placeholder="Telefono: " formControlName="telefono">
+      </mat-form-field>
+      <mat-form-field class="inputAccount">
+        <input matInput placeholder="Località o Scuola: " formControlName="scuola">
+      </mat-form-field>
+    </div>
     <div class="btn">
       <button mat-raised-button color="primary" (click)="mode='see'" type="reset">Annulla modifiche</button>
       <button mat-raised-button color="primary" [disabled]="!accountForm.valid" type="submit">Conferma modifiche</button>
     </div>
   </form>
 </div>
-
 <br>
 <br>
 <br>
@@ -45,13 +46,6 @@
 <h3>I miei Libri</h3>
 <mat-divider class="spaziatore"></mat-divider>
 <br>
-<!--
-<div class="inline">Clicca su un libro per modificare.</div>
-<div class="btn" class="inline; btn">
-  <button mat-raised-button color="primary">Aggiungi Libro</button>
-</div> 
--->
-
 <div class="inline">Clicca su un libro per modificare.</div>
 <div class="btn inline">
   <button mat-raised-button color="primary" routerLink="/new-book">Aggiungi Libro</button>
