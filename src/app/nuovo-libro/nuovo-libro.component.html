@@ -3,7 +3,10 @@
 <form [formGroup]="uploadForm" (ngSubmit)="submitForm()">
   <mat-grid-list cols="2" rowHeight="15em">
     <mat-grid-tile [colspan]="1" [rowspan]="2" class="center">
-      <div style="background-color: green; width: 100%; height: 100%">INSERIMENTO IMMAGINE</div>
+      <div style="background-color: green; width: 100%; height: 100%">
+        <angular-file-uploader [config]="afuConfig">
+        </angular-file-uploader>
+      </div>
     </mat-grid-tile>
     <mat-grid-tile [colspan]="1" [rowspan]="2" class="center">
       <div>
