@@ -1,0 +1,9 @@
+.btn {
+    float: right;
+    margin-top: 2em;
+}
+
+button {
+    padding: 0.5em;
+    margin-right: 0.5em; 
+}

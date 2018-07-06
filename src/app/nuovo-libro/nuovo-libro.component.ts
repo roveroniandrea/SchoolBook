@@ -40,13 +40,14 @@ export class NuovoLibroComponent implements OnInit {
     //console.log(newLibro)
     this.db.collection("books").add(newLibro)
     .then(val=>console.log(val),err=>console.log(err))
+    this.router.navigate(["/account"], { queryParams: { inserimentoLibro : 2 }});
   }
 
   annullaForm() {
     const dialogRef = this.confermaUscita.open(PerditaModificheComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.router.navigateByUrl("account");
+    dialogRef.afterClosed().subscribe(result=>{
+      if(result) {
+        this.router.navigate(["/account"], { queryParams: { inserimentoLibro : 1 }});
       }
     })
   }
