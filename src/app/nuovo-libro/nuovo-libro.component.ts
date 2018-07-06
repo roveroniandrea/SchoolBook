@@ -18,6 +18,7 @@ export class NuovoLibroComponent implements OnInit {
   immagine: File;
   filePath: string;  //conterrà il percorso generato dall'uuid
   imageRef: any;
+  newLibro : Libro;
   uuidv4 = require('uuid/v4');
 
   constructor(private confermaUscita: MatDialog, private router: Router, private db: AngularFirestore, private userService: UserService, private storage: AngularFireStorage) { }
@@ -33,6 +34,8 @@ export class NuovoLibroComponent implements OnInit {
 
   submitForm() {
     //console.log(this.uploadForm);
+    this.newLibro = <Libro>this.uploadForm.value;
+    this.newLibro.id_utente = this.userService.utente.id;
     this.caricaImmagineStorage();
   }
 
@@ -50,23 +53,28 @@ export class NuovoLibroComponent implements OnInit {
   }
 
   caricaImmagineStorage() {
-    this.filePath = this.uuidv4();
-    let upload = this.storage.upload(this.filePath, this.immagine)
-      .then(result => {
-        console.log(result)
-      }, err => {
-        console.log("errore", err)
-      })
+    if (this.immagine) {
+      this.filePath = this.uuidv4();
+      let upload = this.storage.upload(this.filePath, this.immagine)
+        .then(result => {
+          result.ref.getDownloadURL().then(result=>{
+            this.newLibro.imageUrl = result;
+            console.log(result);
+            this.caricaLibro();
+          })
+        }, err => {
+          console.log("errore", err)
+        })
+    }
+    else{
+      this.caricaLibro();
+    }
   }
 
   caricaLibro() {
-    let newLibro = <Libro>this.uploadForm.value;
-    newLibro.id_utente = this.userService.utente.id;
-    if(this.imageRef){
-      newLibro.imageUrl = this.imageRef.getDownloadURL().subscribe();
-    }
-    this.db.collection("books").add(newLibro)
+    this.db.collection("books").add(this.newLibro)
       .then(val => {
+        console.log(val);
         this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 1 } });
       }, err => {
         this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 2 } });
