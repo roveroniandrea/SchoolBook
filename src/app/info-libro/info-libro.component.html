@@ -1,34 +1,62 @@
 <h2>Info Libro</h2>
 <mat-divider class="spaziatore"></mat-divider>
-<mat-grid-list cols="2" rowHeight="15em">
-  <mat-grid-tile [colspan]="1" [rowspan]="2" class="center">
-    <img 
-    [src]="libro.imageUrl" 
-    alt="Photo of a Shiba Inu">
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="1" [rowspan]="2">
-    <div>
-      <h3>Libro</h3>
-      <p>ISBN: {{libro.isbn}}</p>
-      <p>Prezzo: {{libro.prezzo}} €</p>
-      <mat-divider></mat-divider>
-      <h3>Proprietario</h3>
-      <p>Nome:</p>
-      <p>Cognome:</p>
-      <!-- mail e telefono con ngIf -->
-      <p>Mail:</p>
-      <p>Telefono:</p>
-      <p>Località o Scuola:</p>
-    </div>
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="esterno">
+  <div class="sinistro">
+    <img [src]="libro.imageUrl" alt="Photo of a Shiba Inu">
+  </div>
+  <div class="destro">
+    <br>
+    <h3>Libro</h3>
+    <p>ISBN: {{libro.isbn}}</p>
+    <p>Prezzo: {{libro.prezzo}} €</p>
+    <mat-divider class="divisore"></mat-divider>
+    <h3>Proprietario</h3>
+    <p>Nome:</p>
+    <p>Cognome:</p> 
+    <p>Mail:</p>
+    <p>Telefono:</p>
+    <p>Località o Scuola:</p>
+  </div>
+</div>
 <h3 class="desc">Descrizione</h3>
-<p>
-  uvdugewugsdnodsnbowengoiewhboi uvdugewugsdnodsnbowengoiewhboi uvdugewugsdnodsnbowengoiewhboi v uvdugewugsdnodsnbowengoiewhboi
-  uvdugewugsdnodsnbowengoiewhboi uvdugewugsdnodsnbowengoiewhboi uvdugewugsdnodsnbowengoiewhboi uvdugewugsdnodsnbowengoiewhboi
-</p>
+<p>{{libro.descrizione}}</p>
 <div class="btn">
   <button mat-raised-button color="primary" [routerLink]="['/contatti',idLibro]" [disabled]="!autore.id">Contatta Proprietario</button>
   <button mat-raised-button color="primary">Aggiungi ai Preferiti</button>
   <!-- (click)="" aggiunge ai preferiti -->
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<mat-grid-list cols="2" rowHeight="15em">
+  <mat-grid-tile [colspan]="1" [rowspan]="2" class="center">
+  -->
+<!--
+  <img [src]="libro.imageUrl" alt="Photo of a Shiba Inu" display="inline">
+
+  
+-->
+
+<!--
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="2">
+  -->
+
+<!--
+  </mat-grid-tile>
+</mat-grid-list>
+-->
