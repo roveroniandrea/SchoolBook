@@ -14,6 +14,7 @@ export class CatalogoLibriComponent implements OnInit {
   searchForm: FormGroup;
   allBooks: Libro[];
   nessunLibroTrovato = false;
+  ricercaInCorso = false;
   constructor(private db: AngularFirestore, private stringService: StringService, private libroUrlService: LibroUrlService) { }
 
   ngOnInit() {
@@ -24,6 +25,7 @@ export class CatalogoLibriComponent implements OnInit {
 
   submitRicerca() {
     this.nessunLibroTrovato = false;
+    this.ricercaInCorso = true;
     const parametroRicerca = (<string>this.searchForm.get("parametroRicerca").value).toLowerCase();   //ottengo la query da cercare inserita nel form e la rendo lowercase
     let cercaTra = "titolo";
     if (this.stringService.hasOnlyNumber(parametroRicerca)) {
@@ -41,6 +43,7 @@ export class CatalogoLibriComponent implements OnInit {
         this.nessunLibroTrovato= true;
       }
       this.allBooks = <Libro[]>nbooks;
+      this.ricercaInCorso = false;
     });
   }
 }
