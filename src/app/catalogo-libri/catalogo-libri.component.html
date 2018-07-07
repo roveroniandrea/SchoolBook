@@ -4,12 +4,13 @@
     <mat-form-field class="search">
         <input matInput placeholder="Inserise codice ISBN o un titolo" formControlName="parametroRicerca">
     </mat-form-field>
-    <button mat-fab color="primary" [disabled]="!searchForm.valid">
+    <button mat-fab color="primary" [disabled]="!searchForm.valid || ricercaInCorso">
         <mat-icon>search</mat-icon>
     </button>
 </form>
 <br>
-<div>
+<div *ngIf="!ricercaInCorso">
     <app-libro *ngFor="let book of allBooks" [libro]="book"></app-libro>
 </div>
+<mat-spinner *ngIf="ricercaInCorso"></mat-spinner>
 <p *ngIf="nessunLibroTrovato">Nessun libro trovato!</p>
