@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Libro } from '../classe-libro/classe-libro';
 import { UserService } from '../servizi/utente.service';
-import { AngularFireStorage, AngularFireStorageReference } from 'angularfire2/storage';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 declare var require: any
 
