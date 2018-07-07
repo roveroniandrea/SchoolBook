@@ -39,6 +39,7 @@ export class NuovoLibroComponent implements OnInit {
     //console.log(this.uploadForm);
     this.newLibro = <Libro>this.uploadForm.value;
     this.newLibro.id_utente = this.userService.utente.id;
+    this.newLibro.prezzo = <number>this.newLibro.prezzo;
     this.newLibro.titolo = this.newLibro.titolo.toLowerCase();    //titolo lowercase altrimenti ricerca catalogo non funziona
 
     this.progressoCaricamento = 0; //inizio il caricamento (scompare il form)
