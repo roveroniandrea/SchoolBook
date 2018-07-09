@@ -10,7 +10,7 @@ export class UserService {
     this.utente.id = "nckWTBnEvOFSvHbPXmKu"
     this.utente.nome = "pinco";
     this.utente.cognome = "pallino";
-    this.utente.mail = "random@gsdfsd";
+    this.utente.mail = "c@c.com";
     this.utente.scuola = "scuolaACaso";
     this.utente.telefono = "+39 3532";
   }
