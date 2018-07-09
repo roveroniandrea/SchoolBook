@@ -4,10 +4,11 @@
   <mat-divider class="spaziatore"></mat-divider>
   <form [formGroup]="uploadForm" (ngSubmit)="submitForm()" *ngIf="!stoCercandoLibroDaModificare">
     <div class="sinistro">
-      <label class="btn btn-primary btn.sm" for="image">
+      <label class="mat-primary mat-raised-button" for="image">
         Seleziona immagine
         <input name="files[]" style="display: none" title="Seleziona immagine" type="file" id="image" accept="image/*" (change)="immagineCaricata($event)">
       </label>
+      <br>
       <img alt="non funzia">
     </div>
     <div class="destro">
