@@ -1,3 +1,6 @@
-<p>
-  login works!
-</p>
+<br><br><br>
+<input matInput placeholder="User" [(ngModel)]="mail">
+<input matInput placeholder="Password" formControlName="parametroRicerca" [(ngModel)]="password">
+<button mat-raised-button color="primary" (click)="login()">Login</button>
+<button mat-raised-button color="primary" (click)="logout()" [disable]="!user">Logout</button>
+<button mat-raised-button color="primary" (click)="createAccount()">crea Account</button>
