@@ -5,7 +5,8 @@ import { Libro } from '../classe-libro/classe-libro';
   providedIn: 'root'
 })
 export class LibroUrlService {
-  private defaultUrl = "https://firebasestorage.googleapis.com/v0/b/school-book-an.appspot.com/o/default-image.png?alt=media&token=ea83a616-2ed6-4433-a4df-c1a37973332e";
+  private defaultUrl = "https://firebasestorage.googleapis.com/v0/b/school-book-an.appspot.com/o/LibroSfondo.png?alt=media&token=ec0319a8-e7ee-452f-ae15-5f50a8cd6a8f";
+  
   constructor() { }
 
   setLibroUrl(libro : Libro) : Libro{

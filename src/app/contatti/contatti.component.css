@@ -1,5 +1,5 @@
-.margin {
-  margin-left: 1em;
+.dimension {
+  width: 28em!important;
 }
 
 .width {
@@ -10,15 +10,6 @@
   font-size: 0.8em;
 }
 
-.dimension {
-  width: 30em!important;
-}
-
-div {
-  height: 14em;
-  margin-bottom: 1em;
-}
-
 .btn {
   float: right;
   margin-top: 1em;
@@ -27,4 +18,15 @@ div {
 button {
   padding: 0.5em;
   margin-right: 0.5em; 
+}
+
+div {
+  height: 14em;
+  margin-bottom: 1em;
+}
+
+@media(max-width: 515px){ 
+  .dimension {
+    width: 19em!important;
+  }
 }

@@ -1,8 +1,20 @@
 <h2>Contatta Proprietario</h2>
 <mat-divider class="spaziatore"></mat-divider>
-<br>
-
-<!--
+<mat-accordion> 
+  <mat-expansion-panel class="dimension" (opened)="panelOpenState = true" (closed)="panelOpenState = false"> 
+    <mat-expansion-panel-header> 
+      <mat-panel-title> 
+        Proprietario 
+      </mat-panel-title> 
+      <mat-panel-description class="capitalize"> 
+        {{ utente.nome }} {{userService.utente.cognome}} 
+      </mat-panel-description> 
+    </mat-expansion-panel-header> 
+    <p class="capitalize">Mail: {{userService.utente.mail}}</p>
+    <p class="capitalize">Telefono: {{userService.utente.telefono}}</p>
+    <p class="capitalize">Località o Scuola: {{userService.utente.scuola}}</p>
+  </mat-expansion-panel> 
+</mat-accordion> 
 <div>
   <p>Libro:</p>
   <app-libro [libro]="libro"></app-libro>
@@ -17,4 +29,3 @@
   <button mat-raised-button color="primary" routerLink="/">Annulla</button>
   <button mat-raised-button color="primary">Invio</button>
 </div>
---> 
