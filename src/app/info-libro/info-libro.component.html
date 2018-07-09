@@ -6,6 +6,7 @@
 <div class="destro"> 
   <br>
   <h3>Libro</h3>
+  <p>Titolo: {{libro.titolo}}</p>
   <p>ISBN: {{libro.isbn}}</p>
   <p>Prezzo: {{libro.prezzo}} €</p>
   <mat-divider class="divisore"></mat-divider>
@@ -25,7 +26,7 @@
 </div>
 
 <div *ngIf="isProprietario == true" class="btn">
-  <button class="btn2" mat-raised-button color="primary" [routerLink]="['/new-book',idLibro]">Modifica</button>
+  <button class="btn2" mat-raised-button color="primary" [routerLink]="['/new-book']" [queryParams]="{'id_libro' : idLibro}">Modifica</button>
   <button class="btn2" mat-raised-button color="primary">Elimina</button>
   <!-- (click)="" elimina -->
 </div>

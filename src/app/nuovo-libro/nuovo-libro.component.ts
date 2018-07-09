@@ -24,12 +24,14 @@ export class NuovoLibroComponent implements OnInit {
   newLibro: Libro;
   progressoCaricamento = -1;
   uuidv4 = require('uuid/v4');
-  idLibroDaURL : string;
-  constructor(private confermaUscita: MatDialog, private router: Router, private db: AngularFirestore, private userService: UserService, private storage: AngularFireStorage,private route : ActivatedRoute) { }
+  idLibroDaURL: string;
+  stoCercandoLibroDaModificare = false;
+  constructor(private confermaUscita: MatDialog, private router: Router, private db: AngularFirestore, private userService: UserService, private storage: AngularFireStorage, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.idLibroDaURL = this.route.snapshot.params["id_libro"];
-    if(this.idLibroDaURL){
+    this.idLibroDaURL = this.route.snapshot.queryParams.id_libro;
+    if (this.idLibroDaURL) {
+      this.stoCercandoLibroDaModificare = true;
       this.cercaLibro();
     }
     this.uploadForm = new FormGroup({
@@ -77,9 +79,9 @@ export class NuovoLibroComponent implements OnInit {
         this.progressoCaricamento = 33;
         result.ref.getDownloadURL().then(result => {  //una 
           this.newLibro.imageUrl = result;  //collego donloadUrl a propietà imageUrl del libro
-          console.log(result);
-          this.progressoCaricamento = 66;
-          this.caricaLibro(); //passo al caricamento libro
+          //console.log(result);
+          this.caricaOMoficicaLibro();
+
         }, err => console.log("errore getDownloadUrl", err))
       }, err => {
         console.log("errore caricamento immagine", err);
@@ -88,15 +90,14 @@ export class NuovoLibroComponent implements OnInit {
 
     }
     else {
-      this.progressoCaricamento = 66;
-      this.caricaLibro();   //se non è caricata un'immagine si passa direttamente al caricamento libro
+      this.caricaOMoficicaLibro();   //se non è caricata un'immagine
     }
   }
 
   caricaLibro() {
     this.db.collection("books").add(this.newLibro)  //pubblico il libro
       .then(val => {
-        console.log(val);
+        //console.log(val);
         this.progressoCaricamento = 100;
         setTimeout(() => this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 1 } }), 1000);
 
@@ -105,10 +106,37 @@ export class NuovoLibroComponent implements OnInit {
       })
   }
 
-  cercaLibro(){   //cerca il libro corrispondente all'url
-  this.db.collection("books").doc(this.idLibroDaURL).valueChanges().subscribe(val=>{
-    console.log(val);
-    //this.uploadForm.setValue({"titolo" : val.titolo})
-  })
+  cercaLibro() {   //cerca il libro corrispondente all'url
+    this.db.collection("books").doc(this.idLibroDaURL).valueChanges().subscribe(val => {
+      this.stoCercandoLibroDaModificare = false;
+      const libroCercato = <Libro>val;
+      this.uploadForm.setValue({ "titolo": libroCercato.titolo, "isbn": libroCercato.isbn, "prezzo": libroCercato.prezzo, "descrizione": libroCercato.descrizione })
+    })
+  }
+
+  modificaLibro() {
+    this.db.collection("books").doc(this.idLibroDaURL).set(this.newLibro).then(
+      result => {
+        //console.log(result);
+        this.progressoCaricamento = 100;
+        setTimeout(() => this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 1 } }), 1000);
+      },
+      err => {
+        //console.log(err),
+        this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 2 } });
+      }
+    )
+  }
+
+  caricaOMoficicaLibro(){   //qui si decide se il libro verrà aggiunto a db o modificato uno esistente
+    this.progressoCaricamento = 66;
+    if (!this.idLibroDaURL) { //se non sto modificando un libro
+      //console.log("nuovo libro")
+      this.caricaLibro(); //passo al caricamento libro
+    }
+    else {  //se sto modificando un libro
+      //console.log("modifico libro")
+      this.modificaLibro();
+    }
   }
 }

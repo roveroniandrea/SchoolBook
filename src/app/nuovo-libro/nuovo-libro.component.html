@@ -1,7 +1,8 @@
 <div *ngIf="progressoCaricamento==-1">
-  <h2>Aggiungi Libro</h2>
+  <h2 *ngIf="!idLibroDaURL">Aggiungi Libro</h2>
+  <h2 *ngIf="idLibroDaURL">Modifica Libro</h2>
   <mat-divider class="spaziatore"></mat-divider>
-  <form [formGroup]="uploadForm" (ngSubmit)="submitForm()">
+  <form [formGroup]="uploadForm" (ngSubmit)="submitForm()" *ngIf="!stoCercandoLibroDaModificare">
     <div class="sinistro">
       <label class="btn btn-primary btn.sm" for="image">
         Seleziona immagine
@@ -33,6 +34,7 @@
     </div>
 
   </form>
+  <mat-spinner *ngIf="stoCercandoLibroDaModificare"></mat-spinner>
 </div>
 <div *ngIf="progressoCaricamento>=0">
 <h2>Caricamento in corso...</h2>
