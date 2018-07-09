@@ -83,7 +83,7 @@ export class NuovoLibroComponent implements OnInit {
 
     }
     else {
-      this.progressoCaricamento = 60;
+      this.progressoCaricamento = 66;
       this.caricaLibro();   //se non è caricata un'immagine si passa direttamente al caricamento libro
     }
   }
