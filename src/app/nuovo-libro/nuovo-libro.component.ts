@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { PerditaModificheComponent } from '../perdita-modifiche/perdita-modifiche.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Libro } from '../classe-libro/classe-libro';
 import { UserService } from '../servizi/utente.service';
@@ -24,9 +24,14 @@ export class NuovoLibroComponent implements OnInit {
   newLibro: Libro;
   progressoCaricamento = -1;
   uuidv4 = require('uuid/v4');
-  constructor(private confermaUscita: MatDialog, private router: Router, private db: AngularFirestore, private userService: UserService, private storage: AngularFireStorage) { }
+  idLibroDaURL : string;
+  constructor(private confermaUscita: MatDialog, private router: Router, private db: AngularFirestore, private userService: UserService, private storage: AngularFireStorage,private route : ActivatedRoute) { }
 
   ngOnInit() {
+    this.idLibroDaURL = this.route.snapshot.params["id_libro"];
+    if(this.idLibroDaURL){
+      this.cercaLibro();
+    }
     this.uploadForm = new FormGroup({
       "titolo": new FormControl("", Validators.required),
       "isbn": new FormControl(null, Validators.required),
@@ -98,5 +103,12 @@ export class NuovoLibroComponent implements OnInit {
       }, err => {
         this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 2 } });
       })
+  }
+
+  cercaLibro(){   //cerca il libro corrispondente all'url
+  this.db.collection("books").doc(this.idLibroDaURL).valueChanges().subscribe(val=>{
+    console.log(val);
+    this.uploadForm.setValue({"titolo" : val.titolo})
+  })
   }
 }
