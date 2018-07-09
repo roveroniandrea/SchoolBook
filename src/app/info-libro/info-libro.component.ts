@@ -4,6 +4,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Libro } from '../classe-libro/classe-libro';
 import { Autore } from '../classe-autore/classe-autore';
 import { LibroUrlService } from '../servizi/libro-url.service';
+import { UserService } from '../servizi/utente.service';
 
 @Component({
   selector: 'app-info-libro',
@@ -14,7 +15,8 @@ export class InfoLibroComponent implements OnInit {
   idLibro: string;
   libro: Libro = new Libro();
   autore: Autore = new Autore();
-  constructor(private route: ActivatedRoute, private database: AngularFirestore,private libroUrlService: LibroUrlService) { }
+  isProprietario = false;
+  constructor(private route: ActivatedRoute, private database: AngularFirestore,private libroUrlService: LibroUrlService,private userService: UserService) { }
   //todo modificare subbmit
   ngOnInit() {
     this.idLibro = this.route.snapshot.queryParams.id;   //ottengo l'id del libro dai query params. Lo uso per ottenere info sul libro
@@ -33,7 +35,17 @@ export class InfoLibroComponent implements OnInit {
           const id = val.payload.id;
           this.autore = <Autore>{ id, ...val.payload.data() };
           //console.log(this.autore);
+          this.confrontaUtenti();
         })
+    }
+  }
+
+  confrontaUtenti(){    //confronta l'utente loggato e chi ha publicato il libro per vedere se corrispondono
+    if(this.autore!=null&&this.userService.utente!=null&&this.autore.mail==this.userService.utente.mail){
+      this.isProprietario = true;
+    }
+    else{
+      this.isProprietario = false;
     }
   }
 }
