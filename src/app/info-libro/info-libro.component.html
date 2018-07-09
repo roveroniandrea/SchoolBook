@@ -18,45 +18,14 @@
 </div>
 <h3 class="desc">Descrizione</h3>
 <p>{{libro.descrizione}}</p>
-<div class="btn">
+<div *ngIf="isProprietario == false" class="btn">
   <button class="btn2" mat-raised-button color="primary" [routerLink]="['/contatti',idLibro]" [disabled]="!autore.id">Contatta Proprietario</button>
   <button class="btn2" mat-raised-button color="primary">Aggiungi ai Preferiti</button>
   <!-- (click)="" aggiunge ai preferiti -->
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-<mat-grid-list cols="2" rowHeight="15em">
-  <mat-grid-tile [colspan]="1" [rowspan]="2" class="center">
-  -->
-<!--
-  <img [src]="libro.imageUrl" alt="Photo of a Shiba Inu" display="inline">
-
-  
--->
-
-<!--
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="1" [rowspan]="2">
-  -->
-
-<!--
-  </mat-grid-tile>
-</mat-grid-list>
--->
+<div *ngIf="isProprietario == true" class="btn">
+  <button class="btn2" mat-raised-button color="primary" [routerLink]="['/new-book',idLibro]">Modifica</button>
+  <button class="btn2" mat-raised-button color="primary">Elimina</button>
+  <!-- (click)="" elimina -->
+</div>
