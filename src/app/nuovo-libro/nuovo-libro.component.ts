@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { PerditaModificheComponent } from '../perdita-modifiche/perdita-modifiche.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Libro } from '../classe-libro/classe-libro';
 import { UserService } from '../servizi/utente.service';
@@ -24,9 +24,16 @@ export class NuovoLibroComponent implements OnInit {
   newLibro: Libro;
   progressoCaricamento = -1;
   uuidv4 = require('uuid/v4');
-  constructor(private confermaUscita: MatDialog, private router: Router, private db: AngularFirestore, private userService: UserService, private storage: AngularFireStorage) { }
+  idLibroDaURL: string;
+  stoCercandoLibroDaModificare = false;
+  constructor(private matDialog: MatDialog, private router: Router, private db: AngularFirestore, private userService: UserService, private storage: AngularFireStorage, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.idLibroDaURL = this.route.snapshot.queryParams.id_libro;
+    if (this.idLibroDaURL) {
+      this.stoCercandoLibroDaModificare = true;
+      this.cercaLibro();
+    }
     this.uploadForm = new FormGroup({
       "titolo": new FormControl("", Validators.required),
       "isbn": new FormControl(null, Validators.required),
@@ -47,7 +54,7 @@ export class NuovoLibroComponent implements OnInit {
   }
 
   annullaForm() {
-    const dialogRef = this.confermaUscita.open(PerditaModificheComponent);
+    const dialogRef = this.matDialog.open(PerditaModificheComponent,{data: {titolo: "Uscire?", descrizione : "Confermando le modifiche andranno perse"}});
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 0 } });
@@ -72,9 +79,9 @@ export class NuovoLibroComponent implements OnInit {
         this.progressoCaricamento = 33;
         result.ref.getDownloadURL().then(result => {  //una 
           this.newLibro.imageUrl = result;  //collego donloadUrl a propietà imageUrl del libro
-          console.log(result);
-          this.progressoCaricamento = 66;
-          this.caricaLibro(); //passo al caricamento libro
+          //console.log(result);
+          this.caricaOMoficicaLibro();
+
         }, err => console.log("errore getDownloadUrl", err))
       }, err => {
         console.log("errore caricamento immagine", err);
@@ -83,20 +90,53 @@ export class NuovoLibroComponent implements OnInit {
 
     }
     else {
-      this.progressoCaricamento = 66;
-      this.caricaLibro();   //se non è caricata un'immagine si passa direttamente al caricamento libro
+      this.caricaOMoficicaLibro();   //se non è caricata un'immagine
     }
   }
 
   caricaLibro() {
     this.db.collection("books").add(this.newLibro)  //pubblico il libro
       .then(val => {
-        console.log(val);
+        //console.log(val);
         this.progressoCaricamento = 100;
         setTimeout(() => this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 1 } }), 1000);
 
       }, err => {
         this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 2 } });
       })
+  }
+
+  cercaLibro() {   //cerca il libro corrispondente all'url
+    this.db.collection("books").doc(this.idLibroDaURL).valueChanges().subscribe(val => {
+      this.stoCercandoLibroDaModificare = false;
+      const libroCercato = <Libro>val;
+      this.uploadForm.setValue({ "titolo": libroCercato.titolo, "isbn": libroCercato.isbn, "prezzo": libroCercato.prezzo, "descrizione": libroCercato.descrizione })
+    })
+  }
+
+  modificaLibro() {
+    this.db.collection("books").doc(this.idLibroDaURL).set(this.newLibro).then(
+      result => {
+        //console.log(result);
+        this.progressoCaricamento = 100;
+        setTimeout(() => this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 1 } }), 1000);
+      },
+      err => {
+        //console.log(err),
+        this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 2 } });
+      }
+    )
+  }
+
+  caricaOMoficicaLibro(){   //qui si decide se il libro verrà aggiunto a db o modificato uno esistente
+    this.progressoCaricamento = 66;
+    if (!this.idLibroDaURL) { //se non sto modificando un libro
+      //console.log("nuovo libro")
+      this.caricaLibro(); //passo al caricamento libro
+    }
+    else {  //se sto modificando un libro
+      //console.log("modifico libro")
+      this.modificaLibro();
+    }
   }
 }
