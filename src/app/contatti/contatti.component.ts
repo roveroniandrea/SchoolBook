@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Libro } from '../classe-libro/classe-libro';
 import { LibroUrlService } from '../servizi/libro-url.service';
+import { UserService } from '../servizi/utente.service';
+
 @Component({
   selector: 'app-contatti',
   templateUrl: './contatti.component.html',
@@ -15,7 +17,8 @@ export class ContattiComponent implements OnInit {
   libro: Libro = new Libro();
   // value = this.utente.mail; non ancora creata la mail quindi da errore
   // libro = this.libro.titolo; non ancora caricato la mail quindi da errore 
-  constructor(private route: ActivatedRoute, private db: AngularFirestore, private libroUrlService:LibroUrlService) { }
+
+  constructor(private route: ActivatedRoute, private userService: UserService, private db: AngularFirestore, private libroUrlService:LibroUrlService) { }
 
   ngOnInit() {
     const id_libro = this.route.snapshot.params["id_libro"];
@@ -37,5 +40,4 @@ export class ContattiComponent implements OnInit {
       this.cercaUtente(this.libro.id_utente);
     })
   }
-
 }

@@ -88,7 +88,6 @@ const appRoutes: Routes =[
     MatExpansionModule,
     AngularFireStorageModule,
     MatDialogModule,
-    AngularFileUploaderModule,
     MatSnackBarModule
   ],
   providers: [],

@@ -1,26 +1,20 @@
 <h2>Contatta Proprietario</h2>
 <mat-divider class="spaziatore"></mat-divider>
-<br>
-
-
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
-    <button mat-icon-button disabled></button>
-    {{node.filename}} : {{node.type}}
-  </mat-tree-node>
-
-  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-    <button mat-icon-button matTreeNodeToggle
-            [attr.aria-label]="'toggle ' + node.filename">
-      <mat-icon class="mat-icon-rtl-mirror">
-        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-      </mat-icon>
-    </button>
-    {{node.filename}} : {{node.type}}
-  </mat-tree-node>
-</mat-tree>
-
-<!--
+<mat-accordion> 
+  <mat-expansion-panel class="dimension" (opened)="panelOpenState = true" (closed)="panelOpenState = false"> 
+    <mat-expansion-panel-header> 
+      <mat-panel-title> 
+        Proprietario 
+      </mat-panel-title> 
+      <mat-panel-description class="capitalize"> 
+        {{ utente.nome }} {{userService.utente.cognome}} 
+      </mat-panel-description> 
+    </mat-expansion-panel-header> 
+    <p class="capitalize">Mail: {{userService.utente.mail}}</p>
+    <p class="capitalize">Telefono: {{userService.utente.telefono}}</p>
+    <p class="capitalize">Località o Scuola: {{userService.utente.scuola}}</p>
+  </mat-expansion-panel> 
+</mat-accordion> 
 <div>
   <p>Libro:</p>
   <app-libro [libro]="libro"></app-libro>
@@ -35,4 +29,3 @@
   <button mat-raised-button color="primary" routerLink="/">Annulla</button>
   <button mat-raised-button color="primary">Invio</button>
 </div>
---> 
