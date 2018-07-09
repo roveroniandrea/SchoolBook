@@ -26,7 +26,7 @@ export class NuovoLibroComponent implements OnInit {
   uuidv4 = require('uuid/v4');
   idLibroDaURL: string;
   stoCercandoLibroDaModificare = false;
-  constructor(private confermaUscita: MatDialog, private router: Router, private db: AngularFirestore, private userService: UserService, private storage: AngularFireStorage, private route: ActivatedRoute) { }
+  constructor(private matDialog: MatDialog, private router: Router, private db: AngularFirestore, private userService: UserService, private storage: AngularFireStorage, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.idLibroDaURL = this.route.snapshot.queryParams.id_libro;
@@ -54,7 +54,7 @@ export class NuovoLibroComponent implements OnInit {
   }
 
   annullaForm() {
-    const dialogRef = this.confermaUscita.open(PerditaModificheComponent);
+    const dialogRef = this.matDialog.open(PerditaModificheComponent,{data: {titolo: "Uscire?", descrizione : "Confermando le modifiche andranno perse"}});
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 0 } });

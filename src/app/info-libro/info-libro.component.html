@@ -27,6 +27,6 @@
 
 <div *ngIf="isProprietario == true" class="btn">
   <button class="btn2" mat-raised-button color="primary" [routerLink]="['/new-book']" [queryParams]="{'id_libro' : idLibro}">Modifica</button>
-  <button class="btn2" mat-raised-button color="primary">Elimina</button>
+  <button class="btn2" mat-raised-button color="primary" (click)="eliminaLibro()">Elimina</button>
   <!-- (click)="" elimina -->
 </div>
