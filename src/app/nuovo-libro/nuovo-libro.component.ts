@@ -108,7 +108,7 @@ export class NuovoLibroComponent implements OnInit {
   cercaLibro(){   //cerca il libro corrispondente all'url
   this.db.collection("books").doc(this.idLibroDaURL).valueChanges().subscribe(val=>{
     console.log(val);
-    this.uploadForm.setValue({"titolo" : val.titolo})
+    //this.uploadForm.setValue({"titolo" : val.titolo})
   })
   }
 }
