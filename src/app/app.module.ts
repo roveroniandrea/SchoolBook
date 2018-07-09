@@ -42,7 +42,7 @@ const appRoutes: Routes =[
   {path: "infoLibro", component: InfoLibroComponent},
   {path: "account", component: AccountComponent},
   {path: "not-found", component: NotFoundComponent},
-  {path: "new-book", component: NuovoLibroComponent},
+  {path: "new-book/:id_libro", component: NuovoLibroComponent},
   //lasciare per ultimo il path: "**"!
   {path: "**", redirectTo: "not-found"},
 ]
