@@ -16,8 +16,8 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { AngularFireStorageModule } from "angularfire2/storage";
-import { AngularFileUploaderModule } from "angular-file-uploader";
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTreeModule } from '@angular/material/tree';
 
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { ContattiComponent } from './contatti/contatti.component';
@@ -89,8 +89,8 @@ const appRoutes: Routes =[
     MatExpansionModule,
     AngularFireStorageModule,
     MatDialogModule,
-    AngularFileUploaderModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTreeModule
   ],
   providers: [],
   bootstrap: [AppComponent],
