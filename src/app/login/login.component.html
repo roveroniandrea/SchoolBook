@@ -1,6 +1,6 @@
 <form [formGroup]="loginForm" (ngSubmit)="login()">
     <mat-card class="card">
-        <div>
+        <div class="contenuto">
             <h2>Login</h2>
             <mat-form-field class="input">
                 <input matInput placeholder="Mail" formControlName="mail">
@@ -9,10 +9,8 @@
                 <input matInput placeholder="Password" type="password" formControlName="password">
             </mat-form-field>
             <p *ngIf="error">{{error.message}}</p>
-            <div class="btn">
-                <button mat-raised-button color="primary" routerLink="/" type="button">Annulla</button>
-                <button mat-raised-button color="primary" type="submit">Entra</button>
-            </div>
+            <button mat-raised-button color="primary" routerLink="/" type="button">Annulla</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.value.mail && loginForm.value.password">Entra</button>
         </div>
     </mat-card>
 </form>

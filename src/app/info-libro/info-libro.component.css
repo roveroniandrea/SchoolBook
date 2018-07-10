@@ -44,7 +44,7 @@ button {
     margin-right: 0.5em; 
 }
 
-@media(max-width: 499px){
+@media(max-width: 499px) {
     .sinistro {
         width: 50%; 
         float: none;

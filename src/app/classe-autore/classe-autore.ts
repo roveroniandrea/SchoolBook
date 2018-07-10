@@ -5,6 +5,7 @@ export class Autore {
     telefono: string;
     cognome : string;
     scuola: string;
+    
     constructor() {
         this.id = "";
         this.nome = "";

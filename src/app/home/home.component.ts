@@ -32,5 +32,4 @@ export class HomeComponent{
       this.booksData = nbooks;
     });
   }
-
 }

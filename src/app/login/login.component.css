@@ -1,5 +1,9 @@
-.input{
+.input {
     display: block;
+}
+
+.contenuto {
+    text-align: center;
 }
 
 p {
@@ -8,13 +12,14 @@ p {
 }
 
 .btn {
-    position: relative; 
-    left: 8em;
+    float: right;
+    margin-top: 1em;
 }
 
 button {
     padding: 0.5em;
     margin-right: 0.5em; 
+    margin-top: 0.5em;
 }
 
 .card {
