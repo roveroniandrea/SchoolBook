@@ -1,8 +1,18 @@
-<!--
-    <br><br><br>
-<input matInput placeholder="User" [(ngModel)]="mail">
-<input matInput placeholder="Password" formControlName="parametroRicerca" [(ngModel)]="password">
-<button mat-raised-button color="primary" (click)="login()">Login</button>
-<button mat-raised-button color="primary" (click)="logout()" [disable]="!user">Logout</button>
-<button mat-raised-button color="primary" (click)="createAccount()">crea Account</button>
--->
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+    <mat-card class="card">
+        <div>
+            <h2>Login</h2>
+            <mat-form-field class="input">
+                <input matInput placeholder="Mail" formControlName="mail">
+            </mat-form-field>
+            <mat-form-field class="input">
+                <input matInput placeholder="Password" type="password" formControlName="password">
+            </mat-form-field>
+            <p *ngIf="error">{{error.message}}</p>
+            <div class="btn">
+                <button mat-raised-button color="primary" routerLink="/" type="button">Annulla</button>
+                <button mat-raised-button color="primary" type="submit">Entra</button>
+            </div>
+        </div>
+    </mat-card>
+</form>
