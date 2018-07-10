@@ -29,7 +29,7 @@ export class ContattiComponent implements OnInit {
   cercaUtente(id_utente){
     this.db.collection("users").doc(id_utente).valueChanges().subscribe(val=>{
       let datiUtente = val;
-      this.utente = <Autore>{id: id_utente, ...datiUtente};
+      this.utente = <Autore>{uid: id_utente, ...datiUtente};
     })
   }
 

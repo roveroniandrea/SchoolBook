@@ -38,7 +38,7 @@ export class InfoLibroComponent implements OnInit {
       this.database.collection("users").doc(this.libro.id_utente)
         .snapshotChanges().subscribe(val => {
           const id = val.payload.id;
-          this.autore = <Autore>{ id, ...val.payload.data() };
+          this.autore = <Autore>{ uid: id, ...val.payload.data() };
           //console.log(this.autore);
           this.confrontaUtenti();
         })

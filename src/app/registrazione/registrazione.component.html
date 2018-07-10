@@ -20,13 +20,14 @@
           <input matInput placeholder="Località o Scuola: " formControlName="scuola">
         </mat-form-field>
         <mat-form-field class="inputAccount">
-          <input matInput placeholder="Password: " formControlName="password">
+          <input matInput placeholder="Password: " formControlName="password" type="password">
         </mat-form-field>
       </div>
+      <p *ngIf="error" style="color: red">{{error.message}}</p>
       <div class="btn">
-        <button mat-raised-button color="primary" routerLink="/">Annulla</button>
+        <button mat-raised-button color="primary" (click)="annullaRegistrazione()" type="button">Annulla</button>
         <!-- messaggio in basso che dice che l'operazione è stata annullata -->
-        <button mat-raised-button color="primary" type="submit">Conferma</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!accountForm.valid">Conferma</button>
       </div>
     </form>
   </div>
