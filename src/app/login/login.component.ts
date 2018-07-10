@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { auth } from 'firebase';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from '../servizi/utente.service';
 
 @Component({
   selector: 'app-login',
@@ -8,48 +10,29 @@ import { auth } from 'firebase';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  mail = "";
-  password = "";
-  user;
-  constructor(private autenticazione: AngularFireAuth) {
-    //console.log("faccio il login");
-    /* ANONIMO
-    autenticazione.auth.signInAnonymously().then(result=>{
-      console.log("ora logout");
-      autenticazione.auth.signOut();
-    });
-    */
-   /*
-    autenticazione.auth.onAuthStateChanged(user => {
-      this.user = user;
-      if(this.user){
-        console.log("già loggato", this.user);
-      }
-      else{
-        autenticazione.auth.signInWithEmailAndPassword("c@c.com", "123456")
-        .catch(err=>console.log(err.message))
-        .then(result=>{console.log("login fatto")});
-      }
-    })
-    */
-   autenticazione.auth.onAuthStateChanged(user=>{
-     this.user = user;
-     console.log(user);
-   });
-  }
+  loginForm: FormGroup;
+  error: Error;
+
+  constructor(private autenticazione: AngularFireAuth, private route: Router, private user: UserService) { }
 
   ngOnInit() {
+    this.loginForm = new FormGroup({
+      "mail": new FormControl("", Validators.required),
+      "password": new FormControl("", Validators.required),
+    })
   }
 
-  login(){
-    this.autenticazione.auth.signInWithEmailAndPassword(this.mail,this.password);
-  }
-
-  logout(){
-    this.autenticazione.auth.signOut();
-  }
-
-  createAccount(){
-    this.autenticazione.auth.createUserWithEmailAndPassword(this.mail,this.password);
+  login() {
+    this.autenticazione.auth.signInWithEmailAndPassword(this.loginForm.value.mail, this.loginForm.value.password)
+      .catch(err => {
+        console.log("Login Errato.")
+        this.error = err;
+      })
+      .then(result => {
+        if (result) {
+          console.log("Login Effettuato.")
+          this.route.navigateByUrl("/");
+        }
+      })
   }
 }

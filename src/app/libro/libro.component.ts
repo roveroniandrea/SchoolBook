@@ -7,6 +7,7 @@ import { Component, OnInit,Input } from '@angular/core';
 })
 export class LibroComponent implements OnInit {
   @Input() libro: any;   //@Input specifica che input è un valore passato da un altro component (il padre)
+  
   constructor() {}
 
   ngOnInit() {

@@ -33,7 +33,6 @@ export class AccountComponent implements OnInit {
       "telefono": new FormControl(this.userService.utente.telefono),
       "scuola": new FormControl(this.userService.utente.scuola, Validators.required),
     })
-
     this.cercaMieiLibri();
   }
 

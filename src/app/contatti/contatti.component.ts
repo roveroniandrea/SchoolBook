@@ -15,8 +15,6 @@ export class ContattiComponent implements OnInit {
   panelOpenState = false;
   utente: Autore = new Autore();
   libro: Libro = new Libro();
-  // value = this.utente.mail; non ancora creata la mail quindi da errore
-  // libro = this.libro.titolo; non ancora caricato la mail quindi da errore 
 
   constructor(private route: ActivatedRoute, private userService: UserService, private db: AngularFirestore, private libroUrlService:LibroUrlService) { }
 

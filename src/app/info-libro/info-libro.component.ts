@@ -14,6 +14,7 @@ import { AngularFireStorage } from 'angularfire2/storage';
   templateUrl: './info-libro.component.html',
   styleUrls: ['./info-libro.component.css']
 })
+
 export class InfoLibroComponent implements OnInit {
   idLibro: string;
   libro: Libro = new Libro();
@@ -21,6 +22,7 @@ export class InfoLibroComponent implements OnInit {
   isProprietario = false;
   constructor(private route: ActivatedRoute, private database: AngularFirestore, private libroUrlService: LibroUrlService, private userService: UserService, private matDialog: MatDialog, private router: Router, private storage : AngularFireStorage) { }
   //todo modificare subbmit
+  
   ngOnInit() {
     this.idLibro = this.route.snapshot.queryParams.id;   //ottengo l'id del libro dai query params. Lo uso per ottenere info sul libro
     this.database.collection("books").doc(this.idLibro)  //cerco un libro con quell'id

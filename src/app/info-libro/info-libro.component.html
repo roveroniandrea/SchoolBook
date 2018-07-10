@@ -24,7 +24,6 @@
   <button class="btn2" mat-raised-button color="primary">Aggiungi ai Preferiti</button>
   <!-- (click)="" aggiunge ai preferiti -->
 </div>
-
 <div *ngIf="isProprietario == true" class="btn">
   <button class="btn2" mat-raised-button color="primary" [routerLink]="['/new-book']" [queryParams]="{'id_libro' : idLibro}">Modifica</button>
   <button class="btn2" mat-raised-button color="primary" (click)="eliminaLibro()">Elimina</button>

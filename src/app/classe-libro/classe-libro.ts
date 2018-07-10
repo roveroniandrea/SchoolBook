@@ -9,6 +9,7 @@ export class Libro {
     data : Data;
     id_utente : string;
     imageUrl : string;
+
     constructor() {
         this.titolo = "";
         this.prezzo = 0;
@@ -18,6 +19,4 @@ export class Libro {
         this.isbn = "";
         this.imageUrl = "";
     }
-
-    
 }
