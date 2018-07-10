@@ -24,10 +24,14 @@
         </mat-form-field>
       </div>
       <p *ngIf="error" style="color: red">{{error.message}}</p>
-      <div class="btn">
+      <div class="btn" *ngIf="!registrazioneInCorso">
         <button mat-raised-button color="primary" (click)="annullaRegistrazione()" type="button">Annulla</button>
         <!-- messaggio in basso che dice che l'operazione è stata annullata -->
         <button mat-raised-button color="primary" type="submit" [disabled]="!accountForm.valid">Conferma</button>
+      </div>
+      <div *ngIf="registrazioneInCorso">
+        <p>Attendere...</p>
+        <mat-spinner></mat-spinner>
       </div>
     </form>
   </div>
