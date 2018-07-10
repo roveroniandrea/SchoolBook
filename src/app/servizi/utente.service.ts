@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { Autore } from '../classe-autore/classe-autore';
 import { FirebaseAuth } from 'angularfire2';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   utente = new Autore()
-  constructor() {
+  //autenticazione : FirebaseAuth;
+  constructor(private autenticazione : AngularFireAuth, private db : AngularFirestore) {
     /*
     this.utente.uid = "nckWTBnEvOFSvHbPXmKu"
     this.utente.nome = "pinco";
@@ -17,8 +19,7 @@ export class UserService {
     this.utente.scuola = "scuolaACaso";
     this.utente.telefono = "+39 3532";
     */
-   /*
-    autenticazione.onAuthStateChanged(user => {
+    autenticazione.auth.onAuthStateChanged(user => {
       this.utente.mail = user && user.email;
       this.utente.uid = user && user.uid;
       console.log("cerco");
@@ -34,6 +35,5 @@ export class UserService {
       }
       console.log("utente cambiato: ",this.utente);
     })
-    */
   }
 }
