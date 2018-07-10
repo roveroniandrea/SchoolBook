@@ -2,19 +2,24 @@
     display: block;
 }
 
+.contenuto {
+    text-align: center;
+}
+
 p {
     color: red;
     font-size: 0.8em;
 }
 
 .btn {
-    position: relative; 
-    left: 8em;
+    float: right;
+    margin-top: 1em;
 }
 
 button {
     padding: 0.5em;
     margin-right: 0.5em; 
+    margin-top: 0.5em;
 }
 
 .card {
