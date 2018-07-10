@@ -18,6 +18,7 @@ export class RegistrazioneComponent implements OnInit {
   accountForm: FormGroup;
   nuovoUtente: Autore;
   error: Error;
+  registrazioneInCorso = false;
   constructor(private matDialog: MatDialog,
     private router: Router,
     private autenticazione: AngularFireAuth,
@@ -39,6 +40,7 @@ export class RegistrazioneComponent implements OnInit {
 
   submitAccount() {
     this.error = null;
+    this.registrazioneInCorso = true;
     //console.log(this.accountForm.value);
     this.nuovoUtente = <Autore>this.accountForm.value;
     this.registraUtente();
@@ -61,6 +63,7 @@ export class RegistrazioneComponent implements OnInit {
     this.autenticazione.auth.createUserWithEmailAndPassword(this.nuovoUtente.mail, this.accountForm.value.password)
       .catch(err => {
         this.error = err;
+        this.registrazioneInCorso = false;
         //console.log("catch:"+this.error)
       })
       .then(resolve => {
@@ -76,11 +79,13 @@ export class RegistrazioneComponent implements OnInit {
     this.db.collection("users").doc(this.nuovoUtente.uid).set(this.nuovoUtente)
       .catch(err => {
         //console.log("err",err);
+        this.registrazioneInCorso = false;
         this.snackBar.open("Errore imprevisto :(", "", { duration: 2000 });
       }
       )
       .then(result => {
         //console.log("result",result);
+        this.registrazioneInCorso = false;
         this.router.navigate(["/account"], { queryParams: { utenteCreato: 1 } }).catch(err=>console.log("errore navigate ",err))
       })
   }
