@@ -45,7 +45,7 @@ div.menu-bar { /* fix the menu div */
   height: 100%;
 }
 
-@media(max-width: 499px){ 
+@media(max-width: 499px) { 
   .space { /* fix the padding in all page */
     padding: 0 1.5em!important;
     height: 100%;

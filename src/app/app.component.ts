@@ -15,6 +15,7 @@ export class AppComponent {
     "/login",
     "/registrazione"
   ]
+  
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
