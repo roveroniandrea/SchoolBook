@@ -1,0 +1,17 @@
+.inserimento {
+    width: 15em;
+}
+
+.inputAccount{
+    display: block;
+}
+
+.btn {
+    float: right;
+    margin-top: 1em;
+}
+
+button {
+    padding: 0.5em;
+    margin-right: 0.5em; 
+}
