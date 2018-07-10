@@ -32,6 +32,10 @@ div.menu-bar { /* fix the menu div */
   padding: 1em 4em!important;
 }
 
+.menu-link2 { /* fix the btn position */
+  padding: 1em 0em!important;
+}
+
 .position-right { /* fix login and register btn at hte right */
   float: right!important;
 }
