@@ -20,19 +20,23 @@ export class InfoLibroComponent implements OnInit {
   libro: Libro = new Libro();
   autore: Autore = new Autore();
   isProprietario = false;
-  constructor(private route: ActivatedRoute, private database: AngularFirestore, private libroUrlService: LibroUrlService, private userService: UserService, private matDialog: MatDialog, private router: Router, private storage : AngularFireStorage) { }
+  preferiti: string[];
+  isPreferiti = true;
+
+  constructor(private route: ActivatedRoute, private database: AngularFirestore, private libroUrlService: LibroUrlService, private userService: UserService, private matDialog: MatDialog, private router: Router, private storage: AngularFireStorage) { }
   //todo modificare subbmit
-  
+
   ngOnInit() {
     this.idLibro = this.route.snapshot.queryParams.id;   //ottengo l'id del libro dai query params. Lo uso per ottenere info sul libro
     this.database.collection("books").doc(this.idLibro)  //cerco un libro con quell'id
-      .valueChanges().subscribe(val => {
-        if (val) { //uso un controllo per verificare se il libro esiste ancora e non è stato eliminato
-          this.libro = this.libroUrlService.setLibroUrl(<Libro>val);
-          //console.log(this.libro.id_utente);
-          this.cercaAutore();
-        }
-      })
+    .valueChanges().subscribe(val => {
+      if (val) { //uso un controllo per verificare se il libro esiste ancora e non è stato eliminato
+        this.libro = this.libroUrlService.setLibroUrl(<Libro>val);
+        //console.log(this.libro.id_utente);
+        this.cercaAutore();
+        this.cercaPreferito();
+      }
+    })
   }
 
   cercaAutore() {
@@ -66,11 +70,37 @@ export class InfoLibroComponent implements OnInit {
   }
 
   eliminazioneLibroConfermata() {//elimina definitivamente il libro e l'eventuale foto
-  if(this.libro.imageUrl){
-    //todo non cancella immagini (serve path ma abbiamo imageUrl)
-  }
+    if (this.libro.imageUrl) {
+      //todo non cancella immagini (serve path ma abbiamo imageUrl)
+    }
     this.database.collection("books").doc(this.idLibro).delete().then(result => {
       this.router.navigate(["/"]);
+    })
+  }
+
+  aggiungiPreferiti() {
+    this.preferiti.push(this.idLibro);
+      this.database.collection("users").doc(this.userService.utente.uid).update({ "preferiti": this.preferiti })
+        .catch(err => {
+          console.log(err);
+        })
+        .then(result => {
+          console.log("result", result);
+        });
+  }
+
+  cercaPreferito() {
+    this.database.collection("users").doc(this.userService.utente.uid).valueChanges().subscribe(val => {
+      //console.log("val",val.data());
+      this.preferiti = (<any>val).preferiti || [];
+      let preferito = false;
+      for(let i = 0; i < this.preferiti.length ; i++) {
+        console.log(this.preferiti[i])
+        if(this.preferiti[i] == this.idLibro) {
+          preferito = true;
+        } 
+      }
+      this.isPreferiti = preferito;
     })
   }
 }

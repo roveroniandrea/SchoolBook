@@ -26,11 +26,12 @@ export class UserService {
       if (user) {
         db.collection("users").doc(this.utente.uid).valueChanges().subscribe(val => {
           let datiUtente = <Autore>val;
+          console.log(datiUtente);
           this.utente.nome = datiUtente.nome;
           this.utente.cognome = datiUtente.cognome;
           this.utente.scuola = datiUtente.scuola;
           this.utente.telefono = datiUtente.telefono;
-
+          this.utente.preferiti = datiUtente.preferiti;
         })
       }
       console.log("utente cambiato: ",this.utente);
