@@ -1,31 +1,41 @@
 <h2>Info Libro</h2>
 <mat-divider class="spaziatore"></mat-divider>
-<div class="sinistro">
-  <img [src]="libro.imageUrl" alt="Nessuna foto">
+<div *ngIf="!eliminazioneInCorso&&!libroNonTrovato">
+  <div class="sinistro">
+    <img [src]="libro.imageUrl" alt="Nessuna foto">
+  </div>
+  <div class="destro">
+    <br>
+    <h3>Libro</h3>
+    <p>Titolo: {{libro.titolo}}</p>
+    <p>ISBN: {{libro.isbn}}</p>
+    <p>Prezzo: {{libro.prezzo}} €</p>
+    <mat-divider class="divisore"></mat-divider>
+    <h3>Proprietario</h3>
+    <p>Nome: {{autore.nome}}</p>
+    <p>Cognome: {{autore.cognome}}</p>
+    <p>Mail: {{autore.mail}}</p>
+    <p>Telefono: {{autore.telefono}}</p>
+    <p>Località o Scuola: {{autore.scuola}}</p>
+  </div>
+  <h3 class="desc">Descrizione</h3>
+  <p>{{libro.descrizione}}</p>
+  <div *ngIf="isProprietario == false" class="btn">
+    <button class="btn2" mat-raised-button color="primary" [routerLink]="['/contatti',idLibro]" [disabled]="!autore.uid">Contatta Proprietario</button>
+    <button class="btn2" mat-raised-button color="primary" [disabled]="!userService.utente.mail || isPreferiti" (click)="aggiungiPreferiti()">Aggiungi ai Preferiti</button>
+    <!-- (click)="" aggiunge ai preferiti -->
+  </div>
+  <div *ngIf="isProprietario == true" class="btn">
+    <button class="btn2" mat-raised-button color="primary" [routerLink]="['/new-book']" [queryParams]="{'id_libro' : idLibro}">Modifica</button>
+    <button class="btn2" mat-raised-button color="primary" (click)="eliminaLibro()">Elimina</button>
+    <!-- (click)="" elimina -->
+  </div>
 </div>
-<div class="destro"> 
-  <br>
-  <h3>Libro</h3>
-  <p>Titolo: {{libro.titolo}}</p>
-  <p>ISBN: {{libro.isbn}}</p>
-  <p>Prezzo: {{libro.prezzo}} €</p>
-  <mat-divider class="divisore"></mat-divider>
-  <h3>Proprietario</h3>
-  <p>Nome: {{autore.nome}}</p>
-  <p>Cognome: {{autore.cognome}}</p>
-  <p>Mail: {{autore.mail}}</p>
-  <p>Telefono: {{autore.telefono}}</p>
-  <p>Località o Scuola: {{autore.scuola}}</p>
+<div *ngIf="eliminazioneInCorso&&!libroNonTrovato">
+  <p>Eliminazione in corso...</p>
+  <mat-spinner></mat-spinner>
 </div>
-<h3 class="desc">Descrizione</h3>
-<p>{{libro.descrizione}}</p>
-<div *ngIf="isProprietario == false" class="btn">
-  <button class="btn2" mat-raised-button color="primary" [routerLink]="['/contatti',idLibro]" [disabled]="!autore.uid">Contatta Proprietario</button>
-  <button class="btn2" mat-raised-button color="primary" [disabled]="!userService.utente.mail || isPreferiti" (click)="aggiungiPreferiti()">Aggiungi ai Preferiti</button>
-  <!-- (click)="" aggiunge ai preferiti -->
-</div>
-<div *ngIf="isProprietario == true" class="btn">
-  <button class="btn2" mat-raised-button color="primary" [routerLink]="['/new-book']" [queryParams]="{'id_libro' : idLibro}">Modifica</button>
-  <button class="btn2" mat-raised-button color="primary" (click)="eliminaLibro()">Elimina</button>
-  <!-- (click)="" elimina -->
+<div *ngIf="libroNonTrovato">
+  <p style="color: red">Libro non trovato. Potrebbe essere stato eliminato!</p>
+  <button mat-raised-button color="primary" [routerLink]="['/']">Vai alla home</button>
 </div>

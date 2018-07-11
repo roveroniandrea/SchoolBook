@@ -40,7 +40,7 @@ const appRoutes: Routes =[
   {path: "contatti/:id_libro", component: ContattiComponent},
   {path: "login", component: LoginComponent},
   {path: "registrazione", component: RegistrazioneComponent},
-  {path: "infoLibro", component: InfoLibroComponent},
+  {path: "infoLibro/:id", component: InfoLibroComponent},
   {path: "account", component: AccountComponent},
   {path: "not-found", component: NotFoundComponent},
   {path: "new-book", component: NuovoLibroComponent},

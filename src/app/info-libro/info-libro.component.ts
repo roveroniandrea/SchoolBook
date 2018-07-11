@@ -22,6 +22,8 @@ export class InfoLibroComponent implements OnInit {
   isProprietario = false;
   preferiti: string[];
   isPreferiti = true;
+  eliminazioneInCorso = false;
+  libroNonTrovato = false;
 
   constructor(private route: ActivatedRoute,
     private database: AngularFirestore,
@@ -34,7 +36,7 @@ export class InfoLibroComponent implements OnInit {
   //todo modificare subbmit
 
   ngOnInit() {
-    this.idLibro = this.route.snapshot.queryParams.id;   //ottengo l'id del libro dai query params. Lo uso per ottenere info sul libro
+    this.idLibro = this.route.snapshot.params.id;   //ottengo l'id del libro dai query params. Lo uso per ottenere info sul libro
     this.database.collection("books").doc(this.idLibro)  //cerco un libro con quell'id
       .valueChanges().subscribe(val => {
         if (val) { //uso un controllo per verificare se il libro esiste ancora e non è stato eliminato
@@ -42,6 +44,9 @@ export class InfoLibroComponent implements OnInit {
           //console.log(this.libro.id_utente);
           this.cercaAutore();
           this.cercaPreferito();
+        }
+        else{
+          this.libroNonTrovato = true;
         }
       })
   }
@@ -71,14 +76,17 @@ export class InfoLibroComponent implements OnInit {
     const dialogRef = this.matDialog.open(PerditaModificheComponent, { data: { titolo: "Vuoi eliminare questo libro?", descrizione: "Non sarà più disponibile!" } });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.eliminazioneInCorso = true;
         this.libroUrlService.eliminaLibro(this.idLibro,this.libro.imagePath)
         .catch(err=>{
           console.log(err);
+          this.eliminazioneInCorso = false;
           this.router.navigate(["/"],{queryParams: {"libroEliminato" : 0}});
         })
         .then(res=>{
           if(res){
             //console.log(res);
+            this.eliminazioneInCorso = false;
             this.router.navigate(["/"],{queryParams: {"libroEliminato" : 1}});
           }
         })
