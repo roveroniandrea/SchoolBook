@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       .then(result => {
         if (result) {
           console.log("Login Effettuato.",this.user.utente)
-          this.route.navigateByUrl("/");
+          this.route.navigateByUrl("/",{queryParams : {"utenteLoggato" : 1}});
         }
       })
   }
