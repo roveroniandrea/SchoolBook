@@ -41,7 +41,7 @@ export class MainMenuComponent {
           })
           .then(res => {
             console.log("Logout effettuato.");
-            this.router.navigateByUrl("/", { queryParams: { "logout": 1 } })
+            this.router.navigateByUrl("/", { queryParams: { "utenteLoggato": 0 } })
           })
       }
     })
