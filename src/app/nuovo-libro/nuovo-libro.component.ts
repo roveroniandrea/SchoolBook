@@ -22,7 +22,7 @@ export class NuovoLibroComponent implements OnInit {
   immagine: File; //l'immagine caricata
   //filePath: string;  //conterrà il percorso generato dall'uuid
   //imageRef: any;
-  newLibro: any = {}; //RIMUOVI FOTO
+  newLibro: any = {};
   progressoCaricamento = -1;
   uuidv4 = require('uuid/v4');
   idLibroDaURL: string;
