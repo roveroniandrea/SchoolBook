@@ -1,7 +1,6 @@
 <mat-card 
   class="card" 
-  routerLink="/infoLibro" 
-  [queryParams]="{id: libro.id}">
+  [routerLink]="['/infoLibro',libro.id]">
   <mat-grid-list cols="34" rowHeight="1em">
     <mat-grid-tile [colspan]="14" [rowspan]="8">
       <img 
