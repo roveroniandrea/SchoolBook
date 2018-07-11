@@ -1,38 +1,33 @@
-<h2>Registrazione</h2>
-<mat-divider class="spaziatore"></mat-divider>
-<div style="text-align: center">
-  <div style="border:1px solid blue">
-    <form [formGroup]="accountForm" (ngSubmit)="submitAccount()">
-      <div class="inserimento">
-        <mat-form-field class="inputAccount">
-          <input matInput placeholder="Nome: " formControlName="nome">
-        </mat-form-field>
-        <mat-form-field class="inputAccount">
-          <input matInput placeholder="Cognome: " formControlName="cognome">
-        </mat-form-field>
-        <mat-form-field class="inputAccount">
-          <input matInput placeholder="Mail: " formControlName="mail">
-        </mat-form-field>
-        <mat-form-field class="inputAccount">
-          <input matInput placeholder="Telefono: " formControlName="telefono">
-        </mat-form-field>
-        <mat-form-field class="inputAccount">
-          <input matInput placeholder="Località o Scuola: " formControlName="scuola">
-        </mat-form-field>
-        <mat-form-field class="inputAccount">
-          <input matInput placeholder="Password: " formControlName="password" type="password">
-        </mat-form-field>
-      </div>
-      <p *ngIf="error" style="color: red">{{error.message}}</p>
-      <div class="btn" *ngIf="!registrazioneInCorso">
-        <button mat-raised-button color="primary" (click)="annullaRegistrazione()" type="button">Annulla</button>
-        <!-- messaggio in basso che dice che l'operazione è stata annullata -->
-        <button mat-raised-button color="primary" type="submit" [disabled]="!accountForm.valid">Conferma</button>
-      </div>
-      <div *ngIf="registrazioneInCorso">
-        <p>Attendere...</p>
-        <mat-spinner></mat-spinner>
-      </div>
-    </form>
+<form [formGroup]="accountForm" (ngSubmit)="submitAccount()">
+  <div *ngIf="registrazioneInCorso" class="spinner">
+    <span>Attendere...</span>
+    <mat-spinner></mat-spinner>
   </div>
-</div>
+  <mat-card class="card" *ngIf="!registrazioneInCorso">
+    <div class="contenuto">
+      <h2>Registrazione</h2>
+      <mat-form-field class="inputAccount">
+        <input matInput placeholder="Nome: " formControlName="nome">
+      </mat-form-field>
+      <mat-form-field class="inputAccount">
+        <input matInput placeholder="Cognome: " formControlName="cognome">
+      </mat-form-field>
+      <mat-form-field class="inputAccount">
+        <input matInput placeholder="Mail: " formControlName="mail">
+      </mat-form-field>
+      <mat-form-field class="inputAccount">
+        <input matInput placeholder="Telefono: " formControlName="telefono">
+      </mat-form-field>
+      <mat-form-field class="inputAccount">
+        <input matInput placeholder="Località o Scuola: " formControlName="scuola">
+      </mat-form-field>
+      <mat-form-field class="inputAccount">
+        <input matInput placeholder="Password: " formControlName="password" type="password">
+      </mat-form-field>
+      <p *ngIf="error">{{error.message}}</p>
+      <button mat-raised-button color="primary" (click)="annullaRegistrazione()" type="button">Annulla</button>
+      <!-- messaggio in basso che dice che l'operazione è stata annullata -->
+      <button mat-raised-button color="primary" type="submit" [disabled]="!accountForm.valid">Conferma</button>
+    </div>
+  </mat-card>
+</form>
