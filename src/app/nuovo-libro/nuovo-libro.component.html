@@ -3,13 +3,17 @@
   <h2 *ngIf="idLibroDaURL">Modifica Libro</h2>
   <mat-divider class="spaziatore"></mat-divider>
   <form [formGroup]="uploadForm" (ngSubmit)="submitForm()" *ngIf="!stoCercandoLibroDaModificare">
-    <div class="sinistro">
+    <div class="sinistro" *ngIf="!stoCaricandoImmagine">
       <label class="mat-primary mat-raised-button" for="image">
         Seleziona immagine
-        <input name="files[]" style="display: none" title="Seleziona immagine" type="file" id="image" accept="image/*" (change)="immagineCaricata($event)">
+        <input name="files[]" style="display: none" title="Seleziona immagine" type="file" id="image" accept="image/*" (change)="immagineSelezionata($event)">
       </label>
       <br>
-      <img alt="non funzia">
+      <img alt="immagine" [src]="urlNuovaFoto || newLibro.imageUrl" *ngIf="newLibro&&newLibro.imageUrl">
+      <img alt="immagine" [src]="libroUrlService.defaultUrl" *ngIf="!(newLibro&&newLibro.imageUrl)">
+    </div>
+    <div clas="sinistro" *ngIf="stoCaricandoImmagine">
+      <mat-spinner></mat-spinner>
     </div>
     <div class="destro">
       <br>
@@ -30,7 +34,7 @@
     </mat-form-field>
     <div class="btn">
       <button mat-raised-button color="primary" (click)="annullaForm()" type="button">Annulla</button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!uploadForm.valid">Salva</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!uploadForm.valid || stoCaricandoImmagine">Salva</button>
       <!-- (click)="" aggiunge ai preferiti -->
     </div>
 
