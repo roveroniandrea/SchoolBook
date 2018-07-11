@@ -21,7 +21,7 @@
 <p>{{libro.descrizione}}</p>
 <div *ngIf="isProprietario == false" class="btn">
   <button class="btn2" mat-raised-button color="primary" [routerLink]="['/contatti',idLibro]" [disabled]="!autore.uid">Contatta Proprietario</button>
-  <button class="btn2" mat-raised-button color="primary">Aggiungi ai Preferiti</button>
+  <button class="btn2" mat-raised-button color="primary" [disabled]="!userService.utente.mail || isPreferiti" (click)="aggiungiPreferiti()">Aggiungi ai Preferiti</button>
   <!-- (click)="" aggiunge ai preferiti -->
 </div>
 <div *ngIf="isProprietario == true" class="btn">
