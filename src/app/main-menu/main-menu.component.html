@@ -1,20 +1,14 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav 
-  #drawer 
-  class="sidenav" 
-  [ngClass]="{hidden: !(isHandset$|async)}" 
-  fixedInViewport="false" 
-  [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-  [mode]="(isHandset$ | async) ? 'over' : 'side'" 
-  [opened]="!(isHandset$ | async)">
+  <mat-sidenav #drawer class="sidenav" [ngClass]="{hidden: !(isHandset$|async)}" fixedInViewport="false" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
     <mat-toolbar color="primary">Menu</mat-toolbar>
-      <mat-nav-list (click)="drawer.toggle()">
-        <!-- right menu link -->
-        <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="">{{link[0]}}</a>
-        <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="catalogo">{{link[1]}}</a>
-        <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="login">{{link[4]}}</a>
-        <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="registrazione">{{link[5]}}</a>
-      </mat-nav-list>
+    <mat-nav-list (click)="drawer.toggle()">
+      <!-- right menu link -->
+      <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="">{{link[0]}}</a>
+      <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="catalogo">{{link[1]}}</a>
+      <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="login">{{link[4]}}</a>
+      <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="registrazione">{{link[5]}}</a>
+    </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
@@ -28,12 +22,25 @@
         <button mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="">{{link[0]}}</button>
         <button mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="catalogo">{{link[1]}}</button>
         <!-- login and register btn -->
-        <div class="position-right">
-          <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" matTooltip="Login" routerLink="login">
-            <mat-icon>input</mat-icon></button>
-          <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" matTooltip="Registrati" routerLink="registrazione">
-            <mat-icon>person_add</mat-icon></button>
-          </div>
+        <div *ngIf="!userService.utente.mail" class="position-right">
+          <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" matTooltip="Login"
+            routerLink="login">
+            <mat-icon>person</mat-icon>
+          </button>
+          <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" matTooltip="Registrazione"
+            routerLink="registrazione">
+            <mat-icon>person_add</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="userService.utente.mail" class="position-right">
+          <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" matTooltip="Account"
+            routerLink="account">
+            <mat-icon>person</mat-icon>
+          </button>
+          <button mat-button class="menu-link2" matTooltip="Logout" (click)="logout()">
+            <mat-icon>person_outline</mat-icon>
+          </button>
+        </div>
       </div>
     </mat-toolbar>
     <div class="space">

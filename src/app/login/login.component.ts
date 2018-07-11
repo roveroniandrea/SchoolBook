@@ -25,12 +25,12 @@ export class LoginComponent implements OnInit {
   login() {
     this.autenticazione.auth.signInWithEmailAndPassword(this.loginForm.value.mail, this.loginForm.value.password)
       .catch(err => {
-        console.log("Login Errato.")
+        console.log("Login Errato.",this.user.utente)
         this.error = err;
       })
       .then(result => {
         if (result) {
-          console.log("Login Effettuato.")
+          console.log("Login Effettuato.",this.user.utente)
           this.route.navigateByUrl("/");
         }
       })

@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { UserService } from '../servizi/utente.service';
+import { PerditaModificheComponent } from '../perdita-modifiche/perdita-modifiche.component';
+import { MatDialog } from '@angular/material';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'main-menu',
@@ -24,6 +28,19 @@ export class MainMenuComponent {
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(private autenticazione: AngularFireAuth, private userService: UserService, private breakpointObserver: BreakpointObserver, private matDialog: MatDialog) { }
+
+  logout() {  //apre mat dialog per conferma
+    const dialogRef = this.matDialog.open(PerditaModificheComponent, { data: { titolo: "Conferma Logout!", descrizione: "" } });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.autenticazione.auth.signOut();
+        window.location.reload();
+        console.log("Logout effettuato.");
+      } else {
+        console.log("Logout non effettuato.");
+      }
+    })
+  }
 
 }
