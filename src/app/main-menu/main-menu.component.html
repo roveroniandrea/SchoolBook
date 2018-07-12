@@ -4,10 +4,13 @@
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list (click)="drawer.toggle()">
       <!-- right menu link -->
-      <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="">{{link[0]}}</a>
-      <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="catalogo">{{link[1]}}</a>
-      <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="login">{{link[4]}}</a>
-      <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="registrazione">{{link[5]}}</a>
+      <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="">Home</a>
+      <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="catalogo">Catalogo</a>
+      <a mat-list-item *ngIf="userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="preferiti">Preferiti</a>
+      <a mat-list-item *ngIf="!userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="login">Login</a>
+      <a mat-list-item *ngIf="!userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="registrazione">Registrazione</a>
+      <a mat-list-item *ngIf="userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="account">Account</a>
+      <a mat-list-item *ngIf="userService.utente.mail" (click)="logout()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -19,8 +22,9 @@
       <span>SchoolBook</span>
       <div *ngIf="!(isHandset$ | async)" class="menu-bar">
         <!-- link btn -->
-        <button mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="">{{link[0]}}</button>
-        <button mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="catalogo">{{link[1]}}</button>
+        <button mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="">Home</button>
+        <button mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="catalogo">Catalogo</button>
+        <button *ngIf="userService.utente.mail" mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="preferiti">Preferiti</button>
         <!-- login and register btn -->
         <div *ngIf="!userService.utente.mail" class="position-right">
           <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" matTooltip="Login"
