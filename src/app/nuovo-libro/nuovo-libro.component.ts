@@ -96,7 +96,6 @@ export class NuovoLibroComponent implements OnInit {
 
     let data = Date.now();
     this.newLibro.data = data;
-
     if(this.pathNuovaFoto&&this.newLibro.imagePath){  //se c'è una nuova foto e il libro ne ha una vecchia
       console.log("cancello vecchia foto");
       this.storage.ref(this.newLibro.imagePath).delete();

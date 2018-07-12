@@ -1,3 +1,4 @@
 <h2>Preferiti</h2>
 <mat-divider class="spaziatore"></mat-divider>
+<p *ngIf="!preferiti.length">Nessun preferito</p>
 <app-libro *ngFor="let libro of libro" [libro]="libro"></app-libro>
