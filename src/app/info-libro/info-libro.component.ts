@@ -114,6 +114,27 @@ export class InfoLibroComponent implements OnInit {
       });
   }
 
+  eliminaPreferiti() {
+    console.log(this.preferiti);
+    for(let i = 0; i < this.preferiti.length; i++) {
+      if(this.preferiti[i] == this.idLibro) {
+        if(this.preferiti[i] == this.preferiti[this.preferiti.length-1]) {
+          this.preferiti.pop();
+        } else {
+          this.preferiti[i] = this.preferiti[this.preferiti.length-1];
+          this.preferiti.pop();
+        }
+      }
+    }
+    this.database.collection("users").doc(this.userService.utente.uid).update({ "preferiti": this.preferiti })
+      .catch(err => {
+        console.log(err);
+      })
+      .then(result => {
+        console.log("result", result);
+      });
+  }
+
   cercaPreferito() {
     this.database.collection("users").doc(this.userService.utente.uid).valueChanges().subscribe(val => {
       //console.log("val",val.data());
