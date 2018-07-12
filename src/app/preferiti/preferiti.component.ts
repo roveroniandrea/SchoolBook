@@ -25,11 +25,15 @@ export class PreferitiComponent implements OnInit {
   cercaPreferiti() {
     this.database.collection("users").doc(this.userService.utente.uid).snapshotChanges().subscribe(val => {
       this.preferiti = (<any>val).payload.data().preferiti;
+      if (!this.preferiti) {
+        this.preferiti = [];
+      }
       this.cercaLibro();
     })
   }
 
   cercaLibro() {
+    this.libro = [];
     for (let i = 0; i < this.preferiti.length; i++) {
       this.database.collection("books").doc(this.preferiti[i]).snapshotChanges().subscribe(val => {
         this.libro[i] = <Libro>val.payload.data();
