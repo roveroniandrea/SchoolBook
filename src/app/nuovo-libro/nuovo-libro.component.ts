@@ -93,10 +93,10 @@ export class NuovoLibroComponent implements OnInit {
     this.newLibro.prezzo = this.uploadForm.value.prezzo;
     this.newLibro.descrizione = this.uploadForm.value.descrizione;   //aggiorno newLibro
     this.newLibro.id_utente = this.userService.utente.uid;
-    /*
+
     let data = Date.now();
     this.newLibro.data = data;
-    */
+
     if(this.pathNuovaFoto&&this.newLibro.imagePath){  //se c'è una nuova foto e il libro ne ha una vecchia
       console.log("cancello vecchia foto");
       this.storage.ref(this.newLibro.imagePath).delete();
@@ -104,7 +104,7 @@ export class NuovoLibroComponent implements OnInit {
     this.newLibro.imagePath = this.pathNuovaFoto || this.newLibro.imagePath || "";   //Aggiungo "" per evitare errori con undefined
     this.newLibro.imageUrl = this.urlNuovaFoto || this.newLibro.imageUrl || "";
     const idLibro = this.newLibro.id || this.uuidv4(); //se il libro non ha un suoi id (quindi è nuovo), glielo imposto con uuid
-    //this.newLibro.id = null;
+    delete this.newLibro.id;
     console.log(this.newLibro);
     this.db.collection("books").doc(idLibro).set(this.newLibro)
       .catch(err => console.log(err))
