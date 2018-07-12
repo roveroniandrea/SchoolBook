@@ -14,15 +14,6 @@ import { Router } from '../../../node_modules/@angular/router';
   styleUrls: ['./main-menu.component.css']
 })
 export class MainMenuComponent {
-  link = [
-    "Home",
-    "Catalogo libri",
-    "Contatti",
-    "Preferiti",
-    "Login",
-    "Registrati",
-    "Logout"
-  ]
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(

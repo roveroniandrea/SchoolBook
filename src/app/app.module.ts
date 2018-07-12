@@ -32,11 +32,13 @@ import { AccountComponent } from './account/account.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NuovoLibroComponent } from './nuovo-libro/nuovo-libro.component';
 import { PerditaModificheComponent } from './perdita-modifiche/perdita-modifiche.component';
+import { PreferitiComponent } from './preferiti/preferiti.component';
 
 
 const appRoutes: Routes =[
   {path: "", component: HomeComponent},
   {path: "catalogo", component: CatalogoLibriComponent},
+  {path: "preferiti", component: PreferitiComponent},
   {path: "contatti/:id_libro", component: ContattiComponent},
   {path: "login", component: LoginComponent},
   {path: "registrazione", component: RegistrazioneComponent},
@@ -63,7 +65,8 @@ const appRoutes: Routes =[
     AccountComponent,
     NotFoundComponent,
     NuovoLibroComponent,
-    PerditaModificheComponent
+    PerditaModificheComponent,
+    PreferitiComponent
   ],
   imports: [
     BrowserModule,
