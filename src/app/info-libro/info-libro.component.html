@@ -22,8 +22,8 @@
   <p>{{libro.descrizione}}</p>
   <div *ngIf="isProprietario == false" class="btn">
     <button class="btn2" mat-raised-button color="primary" [routerLink]="['/contatti',idLibro]" [disabled]="!autore.uid">Contatta Proprietario</button>
-    <button class="btn2" mat-raised-button color="primary" [disabled]="!userService.utente.mail || isPreferiti" (click)="aggiungiPreferiti()">Aggiungi ai Preferiti</button>
-    <!-- (click)="" aggiunge ai preferiti -->
+    <button *ngIf="userService.utente.mail && !isPreferiti" class="btn2" mat-raised-button color="primary" (click)="aggiungiPreferiti()">Aggiungi ai Preferiti</button>
+    <button *ngIf="userService.utente.mail && isPreferiti" class="btn2" mat-raised-button color="primary" (click)="eliminaPreferiti()">Elimina dai Preferiti</button>
   </div>
   <div *ngIf="isProprietario == true" class="btn">
     <button class="btn2" mat-raised-button color="primary" [routerLink]="['/new-book']" [queryParams]="{'id_libro' : idLibro}">Modifica</button>
