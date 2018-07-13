@@ -138,15 +138,22 @@ export class InfoLibroComponent implements OnInit {
   cercaPreferito() {
     this.database.collection("users").doc(this.userService.utente.uid).valueChanges().subscribe(val => {
       //console.log("val",val.data());
-      this.preferiti = (<any>val).preferiti || [];
-      let preferito = false;
-      for (let i = 0; i < this.preferiti.length; i++) {
-        console.log(this.preferiti[i])
-        if (this.preferiti[i] == this.idLibro) {
-          preferito = true;
+      if(val){
+        this.preferiti = (<any>val).preferiti || [];
+        let preferito = false;
+        for (let i = 0; i < this.preferiti.length; i++) {
+          console.log(this.preferiti[i])
+          if (this.preferiti[i] == this.idLibro) {
+            preferito = true;
+          }
         }
+        this.isPreferiti = preferito;
       }
-      this.isPreferiti = preferito;
+      else{
+        this.preferiti = [];
+        this.isPreferiti = false;
+      }
+      
     })
   }
 }
