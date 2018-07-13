@@ -44,7 +44,7 @@ export class HomeComponent{
     }
 
     //controllo se ho effettuato il logout nei queryParams
-    const utenteLoggato = route.snapshot.queryParams.logout;
+    const utenteLoggato = route.snapshot.queryParams.utenteLoggato;
     if(utenteLoggato== 0){
       snackBar.open("Hai effettuato il logout","",{duration: 2000});
     }
