@@ -10,15 +10,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class UserService {
   utente = new Autore()
   //autenticazione : FirebaseAuth;
-  constructor(private autenticazione : AngularFireAuth, private db : AngularFirestore) {
-    /*
-    this.utente.uid = "nckWTBnEvOFSvHbPXmKu"
-    this.utente.nome = "pinco";
-    this.utente.cognome = "pallino";
-    this.utente.mail = "c@c.com";
-    this.utente.scuola = "scuolaACaso";
-    this.utente.telefono = "+39 3532";
-    */
+  constructor(private autenticazione: AngularFireAuth, private db: AngularFirestore) {
     autenticazione.auth.onAuthStateChanged(user => {
       this.utente.mail = user && user.email;
       this.utente.uid = user && user.uid;
@@ -34,7 +26,26 @@ export class UserService {
           this.utente.preferiti = datiUtente.preferiti;
         })
       }
-      console.log("utente cambiato: ",this.utente);
+      console.log("utente cambiato: ", this.utente);
     })
+  }
+
+  verificaStatoUtente() {
+    const _self = this;
+    const promise = new Promise(
+      function (resolve, reject) {
+        /*
+        auth.authState.subscribe(user=>{
+          resolve();
+        })
+        */
+        resolve(_self.autenticazione.auth.currentUser);
+      }
+    )
+    return promise;
+  }
+
+  verificaStatoUtente2() {
+    return this.utente;
   }
 }

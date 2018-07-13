@@ -2,7 +2,7 @@
   <h2 *ngIf="!idLibroDaURL">Aggiungi Libro</h2>
   <h2 *ngIf="idLibroDaURL">Modifica Libro</h2>
   <mat-divider class="spaziatore"></mat-divider>
-  <form [formGroup]="uploadForm" (ngSubmit)="submitForm()" *ngIf="!stoCercandoLibroDaModificare">
+  <form [formGroup]="uploadForm" (ngSubmit)="submitForm()" *ngIf="!stoCercandoLibroDaModificare" (change)="onChange()">
     <div class="sinistro" *ngIf="!stoCaricandoImmagine">
       <label class="mat-primary mat-raised-button" for="image">
         Seleziona immagine

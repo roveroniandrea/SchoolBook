@@ -12,7 +12,7 @@ import { LibroUrlService } from '../servizi/libro-url.service';
 export class PreferitiComponent implements OnInit {
   libro: Libro[] = [];
   preferiti: string[] = [];
-
+  stoCercandoLibri = false;
   constructor(private database: AngularFirestore,
     private userService: UserService,
     private libroUrlService: LibroUrlService) {
@@ -23,6 +23,7 @@ export class PreferitiComponent implements OnInit {
   }
 
   cercaPreferiti() {
+    this.stoCercandoLibri = true;
     this.database.collection("users").doc(this.userService.utente.uid).snapshotChanges().subscribe(val => {
       this.preferiti = (<any>val).payload.data().preferiti;
       if (!this.preferiti) {
@@ -41,5 +42,6 @@ export class PreferitiComponent implements OnInit {
         this.libro[i] = this.libroUrlService.setLibroUrl(this.libro[i]);
       })
     }
+    this.stoCercandoLibri = false;
   }
 }
