@@ -21,7 +21,7 @@ export class MainMenuComponent {
     );
 
   constructor(private autenticazione: AngularFireAuth, 
-    private userService: UserService, 
+    public userService: UserService, 
     private breakpointObserver: BreakpointObserver, 
     private matDialog: MatDialog, 
     private router: Router) { }

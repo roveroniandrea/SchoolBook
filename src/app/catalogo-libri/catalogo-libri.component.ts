@@ -31,8 +31,9 @@ export class CatalogoLibriComponent implements OnInit {
     if (this.stringService.hasOnlyNumber(parametroRicerca)) {
       cercaTra = "isbn";
     }
-
+    console.log("cerco libro")
     this.db.collection("books", ref => ref.orderBy(cercaTra).startAt(parametroRicerca).endAt(parametroRicerca + "\uf8ff")).snapshotChanges().subscribe(val => {
+      
       let nbooks: any[];   //nell'observable recupero tutti i libri corrispondenti alla stringa cercata
       nbooks = val.map(item => {
         const id = item.payload.doc.id;
@@ -44,6 +45,7 @@ export class CatalogoLibriComponent implements OnInit {
       }
       this.allBooks = <Libro[]>nbooks;
       this.ricercaInCorso = false;
+      console.log("tutti i libri",this.allBooks);
     });
   }
 }

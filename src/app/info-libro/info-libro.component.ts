@@ -45,7 +45,7 @@ export class InfoLibroComponent implements OnInit {
           this.cercaAutore();
           this.cercaPreferito();
         }
-        else{
+        else {
           this.libroNonTrovato = true;
         }
       })
@@ -77,19 +77,19 @@ export class InfoLibroComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.eliminazioneInCorso = true;
-        this.libroUrlService.eliminaLibro(this.idLibro,this.libro.imagePath)
-        .catch(err=>{
-          console.log(err);
-          this.eliminazioneInCorso = false;
-          this.router.navigate(["/"],{queryParams: {"libroEliminato" : 0}});
-        })
-        .then(res=>{
-          if(res){
-            //console.log(res);
+        this.libroUrlService.eliminaLibro(this.idLibro, this.libro.imagePath)
+          .catch(err => {
+            console.log(err);
             this.eliminazioneInCorso = false;
-            this.router.navigate(["/"],{queryParams: {"libroEliminato" : 1}});
-          }
-        })
+            this.router.navigate(["/"], { queryParams: { "libroEliminato": 0 } });
+          })
+          .then(res => {
+            if (res) {
+              //console.log(res);
+              this.eliminazioneInCorso = false;
+              this.router.navigate(["/"], { queryParams: { "libroEliminato": 1 } });
+            }
+          })
       }
     })
   }
@@ -116,12 +116,12 @@ export class InfoLibroComponent implements OnInit {
 
   eliminaPreferiti() {
     console.log(this.preferiti);
-    for(let i = 0; i < this.preferiti.length; i++) {
-      if(this.preferiti[i] == this.idLibro) {
-        if(this.preferiti[i] == this.preferiti[this.preferiti.length-1]) {
+    for (let i = 0; i < this.preferiti.length; i++) {
+      if (this.preferiti[i] == this.idLibro) {
+        if (this.preferiti[i] == this.preferiti[this.preferiti.length - 1]) {
           this.preferiti.pop();
         } else {
-          this.preferiti[i] = this.preferiti[this.preferiti.length-1];
+          this.preferiti[i] = this.preferiti[this.preferiti.length - 1];
           this.preferiti.pop();
         }
       }
@@ -136,24 +136,31 @@ export class InfoLibroComponent implements OnInit {
   }
 
   cercaPreferito() {
-    this.database.collection("users").doc(this.userService.utente.uid).valueChanges().subscribe(val => {
-      //console.log("val",val.data());
-      if(val){
-        this.preferiti = (<any>val).preferiti || [];
-        let preferito = false;
-        for (let i = 0; i < this.preferiti.length; i++) {
-          console.log(this.preferiti[i])
-          if (this.preferiti[i] == this.idLibro) {
-            preferito = true;
+    if (this.userService.utente && this.userService.utente.uid) {
+      this.database.collection("users").doc(this.userService.utente.uid).valueChanges().subscribe(val => {
+        //console.log("val",val.data());
+        if (val) {
+          this.preferiti = (<any>val).preferiti || [];
+          let preferito = false;
+          for (let i = 0; i < this.preferiti.length; i++) {
+            console.log(this.preferiti[i])
+            if (this.preferiti[i] == this.idLibro) {
+              preferito = true;
+            }
           }
+          this.isPreferiti = preferito;
         }
-        this.isPreferiti = preferito;
-      }
-      else{
-        this.preferiti = [];
-        this.isPreferiti = false;
-      }
-      
-    })
+        else {
+          this.preferiti = [];
+          this.isPreferiti = false;
+        }
+
+      })
+    }
+    else {
+      this.preferiti = [];
+      this.isPreferiti = false;
+    }
   }
+
 }
