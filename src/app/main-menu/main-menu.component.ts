@@ -20,7 +20,11 @@ export class MainMenuComponent {
       map(result => result.matches)
     );
 
-  constructor(private autenticazione: AngularFireAuth, private userService: UserService, private breakpointObserver: BreakpointObserver, private matDialog: MatDialog, private router: Router) { }
+  constructor(private autenticazione: AngularFireAuth, 
+    private userService: UserService, 
+    private breakpointObserver: BreakpointObserver, 
+    private matDialog: MatDialog, 
+    private router: Router) { }
 
   logout() {  //apre mat dialog per conferma
     const dialogRef = this.matDialog.open(PerditaModificheComponent, { data: { titolo: "Conferma Logout!", descrizione: "" } });

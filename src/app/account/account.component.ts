@@ -5,7 +5,10 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Libro } from '../classe-libro/classe-libro';
 import { LibroUrlService } from '../servizi/libro-url.service';
 import { ActivatedRoute } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { Router } from '../../../node_modules/@angular/router';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { PerditaModificheComponent } from '../perdita-modifiche/perdita-modifiche.component';
 
 @Component({
   selector: 'app-account',
@@ -17,9 +20,16 @@ export class AccountComponent implements OnInit {
   mode = "see";
   accountForm: FormGroup;
   myBooks: Libro[];
+  user = this.autenticazione.auth.currentUser;
+
   constructor(private route: ActivatedRoute,
     private userService: UserService,
-    private db: AngularFirestore, private libroUrlService: LibroUrlService, private snackBar: MatSnackBar) {
+    private db: AngularFirestore,
+    private libroUrlService: LibroUrlService,
+    private snackBar: MatSnackBar,
+    private autenticazione: AngularFireAuth,
+    private matDialog: MatDialog,
+    private router: Router) {
     this.inserimentoLibro = this.route.snapshot.queryParams.inserimentoLibro;
     this.controllaUtenteCreato(this.route.snapshot.queryParams.utenteCreato); //se l'utente è stato creato faccio comparire uno snack bar
     this.controllaUploadLibro();
@@ -64,9 +74,65 @@ export class AccountComponent implements OnInit {
     }
   }
 
-  controllaUtenteCreato(queryParam){
-    if(queryParam == 1){
+  controllaUtenteCreato(queryParam) {
+    if (queryParam == 1) {
       this.snackBar.open("Utente creato correttamente", "", { duration: 2000 });
     }
+  }
+
+  eliminaAccount() {
+    const dialogRef = this.matDialog.open(PerditaModificheComponent, { data: { titolo: "Conferma elimininazione account!", descrizione: "Confermando si perderanno tutti i dati salvati." } });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        //elimina dati in books e restore
+        this.eliminaLibriImmagini(this.myBooks.length);
+      }
+    })
+    console.log("eliminazione riuscita.");
+  }
+
+  //elimina dati in books e restore
+  eliminaLibriImmagini(lunghezza) {
+    if (lunghezza > 0) {
+      lunghezza--;
+      this.libroUrlService.eliminaLibro(this.myBooks[lunghezza].id, this.myBooks[lunghezza].imagePath)
+        .catch(error => {
+          console.log(error);
+          this.snackBar.open("Errore durante l'eliminazione dei libri.", "", { duration: 2000 });
+        })
+        .then(result => {
+          this.eliminaLibriImmagini(lunghezza);
+        })
+    } else {
+      //elimina dati in users
+      this.eliminaUsers();
+    }
+  }
+
+  //elimina dati in users
+  eliminaUsers() {
+    this.db.collection("users").doc(this.userService.utente.uid).delete()
+      .catch(error => {
+        console.log(error);
+        this.snackBar.open("Errore durante l'eliminazione dello user.", "", { duration: 2000 });
+      })
+      .then(result => {
+        //elimina dati in autentificazione
+        this.eliminaAuthentication();
+      })
+  }
+
+  //elimina dati in autentificazione
+  eliminaAuthentication() {
+    this.user.delete()
+      .catch(error => {
+        console.log(error);
+        this.snackBar.open("Errore durante l'eliminazione dell'authentication", "", { duration: 2000 });
+      })
+      .then(result => {
+        console.log("Utente eliminato.");
+        this.router.navigateByUrl("/");
+        this.snackBar.open("Eliminazione effettuata con successo", "", { duration: 2000 });
+      });
   }
 }
