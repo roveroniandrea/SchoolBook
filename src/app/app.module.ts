@@ -35,21 +35,22 @@ import { PerditaModificheComponent } from './perdita-modifiche/perdita-modifiche
 import { PreferitiComponent } from './preferiti/preferiti.component';
 import { AuthGuard } from './servizi/auth-guard.service';
 import { UserService } from './servizi/utente.service';
+import { CanDeactivateGuard } from './servizi/canDeactivate-guard.service';
 
 
-const appRoutes: Routes =[
-  {path: "", component: HomeComponent},
-  {path: "catalogo", component: CatalogoLibriComponent},
-  {path: "preferiti", canActivate: [AuthGuard],component: PreferitiComponent},
-  {path: "contatti/:id_libro", canActivate: [AuthGuard],component: ContattiComponent},
-  {path: "login",component: LoginComponent},
-  {path: "registrazione", component: RegistrazioneComponent},
-  {path: "infoLibro/:id", component: InfoLibroComponent},
-  {path: "account", canActivate: [AuthGuard],component: AccountComponent},
-  {path: "not-found", component: NotFoundComponent},
-  {path: "new-book", canActivate: [AuthGuard],component: NuovoLibroComponent},
+const appRoutes: Routes = [
+  { path: "", component: HomeComponent },
+  { path: "catalogo", component: CatalogoLibriComponent },
+  { path: "preferiti", canActivate: [AuthGuard], component: PreferitiComponent },
+  { path: "contatti/:id_libro", canActivate: [AuthGuard], component: ContattiComponent },
+  { path: "login", component: LoginComponent },
+  { path: "registrazione", component: RegistrazioneComponent },
+  { path: "infoLibro/:id", component: InfoLibroComponent },
+  { path: "account", canActivate: [AuthGuard], component: AccountComponent },
+  { path: "not-found", component: NotFoundComponent },
+  { path: "new-book", canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard], component: NuovoLibroComponent },
   //lasciare per ultimo il path: "**"!
-  {path: "**", redirectTo: "not-found"},
+  { path: "**", redirectTo: "not-found" },
 ]
 
 @NgModule({
@@ -97,7 +98,7 @@ const appRoutes: Routes =[
     MatSnackBarModule,
     AngularFireAuthModule
   ],
-  providers: [AuthGuard, UserService],
+  providers: [AuthGuard, UserService, CanDeactivateGuard],
   bootstrap: [AppComponent],
   entryComponents: [
     PerditaModificheComponent

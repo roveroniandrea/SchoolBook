@@ -8,7 +8,7 @@ import { UserService } from "./utente.service";
 export class AuthGuard implements CanActivate{
     constructor(private userService : UserService, private router : Router){}
     canActivate(route : ActivatedRouteSnapshot, state : RouterStateSnapshot) : Observable<boolean> | Promise<boolean> | boolean{
-      return this.userService.verificaStatoUtente()
+      return this.userService.verificaStatoUtente()   //il servizio ritorna l'utente con credenziali (no proprietà di firebase)
       .then(user=>{
           //console.log("utente",user);
           if(user){

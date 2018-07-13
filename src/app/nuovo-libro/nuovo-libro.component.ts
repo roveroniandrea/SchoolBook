@@ -8,6 +8,8 @@ import { Libro } from '../classe-libro/classe-libro';
 import { UserService } from '../servizi/utente.service';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { LibroUrlService } from '../servizi/libro-url.service';
+import { CanComponentDeactivate } from '../servizi/canDeactivate-guard.service';
+import { Observable } from '../../../node_modules/rxjs';
 
 declare var require: any
 
@@ -16,7 +18,7 @@ declare var require: any
   templateUrl: './nuovo-libro.component.html',
   styleUrls: ['./nuovo-libro.component.css']
 })
-export class NuovoLibroComponent implements OnInit {
+export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
   uploadForm: FormGroup;
   //patternPrezzo = "^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$";
   immagine: File; //l'immagine caricata
@@ -30,6 +32,8 @@ export class NuovoLibroComponent implements OnInit {
   stoCaricandoImmagine = false;
   pathNuovaFoto = "";
   urlNuovaFoto = "";
+  modificheEffettuate = false; //se true chiede prima di lasciare la pagina
+
   constructor(private matDialog: MatDialog,
     private router: Router,
     private db: AngularFirestore,
@@ -97,7 +101,7 @@ export class NuovoLibroComponent implements OnInit {
     let data = Date.now();
     this.newLibro.data = data;
     */
-    if(this.pathNuovaFoto&&this.newLibro.imagePath){  //se c'è una nuova foto e il libro ne ha una vecchia
+    if (this.pathNuovaFoto && this.newLibro.imagePath) {  //se c'è una nuova foto e il libro ne ha una vecchia
       console.log("cancello vecchia foto");
       this.storage.ref(this.newLibro.imagePath).delete();
     }
@@ -128,5 +132,9 @@ export class NuovoLibroComponent implements OnInit {
         }
       }
     })
+  }
+
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    return confirm("vuoi uscire?")
   }
 }
