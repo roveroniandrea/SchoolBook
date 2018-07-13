@@ -19,16 +19,16 @@
     <p>Località o Scuola: {{autore.scuola}}</p>
   </div>
   <h3 class="desc">Descrizione</h3>
-  <p>{{libro.descrizione}}</p>
+  <p class="descrizione">{{libro.descrizione}}</p>
   <div *ngIf="isProprietario == false" class="btn">
-    <button class="btn2" mat-raised-button color="primary" [routerLink]="['/contatti',idLibro]" [disabled]="!autore.uid">Contatta Proprietario</button>
+      <button class="btn2" mat-raised-button color="primary" [routerLink]="['/']">Vai alla Home</button>
+    <button *ngIf="userService.utente.mail && !isPreferiti" class="btn2" mat-raised-button color="primary" [routerLink]="['/contatti',idLibro]" [disabled]="!autore.uid">Contatta Proprietario</button>
     <button *ngIf="userService.utente.mail && !isPreferiti" class="btn2" mat-raised-button color="primary" (click)="aggiungiPreferiti()">Aggiungi ai Preferiti</button>
     <button *ngIf="userService.utente.mail && isPreferiti" class="btn2" mat-raised-button color="primary" (click)="eliminaPreferiti()">Elimina dai Preferiti</button>
   </div>
   <div *ngIf="isProprietario == true" class="btn">
-    <button class="btn2" mat-raised-button color="primary" [routerLink]="['/new-book']" [queryParams]="{'id_libro' : idLibro}">Modifica</button>
-    <button class="btn2" mat-raised-button color="primary" (click)="eliminaLibro()">Elimina</button>
-    <!-- (click)="" elimina -->
+    <button class="btn2" mat-raised-button color="primary" [routerLink]="['/new-book']" [queryParams]="{'id_libro' : idLibro}">Modifica Dati</button>
+    <button class="btn2" mat-raised-button color="primary" (click)="eliminaLibro()">Elimina Libro</button>
   </div>
 </div>
 <div *ngIf="eliminazioneInCorso&&!libroNonTrovato">
@@ -36,6 +36,6 @@
   <mat-spinner></mat-spinner>
 </div>
 <div *ngIf="libroNonTrovato">
-  <p style="color: red">Libro non trovato. Potrebbe essere stato eliminato!</p>
-  <button mat-raised-button color="primary" [routerLink]="['/']">Vai alla home</button>
+  <p class="erroreLibro">Libro non trovato. Potrebbe essere stato eliminato!</p>
+  <button mat-raised-button color="primary" [routerLink]="['/']">Vai alla Home</button>
 </div>
