@@ -31,7 +31,7 @@ export class UserService {
   }
 
   verificaStatoUtente() {
-    const auth = this.autenticazione;
+    const _self = this;
     const promise = new Promise(
       function (resolve, reject) {
         /*
@@ -39,7 +39,7 @@ export class UserService {
           resolve();
         })
         */
-        resolve(auth.auth.currentUser);
+        resolve(_self.autenticazione.auth.currentUser);
       }
     )
     return promise;

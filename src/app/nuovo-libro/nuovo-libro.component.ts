@@ -91,16 +91,16 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
   }
 
   submitForm() {
-    console.log("submit")
+    //console.log("submit")
     this.newLibro.titolo = this.uploadForm.value.titolo;
     this.newLibro.isbn = this.uploadForm.value.isbn;
     this.newLibro.prezzo = this.uploadForm.value.prezzo;
     this.newLibro.descrizione = this.uploadForm.value.descrizione;   //aggiorno newLibro
     this.newLibro.id_utente = this.userService.utente.uid;
-    /*
+
     let data = Date.now();
     this.newLibro.data = data;
-    */
+
     if (this.pathNuovaFoto && this.newLibro.imagePath) {  //se c'è una nuova foto e il libro ne ha una vecchia
       console.log("cancello vecchia foto");
       this.storage.ref(this.newLibro.imagePath).delete();
@@ -113,28 +113,46 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     this.db.collection("books").doc(idLibro).set(this.newLibro)
       .catch(err => console.log(err))
       .then(resolve => {
-        console.log("resolve", resolve);
+        //console.log("resolve", resolve);
+        this.modificheEffettuate = false;
         this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 1 } });
       })
   }
 
   annullaForm() {
-    const dialogRef = this.matDialog.open(PerditaModificheComponent, { data: { titolo: "Uscire?", descrizione: "Confermando le modifiche andranno perse" } });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        if (this.pathNuovaFoto) {
-          this.storage.ref(this.pathNuovaFoto).delete().subscribe(val => {
-            this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 0 } });
-          })
-        }
-        else {
-          this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 0 } });
-        }
+    this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 0 } });
+  }
+
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    let _self = this;
+
+    console.log(_self.modificheEffettuate);
+    return new Promise(function(resolve,reject){
+      if (_self.modificheEffettuate) {  //se ci sono modifiche in corso chiedo se vuole uscire
+        const dialogRef = _self.matDialog.open(PerditaModificheComponent, { data: { titolo: "Uscire?", descrizione: "Confermando le modifiche andranno perse" } });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {  //se ho confermato l'uscita cancello l'eventuale foto caricata
+            if (_self.pathNuovaFoto) {
+              _self.storage.ref(_self.pathNuovaFoto).delete().subscribe(val => {
+                resolve(true);
+              })
+            }
+            else {
+              resolve(true);
+            }
+          }
+          else{
+            resolve(false);
+          }
+        })
+      }
+      else {
+        resolve(true);
       }
     })
   }
 
-  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    return confirm("vuoi uscire?")
+  onChange() {
+    this.modificheEffettuate = true;
   }
 }
