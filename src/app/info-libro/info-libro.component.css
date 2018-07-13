@@ -30,8 +30,15 @@ img {
 
 p {
     width: 100%;
-    margin-left: 1em!important;
     margin-right: 1em!important;
+}
+
+.descrizione {
+    margin-left: 1em!important;
+}
+
+.erroreLibro {
+    color: red;
 }
 
 .btn {
