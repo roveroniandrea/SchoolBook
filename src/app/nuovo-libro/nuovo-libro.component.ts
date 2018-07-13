@@ -8,6 +8,8 @@ import { Libro } from '../classe-libro/classe-libro';
 import { UserService } from '../servizi/utente.service';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { LibroUrlService } from '../servizi/libro-url.service';
+import { CanComponentDeactivate } from '../servizi/canDeactivate-guard.service';
+import { Observable } from '../../../node_modules/rxjs';
 
 declare var require: any
 
@@ -16,7 +18,7 @@ declare var require: any
   templateUrl: './nuovo-libro.component.html',
   styleUrls: ['./nuovo-libro.component.css']
 })
-export class NuovoLibroComponent implements OnInit {
+export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
   uploadForm: FormGroup;
   //patternPrezzo = "^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$";
   immagine: File; //l'immagine caricata
@@ -30,6 +32,8 @@ export class NuovoLibroComponent implements OnInit {
   stoCaricandoImmagine = false;
   pathNuovaFoto = "";
   urlNuovaFoto = "";
+  modificheEffettuate = false; //se true chiede prima di lasciare la pagina
+
   constructor(private matDialog: MatDialog,
     private router: Router,
     private db: AngularFirestore,
@@ -87,17 +91,17 @@ export class NuovoLibroComponent implements OnInit {
   }
 
   submitForm() {
-    console.log("submit")
+    //console.log("submit")
     this.newLibro.titolo = this.uploadForm.value.titolo;
     this.newLibro.isbn = this.uploadForm.value.isbn;
     this.newLibro.prezzo = this.uploadForm.value.prezzo;
     this.newLibro.descrizione = this.uploadForm.value.descrizione;   //aggiorno newLibro
     this.newLibro.id_utente = this.userService.utente.uid;
-    /*
+
     let data = Date.now();
     this.newLibro.data = data;
-    */
-    if(this.pathNuovaFoto&&this.newLibro.imagePath){  //se c'è una nuova foto e il libro ne ha una vecchia
+
+    if (this.pathNuovaFoto && this.newLibro.imagePath) {  //se c'è una nuova foto e il libro ne ha una vecchia
       console.log("cancello vecchia foto");
       this.storage.ref(this.newLibro.imagePath).delete();
     }
@@ -109,24 +113,46 @@ export class NuovoLibroComponent implements OnInit {
     this.db.collection("books").doc(idLibro).set(this.newLibro)
       .catch(err => console.log(err))
       .then(resolve => {
-        console.log("resolve", resolve);
+        //console.log("resolve", resolve);
+        this.modificheEffettuate = false;
         this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 1 } });
       })
   }
 
   annullaForm() {
-    const dialogRef = this.matDialog.open(PerditaModificheComponent, { data: { titolo: "Uscire?", descrizione: "Confermando le modifiche andranno perse" } });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        if (this.pathNuovaFoto) {
-          this.storage.ref(this.pathNuovaFoto).delete().subscribe(val => {
-            this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 0 } });
-          })
-        }
-        else {
-          this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 0 } });
-        }
+    this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 0 } });
+  }
+
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    let _self = this;
+
+    console.log(_self.modificheEffettuate);
+    return new Promise(function(resolve,reject){
+      if (_self.modificheEffettuate) {  //se ci sono modifiche in corso chiedo se vuole uscire
+        const dialogRef = _self.matDialog.open(PerditaModificheComponent, { data: { titolo: "Uscire?", descrizione: "Confermando le modifiche andranno perse" } });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {  //se ho confermato l'uscita cancello l'eventuale foto caricata
+            if (_self.pathNuovaFoto) {
+              _self.storage.ref(_self.pathNuovaFoto).delete().subscribe(val => {
+                resolve(true);
+              })
+            }
+            else {
+              resolve(true);
+            }
+          }
+          else{
+            resolve(false);
+          }
+        })
+      }
+      else {
+        resolve(true);
       }
     })
+  }
+
+  onChange() {
+    this.modificheEffettuate = true;
   }
 }
