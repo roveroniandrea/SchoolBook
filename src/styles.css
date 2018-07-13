@@ -1,20 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+/* Per impostare schermo intero */
 html, body{
     height: 100%;
 }
 
+/* Per impostare il font del body */
 body {
     font-family: Roboto, sans-serif;
     margin: 0;
 }
 
+/* Per impostare la lettera maiuscola */
 .capitalize {
     text-transform: capitalize;
 }
 
+/* Per impostare il mat-divider */
 .spaziatore {
     margin-top: 1em!important;
     margin-bottom: 1em!important;
+}
+
+/* Dimensioni spinner */
+.spinner {
+    width: 34%;
+    height: auto; 
+    margin: 10% 33% 0% 33%; 
+    padding: 1em; 
 }

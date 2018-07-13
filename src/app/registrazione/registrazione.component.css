@@ -26,14 +26,6 @@ button {
     margin-top: 0.5em;
 }
 
-/* Dimensioni spinner */
-.spinner {
-    width: 34%;
-    height: auto; 
-    margin: 10% 33% 0% 33%; 
-    padding: 1em; 
-}
-
 /* Per posizionare e settare le dimensioni della card*/
 .card {
     width: 34%;
