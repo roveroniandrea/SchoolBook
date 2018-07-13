@@ -41,8 +41,9 @@ export class UserService {
     )
     return promise;
   }
-
+/*
   verificaStatoUtente2() {
     return this.utente;
   }
+  */
 }
