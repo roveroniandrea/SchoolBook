@@ -24,14 +24,13 @@ export class LibroUrlService {
    * @param pathImmagine 
    */
   eliminaLibro(id, pathImmagine?) {
-    let database = this.db;
-    let storageFirebase = this.storage
+    let _self = this;
     return new Promise(function (resolve, reject) {
-      database.collection("books").doc(id).delete()
+      _self.db.collection("books").doc(id).delete()
       .catch(err=>reject(Error("Errore cancellazione: "+err)))
       .then(res=>{
         if(pathImmagine){
-          storageFirebase.ref(pathImmagine).delete().subscribe(res=>{
+          _self.storage.ref(pathImmagine).delete().subscribe(res=>{
             resolve("Eliminato libro e foto");
           })
         }
