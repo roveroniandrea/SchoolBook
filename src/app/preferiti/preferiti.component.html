@@ -1,5 +1,8 @@
 <h2>Preferiti</h2>
 <mat-divider class="spaziatore"></mat-divider>
+<!-- Se non ci sono libri -->
 <p *ngIf="!preferiti.length">Nessun preferito</p>
-<mat-spinner *ngIf="stoCercandoLibri"></mat-spinner>
+<!-- Spinner caricamento -->
+<mat-spinner class="spinner" *ngIf="stoCercandoLibri"></mat-spinner>
+<!-- Se ci sono libri -->
 <app-libro *ngFor="let libro of libro" [libro]="libro"></app-libro>

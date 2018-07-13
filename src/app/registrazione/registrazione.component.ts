@@ -13,21 +13,24 @@ import { UserService } from '../servizi/utente.service';
   templateUrl: './registrazione.component.html',
   styleUrls: ['./registrazione.component.css']
 })
+
 export class RegistrazioneComponent implements OnInit {
 
+  /* Variabili */
   accountForm: FormGroup;
   nuovoUtente: Autore;
   error: Error;
   registrazioneInCorso = false;
+
   constructor(private matDialog: MatDialog,
     private router: Router,
     private autenticazione: AngularFireAuth,
-    private db: AngularFirestore,
-    private snackBar: MatSnackBar,
-    private userService : UserService
+    private database: AngularFirestore,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
+    /* Creo il form */
     this.accountForm = new FormGroup({
       "nome": new FormControl("", Validators.required),
       "cognome": new FormControl(""),
@@ -39,14 +42,15 @@ export class RegistrazioneComponent implements OnInit {
   }
 
   submitAccount() {
+    /* Setto nessun errore, faccio partire lo spinner e creo l'utente, poi lo registro */
     this.error = null;
     this.registrazioneInCorso = true;
-    //console.log(this.accountForm.value);
     this.nuovoUtente = <Autore>this.accountForm.value;
     this.registraUtente();
   }
 
   annullaRegistrazione() {
+    /* Se preme annulla appare il matDialog */
     this.matDialog.open(PerditaModificheComponent, {
       data: {
         titolo: "Tornare alla home?",
@@ -60,33 +64,31 @@ export class RegistrazioneComponent implements OnInit {
   }
 
   registraUtente() {
+    /* Creo l'authentication del mio utente */
     this.autenticazione.auth.createUserWithEmailAndPassword(this.nuovoUtente.mail, this.accountForm.value.password)
-      .catch(err => {
-        this.error = err;
+      .catch(error => {
+        this.error = error;
         this.registrazioneInCorso = false;
-        //console.log("catch:"+this.error)
       })
-      .then(resolve => {
-        if (resolve) {
-          console.log("utente creato");
-          this.nuovoUtente.uid = resolve.user.uid;
+      .then(result => {
+        if (result) {
+          this.nuovoUtente.uid = result.user.uid;
           this.creaUtenteDatabase();
         }
       })
   }
 
   creaUtenteDatabase() {
-    this.db.collection("users").doc(this.nuovoUtente.uid).set(this.nuovoUtente)
-      .catch(err => {
-        //console.log("err",err);
+    /* Creo lo user nel mio database */
+    this.database.collection("users").doc(this.nuovoUtente.uid).set(this.nuovoUtente)
+      .catch(error => {
         this.registrazioneInCorso = false;
         this.snackBar.open("Errore imprevisto :(", "", { duration: 2000 });
       }
       )
       .then(result => {
-        //console.log("result",result);
         this.registrazioneInCorso = false;
-        this.router.navigate(["/account"], { queryParams: { utenteCreato: 1 } }).catch(err=>console.log("errore navigate ",err))
+        this.router.navigate(["/account"], { queryParams: { utenteCreato: 1 } })
       })
   }
 }

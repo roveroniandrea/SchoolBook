@@ -1,8 +1,11 @@
+<!-- Form -->
 <form [formGroup]="accountForm" (ngSubmit)="submitAccount()">
+  <!-- Spinner caricamento -->
   <div *ngIf="registrazioneInCorso" class="spinner">
     <span>Attendere...</span>
     <mat-spinner></mat-spinner>
   </div>
+  <!-- Input dati per registrazione -->
   <mat-card class="card" *ngIf="!registrazioneInCorso">
     <div class="contenuto">
       <h2>Registrazione</h2>
@@ -25,8 +28,8 @@
         <input matInput placeholder="Password: " formControlName="password" type="password">
       </mat-form-field>
       <p *ngIf="error">{{error.message}}</p>
+      <!-- Pulsanti registrazione -->
       <button mat-raised-button color="primary" (click)="annullaRegistrazione()" type="button">Annulla</button>
-      <!-- messaggio in basso che dice che l'operazione è stata annullata -->
       <button mat-raised-button color="primary" type="submit" [disabled]="!accountForm.valid">Conferma</button>
     </div>
   </mat-card>
