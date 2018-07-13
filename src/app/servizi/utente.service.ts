@@ -14,7 +14,7 @@ export class UserService {
     autenticazione.auth.onAuthStateChanged(user => {
       this.utente.mail = user && user.email;
       this.utente.uid = user && user.uid;
-      console.log("cerco");
+      //console.log("cerco utente");
       if (user) {
         db.collection("users").doc(this.utente.uid).valueChanges().subscribe(val => {
           let datiUtente = <Autore>val;
@@ -34,12 +34,9 @@ export class UserService {
     const _self = this;
     const promise = new Promise(
       function (resolve, reject) {
-        /*
-        auth.authState.subscribe(user=>{
-          resolve();
+        _self.autenticazione.auth.onAuthStateChanged(user=>{
+          resolve(user);
         })
-        */
-        resolve(_self.autenticazione.auth.currentUser);
       }
     )
     return promise;
