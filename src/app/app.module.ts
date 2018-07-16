@@ -36,6 +36,7 @@ import { PreferitiComponent } from './preferiti/preferiti.component';
 import { AuthGuard } from './servizi/auth-guard.service';
 import { UserService } from './servizi/utente.service';
 import { CanDeactivateGuard } from './servizi/canDeactivate-guard.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const appRoutes: Routes = [
@@ -96,7 +97,8 @@ const appRoutes: Routes = [
     AngularFireStorageModule,
     MatDialogModule,
     MatSnackBarModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpClientModule
   ],
   providers: [AuthGuard, UserService, CanDeactivateGuard],
   bootstrap: [AppComponent],
