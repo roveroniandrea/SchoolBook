@@ -73,26 +73,24 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
 
   immagineSelezionata(event) {
     this.immagine = <File>event.target.files[0];
-    //this.newLibro.imagePath = this.newLibro.imagePath || this.uuidv4();     //se imagePath del libro è vuoto (nessuna immagine) lo imposto casualmente
     this.pathNuovaFoto = this.uuidv4();
     this.stoCaricandoImmagine = true;
-    console.log("carico immagine con url", this.pathNuovaFoto)
     this.storage.upload(this.pathNuovaFoto, this.immagine)
-      .catch(err => console.log(err))
-      .then(resolve => {
-        if (resolve) {
+      .catch(error => 
+        console.log(error)
+      )
+      .then(result => {
+        if (result) {
           this.storage.ref(this.pathNuovaFoto).getDownloadURL().subscribe(val => {
             this.urlNuovaFoto = val;
             this.stoCaricandoImmagine = false;
-            console.log("immagine caricata con url", this.urlNuovaFoto)
           })
         }
       })
   }
 
   submitForm() {
-    //console.log("submit")
-    this.newLibro.titolo = this.uploadForm.value.titolo;
+    this.newLibro.titolo = this.uploadForm.value.titolo.toLowerCase();
     this.newLibro.isbn = this.uploadForm.value.isbn;
     this.newLibro.prezzo = this.uploadForm.value.prezzo;
     this.newLibro.descrizione = this.uploadForm.value.descrizione;   //aggiorno newLibro

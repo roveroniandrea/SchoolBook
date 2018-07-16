@@ -2,13 +2,13 @@
 <mat-divider class="spaziatore"></mat-divider>
 <form [formGroup]="searchForm" (ngSubmit)="submitRicerca()">
     <mat-form-field class="search">
-        <input matInput placeholder="Inserisci codice ISBN o un titolo" formControlName="parametroRicerca">
+        <input matInput placeholder="Inserisci codice ISBN o titolo" formControlName="parametroRicerca">
     </mat-form-field>
     <button mat-fab color="primary" [disabled]="!searchForm.valid || ricercaInCorso">
         <mat-icon>search</mat-icon>
     </button>
 </form>
-<br>
+<p>Attenzione! Per la ricerca inserire codice ISBN o titolo per intero.</p>
 <div *ngIf="!ricercaInCorso">
     <app-libro *ngFor="let book of allBooks" [libro]="book"></app-libro>
 </div>

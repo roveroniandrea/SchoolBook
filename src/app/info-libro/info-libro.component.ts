@@ -73,33 +73,23 @@ export class InfoLibroComponent implements OnInit {
   }
 
   eliminaLibro() {  //apre mat dialog per conferma
-    const dialogRef = this.matDialog.open(PerditaModificheComponent, { data: { titolo: "Vuoi eliminare questo libro?", descrizione: "Non sarà più disponibile!" } });
+    const dialogRef = this.matDialog.open(PerditaModificheComponent, { data: { titolo: "Conferma elimininazione libro!", descrizione: "Confermando si perderanno tutti i dati salvati." } });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.eliminazioneInCorso = true;
         this.libroUrlService.eliminaLibro(this.idLibro, this.libro.imagePath)
-          .catch(err => {
-            console.log(err);
+          .catch(error => {
+            console.log(error);
             this.eliminazioneInCorso = false;
-            this.router.navigate(["/"], { queryParams: { "libroEliminato": 0 } });
+            this.router.navigate(["/account"], { queryParams: { "libroEliminato": 0 } });
           })
-          .then(res => {
-            if (res) {
-              //console.log(res);
+          .then(result => {
+            if (result) {
               this.eliminazioneInCorso = false;
-              this.router.navigate(["/"], { queryParams: { "libroEliminato": 1 } });
+              this.router.navigate(["/account"], { queryParams: { "libroEliminato": 1 } });
             }
           })
       }
-    })
-  }
-
-  eliminazioneLibroConfermata() {//elimina definitivamente il libro e l'eventuale foto
-    if (this.libro.imageUrl) {
-      //todo non cancella immagini (serve path ma abbiamo imageUrl)
-    }
-    this.database.collection("books").doc(this.idLibro).delete().then(result => {
-      this.router.navigate(["/"]);
     })
   }
 
@@ -138,7 +128,6 @@ export class InfoLibroComponent implements OnInit {
   cercaPreferito() {
     if (this.userService.utente && this.userService.utente.uid) {
       this.database.collection("users").doc(this.userService.utente.uid).valueChanges().subscribe(val => {
-        //console.log("val",val.data());
         if (val) {
           this.preferiti = (<any>val).preferiti || [];
           let preferito = false;
