@@ -16,6 +16,7 @@ import { PerditaModificheComponent } from '../perdita-modifiche/perdita-modifich
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
+  // Variabili
   inserimentoLibro = null;
   mode = "see";
   accountForm: FormGroup;
@@ -84,11 +85,11 @@ export class AccountComponent implements OnInit {
     const dialogRef = this.matDialog.open(PerditaModificheComponent, { data: { titolo: "Conferma elimininazione account!", descrizione: "Confermando si perderanno tutti i dati salvati." } });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.router.navigateByUrl("/");
         //elimina dati in books e restore
         this.eliminaLibriImmagini(this.myBooks.length);
       }
     })
-    console.log("eliminazione riuscita.");
   }
 
   //elimina dati in books e restore
@@ -131,7 +132,6 @@ export class AccountComponent implements OnInit {
       })
       .then(result => {
         console.log("Utente eliminato.");
-        this.router.navigateByUrl("/");
         this.snackBar.open("Eliminazione effettuata con successo", "", { duration: 2000 });
       });
   }
