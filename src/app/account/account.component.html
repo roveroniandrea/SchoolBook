@@ -10,7 +10,7 @@
   </div>
   <div class="btn">
     <button mat-raised-button color="primary" (click)="eliminaAccount()">Elimina Account</button>
-    <button mat-raised-button color="primary" (click)="mode='edit'">Modifica Dati</button>
+    <button mat-raised-button color="primary" (click)="modificaDati()">Modifica Dati</button>
   </div>
 </div>
 <div *ngIf="mode==='edit'">
@@ -22,9 +22,11 @@
       <mat-form-field class="inputAccount">
         <input matInput placeholder="Cognome: " formControlName="cognome">
       </mat-form-field>
+      <!--
       <mat-form-field class="inputAccount">
         <input matInput placeholder="Mail: " formControlName="mail">
       </mat-form-field>
+    -->
       <mat-form-field class="inputAccount">
         <input matInput placeholder="Telefono: " formControlName="telefono">
       </mat-form-field>
@@ -33,8 +35,8 @@
       </mat-form-field>
     </div>
     <div class="btn">
-      <button mat-raised-button color="primary" (click)="mode='see'" type="reset">Annulla modifiche</button>
-      <button mat-raised-button color="primary" [disabled]="!accountForm.valid" type="submit">Conferma modifiche</button>
+      <button mat-raised-button color="primary" (click)="mode='see'" type="reset" [disabled]="stoModificandoUtente">Annulla modifiche</button>
+      <button mat-raised-button color="primary" [disabled]="!accountForm.valid || stoModificandoUtente" type="submit">Conferma modifiche</button>
     </div>
   </form>
 </div>

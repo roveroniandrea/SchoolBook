@@ -51,5 +51,8 @@ export class HomeComponent{
     if(utenteLoggato== 1){
       snackBar.open("Hai effettuato il login","",{duration: 2000});
     }
+    if(utenteLoggato== 2){
+      snackBar.open("Email di recupero correttamente inviata","",{duration:2000});
+    }
   }
 }
