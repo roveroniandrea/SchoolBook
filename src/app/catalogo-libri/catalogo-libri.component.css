@@ -3,6 +3,10 @@
     margin-right: 1em; 
   }
 
+  p {
+    font-size: 0.8em;
+}
+
   @media(max-width: 504px){
     .search {
       width: 10em;

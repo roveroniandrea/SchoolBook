@@ -18,15 +18,22 @@ export class UserService {
       if (user) {
         db.collection("users").doc(this.utente.uid).valueChanges().subscribe(val => {
           let datiUtente = <Autore>val;
-          console.log(datiUtente);
-          this.utente.nome = datiUtente.nome;
-          this.utente.cognome = datiUtente.cognome;
-          this.utente.scuola = datiUtente.scuola;
-          this.utente.telefono = datiUtente.telefono;
-          this.utente.preferiti = datiUtente.preferiti;
+          if (datiUtente) {
+            this.utente.nome = datiUtente.nome;
+            this.utente.cognome = datiUtente.cognome;
+            this.utente.scuola = datiUtente.scuola;
+            this.utente.telefono = datiUtente.telefono;
+            this.utente.preferiti = datiUtente.preferiti;
+          }
+          else {
+            this.utente.nome = null;
+            this.utente.cognome = null;
+            this.utente.scuola = null;
+            this.utente.telefono = null;
+            this.utente.preferiti = null;
+          }
         })
       }
-      console.log("utente cambiato: ", this.utente);
     })
   }
 
@@ -34,16 +41,16 @@ export class UserService {
     const _self = this;
     const promise = new Promise(
       function (resolve, reject) {
-        _self.autenticazione.auth.onAuthStateChanged(user=>{
+        _self.autenticazione.auth.onAuthStateChanged(user => {
           resolve(user);
         })
       }
     )
     return promise;
   }
-/*
-  verificaStatoUtente2() {
-    return this.utente;
-  }
-  */
+  /*
+    verificaStatoUtente2() {
+      return this.utente;
+    }
+    */
 }
