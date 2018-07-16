@@ -45,4 +45,23 @@ function sendWelcomeEmail(email) {
         return console.log('Email di benvenuto spedita a: ', email);
     });
 }
+//funzione per contattare l'utente
+exports.contattaUtente = functions.https.onRequest((req, res) => {
+    //set JSON content type and CORS headers for the response
+    res.header('Content-Type', 'application/json');
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    const mailOptions = {
+        from: `<noreply@firebase.com>`,
+        to: req.body.mailDestinatario,
+        subject: "Qualcuno è interessato al tuo libro!",
+        text: "Ciao " + req.body.nomeDestinatario + "!" +
+            "Qualcuno è interessato al tuo libro!"
+    };
+    return mailTransport.sendMail(mailOptions)
+        .then(() => {
+        res.send("Funziona!");
+        return console.log('Email di benvenuto spedita a: ', req.body.mailDestinatario);
+    });
+});
 //# sourceMappingURL=index.js.map
