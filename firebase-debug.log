@@ -572,3 +572,147 @@
     at Object.onceWrapper (events.js:272:13)
 [error] 
 [error] Error: An unexpected error has occurred.
+[debug] [2018-07-16T14:37:14.023Z] ----------------------------------------------------------------------
+[debug] [2018-07-16T14:37:14.030Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\rover\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy --only functions
+[debug] [2018-07-16T14:37:14.031Z] CLI Version:   3.19.0
+[debug] [2018-07-16T14:37:14.031Z] Platform:      win32
+[debug] [2018-07-16T14:37:14.031Z] Node Version:  v9.11.1
+[debug] [2018-07-16T14:37:14.034Z] Time:          Mon Jul 16 2018 16:37:14 GMT+0200 (ora legale Europa occidentale)
+[debug] [2018-07-16T14:37:14.034Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-07-16T14:37:14.063Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-07-16T14:37:14.065Z] > authorizing via signed-in user
+[debug] [2018-07-16T14:37:14.068Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/school-book-an  
+  
+ Mon Jul 16 2018 16:37:14 GMT+0200 (ora legale Europa occidentale)
+[debug] [2018-07-16T14:37:15.194Z] <<< HTTP RESPONSE 200
+[debug] [2018-07-16T14:37:15.195Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/school-book-an/tokens  
+  
+ Mon Jul 16 2018 16:37:15 GMT+0200 (ora legale Europa occidentale)
+[debug] [2018-07-16T14:37:16.169Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'school-book-an'...
+[info] 
+[info] i  deploying functions
+[info] Running command: npm --prefix "%RESOURCE_DIR%" run build
+[info] +  functions: Finished running predeploy script.
+[debug] [2018-07-16T14:38:14.487Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "build": "tsc",
+    "serve": "npm run build && firebase serve --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "~5.12.1",
+    "firebase-functions": "^1.1.0",
+    "nodemailer": "^4.6.7"
+  },
+  "devDependencies": {
+    "typescript": "^2.5.3"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2018-07-16T14:38:14.494Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/school-book-an?view=CONSUMER_VIEW  
+  
+ Mon Jul 16 2018 16:38:14 GMT+0200 (ora legale Europa occidentale)
+[debug] [2018-07-16T14:38:14.498Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/school-book-an?view=CONSUMER_VIEW  
+  
+ Mon Jul 16 2018 16:38:14 GMT+0200 (ora legale Europa occidentale)
+[debug] [2018-07-16T14:38:16.164Z] <<< HTTP RESPONSE 200
+[info] +  functions: all necessary APIs are enabled
+[debug] [2018-07-16T14:38:16.539Z] <<< HTTP RESPONSE 200
+[debug] [2018-07-16T14:38:16.541Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/school-book-an  
+  
+ Mon Jul 16 2018 16:38:16 GMT+0200 (ora legale Europa occidentale)
+[debug] [2018-07-16T14:38:17.774Z] <<< HTTP RESPONSE 200
+[debug] [2018-07-16T14:38:17.775Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/951496831430:getServerAppConfig  
+  
+ Mon Jul 16 2018 16:38:17 GMT+0200 (ora legale Europa occidentale)
+[debug] [2018-07-16T14:38:18.581Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2018-07-16T14:38:18.586Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/school-book-an/configs  
+  
+ Mon Jul 16 2018 16:38:18 GMT+0200 (ora legale Europa occidentale)
+[debug] [2018-07-16T14:38:19.159Z] <<< HTTP RESPONSE 200
+[debug] [2018-07-16T14:38:19.161Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/school-book-an/configs/gmail/variables  
+  
+ Mon Jul 16 2018 16:38:19 GMT+0200 (ora legale Europa occidentale)
+[debug] [2018-07-16T14:38:20.262Z] <<< HTTP RESPONSE 200
+[debug] [2018-07-16T14:38:20.263Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/school-book-an/configs/gmail/variables/email  
+  
+ Mon Jul 16 2018 16:38:20 GMT+0200 (ora legale Europa occidentale)
+[debug] [2018-07-16T14:38:20.264Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/school-book-an/configs/gmail/variables/password  
+  
+ Mon Jul 16 2018 16:38:20 GMT+0200 (ora legale Europa occidentale)
+[debug] [2018-07-16T14:38:21.330Z] <<< HTTP RESPONSE 200
+[debug] [2018-07-16T14:38:21.341Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (41.72 KB) for uploading
+[debug] [2018-07-16T14:38:22.352Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/school-book-an/locations/us-central1/functions:generateUploadUrl  
+  
+ Mon Jul 16 2018 16:38:22 GMT+0200 (ora legale Europa occidentale)
+[debug] [2018-07-16T14:38:23.120Z] <<< HTTP RESPONSE 200
+[debug] [2018-07-16T14:38:23.121Z] >>> HTTP REQUEST PUT https://storage.googleapis.com/gcf-upload-us-central1-59c9f6ce-9313-4216-b52d-c49cb13cb6d0/da2d2f82-1895-4d33-a2be-df71cf729115.zip?GoogleAccessId=service-951496831430@gcf-admin-robot.iam.gserviceaccount.com&Expires=1531753701&Signature=GwxsUbQWjoPtOiBQjgv69y43YWGyJcSwjDj0r7nlabFweIdhZ%2BFRuM2LGE9Y%2FWA%2Fvob7SqEAZ90CyrcE7LHk3kaO2iNB6eu1aSQfYEuEvoGcRJA3ea7lR7HAl7hu2P4QxR0PNtgNmHpO9IBl9l7Uuu3jc3Sa3e8yuFDT10knH3FH8Y8FM9az0IEdR2sShO38CWPQISt6kx1H317MwfKR%2BmXprLXm62eQrbmJZjfHVcKP1BIFAfFvdyIP2OAEZrWywbp%2BgAIH1OKMoW6UQ7QWHuIoSWSrRqVUG%2FXRra7D6OsL1RTrc7HTSZqWWU5ZPPhAUBeL4tHF81kYDDCagqT1sg%3D%3D  
+ ReadStream {
+  _readableState: 
+   ReadableState {
+     objectMode: false,
+     highWaterMark: 65536,
+     buffer: BufferList { head: [Object], tail: [Object], length: 1 },
+     length: 42723,
+     pipes: null,
+     pipesCount: 0,
+     flowing: null,
+     ended: true,
+     endEmitted: false,
+     reading: false,
+     sync: false,
+     needReadable: false,
+     emittedReadable: true,
+     readableListening: false,
+     resumeScheduled: false,
+     destroyed: false,
+     defaultEncoding: 'utf8',
+     awaitDrain: 0,
+     readingMore: false,
+     decoder: null,
+     encoding: null },
+  readable: true,
+  domain: null,
+  _events: { end: [Function] },
+  _eventsCount: 1,
+  _maxListeners: undefined,
+  path: 'C:\\Users\\rover\\AppData\\Local\\Temp\\firebase-functions-26348cvH9c41kRuF6.zip',
+  fd: 5,
+  flags: 'r',
+  mode: 438,
+  start: undefined,
+  end: Infinity,
+  autoClose: true,
+  pos: undefined,
+  bytesRead: 42723,
+  closed: false } 
+ Mon Jul 16 2018 16:38:23 GMT+0200 (ora legale Europa occidentale)
+[debug] [2018-07-16T14:38:23.939Z] <<< HTTP RESPONSE 200
+[info] +  functions: functions folder uploaded successfully
+[debug] [2018-07-16T14:38:23.945Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/projects/school-book-an/locations/us-central1/functions  
+  
+ Mon Jul 16 2018 16:38:23 GMT+0200 (ora legale Europa occidentale)
+[debug] [2018-07-16T14:38:25.063Z] <<< HTTP RESPONSE 200
+[info] i  functions: updating function sendWelcomeEmail...
+[debug] [2018-07-16T14:38:25.072Z] Trigger is:  {"eventTrigger":{"resource":"projects/school-book-an","eventType":"providers/firebase.auth/eventTypes/user.create","service":"firebaseauth.googleapis.com"}}
+[debug] [2018-07-16T14:38:25.075Z] >>> HTTP REQUEST PATCH https://cloudfunctions.googleapis.com/v1/projects/school-book-an/locations/us-central1/functions/sendWelcomeEmail 
+query params: {"updateMask":"sourceUploadUrl,name,labels,eventTrigger.resource,eventTrigger.eventType,eventTrigger.service"} 
+ { sourceUploadUrl: 'https://storage.googleapis.com/gcf-upload-us-central1-59c9f6ce-9313-4216-b52d-c49cb13cb6d0/da2d2f82-1895-4d33-a2be-df71cf729115.zip?GoogleAccessId=service-951496831430@gcf-admin-robot.iam.gserviceaccount.com&Expires=1531753701&Signature=GwxsUbQWjoPtOiBQjgv69y43YWGyJcSwjDj0r7nlabFweIdhZ%2BFRuM2LGE9Y%2FWA%2Fvob7SqEAZ90CyrcE7LHk3kaO2iNB6eu1aSQfYEuEvoGcRJA3ea7lR7HAl7hu2P4QxR0PNtgNmHpO9IBl9l7Uuu3jc3Sa3e8yuFDT10knH3FH8Y8FM9az0IEdR2sShO38CWPQISt6kx1H317MwfKR%2BmXprLXm62eQrbmJZjfHVcKP1BIFAfFvdyIP2OAEZrWywbp%2BgAIH1OKMoW6UQ7QWHuIoSWSrRqVUG%2FXRra7D6OsL1RTrc7HTSZqWWU5ZPPhAUBeL4tHF81kYDDCagqT1sg%3D%3D',
+  name: 'projects/school-book-an/locations/us-central1/functions/sendWelcomeEmail',
+  labels: { 'deployment-tool': 'cli-firebase' },
+  eventTrigger: 
+   { resource: 'projects/school-book-an',
+     eventType: 'providers/firebase.auth/eventTypes/user.create',
+     service: 'firebaseauth.googleapis.com' } } 
+ Mon Jul 16 2018 16:38:25 GMT+0200 (ora legale Europa occidentale)
