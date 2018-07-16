@@ -38,7 +38,7 @@ exports.sendWelcomeEmail = functions.auth.user().onCreate((user : any) => {
 // Sends a welcome email to the given user.
 function sendWelcomeEmail(email) {
     const mailOptions = {
-      from: `${APP_NAME} <noreply@firebase.com>`,
+      from: `<noreply@firebase.com>`,
       to: email,
       subject :`Benvenuto su ${APP_NAME}!`,
       text : `Ciao! Benvenuto su ${APP_NAME}, ora potrai vendere i tuoi libri e comprarne altri!`
