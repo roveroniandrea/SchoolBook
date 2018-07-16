@@ -117,7 +117,7 @@ export class InfoLibroComponent implements OnInit {
   eliminaPreferiti() {
     console.log(this.preferiti);
     for (let i = 0; i < this.preferiti.length; i++) {
-      if (this.preferiti[i] == this.idLibro) {
+      if (this.preferiti[i] == this.idLibro) {          //per info vedi perferiti.component.ts in cercaLibro()
         if (this.preferiti[i] == this.preferiti[this.preferiti.length - 1]) {
           this.preferiti.pop();
         } else {

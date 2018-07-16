@@ -37,11 +37,18 @@ export class PreferitiComponent implements OnInit {
     this.libro = [];
     for (let i = 0; i < this.preferiti.length; i++) {
       this.database.collection("books").doc(this.preferiti[i]).snapshotChanges().subscribe(val => {
-        this.libro[i] = <Libro>val.payload.data();
-        this.libro[i].id = val.payload.id;
-        this.libro[i] = this.libroUrlService.setLibroUrl(this.libro[i]);
+        if (val.payload.exists) { //controllo se il libro esiste
+          this.libro[i] = <Libro>val.payload.data();
+          this.libro[i].id = val.payload.id;
+          this.libro[i] = this.libroUrlService.setLibroUrl(this.libro[i]);
+        }
+        else{
+          this.libro[i] = null; //imposto a null l'elemento. La card comparirà solo se libro != null
+        }
+        
       })
     }
     this.stoCercandoLibri = false;
   }
+
 }
