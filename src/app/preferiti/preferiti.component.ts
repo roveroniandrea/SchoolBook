@@ -9,10 +9,13 @@ import { LibroUrlService } from '../servizi/libro-url.service';
   templateUrl: './preferiti.component.html',
   styleUrls: ['./preferiti.component.css']
 })
+
 export class PreferitiComponent implements OnInit {
+  /* Variabili */
   libro: Libro[] = [];
   preferiti: string[] = [];
   stoCercandoLibri = false;
+
   constructor(private database: AngularFirestore,
     private userService: UserService,
     private libroUrlService: LibroUrlService) {
@@ -22,6 +25,7 @@ export class PreferitiComponent implements OnInit {
   ngOnInit() {
   }
 
+  /* Cerco se ci sono dei preferiti in user */
   cercaPreferiti() {
     this.stoCercandoLibri = true;
     this.database.collection("users").doc(this.userService.utente.uid).snapshotChanges().subscribe(val => {
@@ -33,6 +37,7 @@ export class PreferitiComponent implements OnInit {
     })
   }
 
+  /* Cerco il libro corrispondente all'uid trovato nello user */
   cercaLibro() {
     this.libro = [];
     for (let i = 0; i < this.preferiti.length; i++) {

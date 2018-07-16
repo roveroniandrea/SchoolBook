@@ -1,16 +1,20 @@
+/* Per mettere gli input in colonna */
 .input {
     display: block;
 }
 
+/* Per accentrare il testo */
 .contenuto {
     text-align: center;
 }
 
+/* Error */
 p {
     color: red;
     font-size: 0.8em;
 }
 
+/* Button */
 .btn {
     float: right;
     margin-top: 1em;
@@ -22,6 +26,7 @@ button {
     margin-top: 0.5em;
 }
 
+/* Per posizionare e settare le dimensioni della card */
 .card {
     width: 34%;
     height: auto; 
