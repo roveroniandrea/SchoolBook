@@ -36,13 +36,32 @@ exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
 // Sends a welcome email to the given user.
 function sendWelcomeEmail(email) {
     const mailOptions = {
-        from: `${APP_NAME} <noreply@firebase.com>`,
+        from: `<noreply@firebase.com>`,
         to: email,
-        subject: `Welcome to ${APP_NAME}!`,
+        subject: `Benvenuto su ${APP_NAME}!`,
         text: `Ciao! Benvenuto su ${APP_NAME}, ora potrai vendere i tuoi libri e comprarne altri!`
     };
     return mailTransport.sendMail(mailOptions).then(() => {
         return console.log('Email di benvenuto spedita a: ', email);
     });
 }
+//funzione per contattare l'utente
+exports.contattaUtente = functions.https.onRequest((req, res) => {
+    //set JSON content type and CORS headers for the response
+    res.header('Content-Type', 'application/json');
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    const mailOptions = {
+        from: `<noreply@firebase.com>`,
+        to: req.body.mailDestinatario,
+        subject: "Qualcuno è interessato al tuo libro!",
+        text: "Ciao " + req.body.nomeDestinatario + "!" +
+            "Qualcuno è interessato al tuo libro!"
+    };
+    return mailTransport.sendMail(mailOptions)
+        .then(() => {
+        res.send("Funziona!");
+        return console.log('Email di benvenuto spedita a: ', req.body.mailDestinatario);
+    });
+});
 //# sourceMappingURL=index.js.map

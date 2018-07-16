@@ -1,5 +1,5 @@
 <!-- Form -->
-<form [formGroup]="loginForm" (ngSubmit)="login()">
+<form [formGroup]="loginForm" (ngSubmit)="login()" *ngIf="!passwordDimenticata">
     <mat-card class="card">
         <div class="contenuto">
             <!-- Input -->
@@ -13,11 +13,26 @@
             <!-- Error -->
             <p *ngIf="error">{{error.message}}</p>
             <!-- Button -->
+            <button mat-raised-button color="warn" type="button" (click)="passwordDimenticata = true">Password dimenticata?</button>
             <button mat-raised-button color="primary" routerLink="/" type="button">Annulla</button>
-            <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.value.mail && loginForm.value.password">Entra</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Entra</button>
         </div>
     </mat-card>
 </form>
-<!-- Accedendo con google crea anche l'utente se non esiste, ma non nel database
-<button mat-raised-button color="primary" type="button" (click)="google()">Accedi con Google</button>
--->
+<!-- Form -->
+<form [formGroup]="recuperoForm" (ngSubmit)="recuperaPassword()" *ngIf="passwordDimenticata">
+    <mat-card class="card">
+        <div class="contenuto">
+            <!-- Input -->
+            <h2>Recupera la tua mail</h2>
+            <mat-form-field class="input">
+                <input matInput placeholder="Mail di recupero" formControlName="mail">
+            </mat-form-field>
+            <!-- Error -->
+            <p *ngIf="errorRecuperoPassword">{{errorRecuperoPassword.message}}</p>
+            <!-- Button -->
+            <button mat-raised-button color="primary" type="button" (click)="passwordDimenticata = false" [disabled]="stoInviandoRichiestaRecupero">Annulla</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!recuperoForm.valid || stoInviandoRichiestaRecupero">Invia email</button>
+        </div>
+    </mat-card>
+</form>

@@ -21,6 +21,7 @@ export class AccountComponent implements OnInit {
   mode = "see";
   accountForm: FormGroup;
   myBooks: Libro[];
+  stoModificandoUtente = false; //impostato a true quando l'update su firebase è in corso (disabilita i pulsanti)
   user = this.autenticazione.auth.currentUser;
 
   constructor(private route: ActivatedRoute,
@@ -38,18 +39,28 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.accountForm = new FormGroup({
-      "nome": new FormControl(this.userService.utente.nome, Validators.required),
-      "cognome": new FormControl(this.userService.utente.cognome),
-      "mail": new FormControl(this.userService.utente.mail, [Validators.required, Validators.email]),
-      "telefono": new FormControl(this.userService.utente.telefono),
-      "scuola": new FormControl(this.userService.utente.scuola, Validators.required),
+      "nome": new FormControl("", Validators.required),
+      "cognome": new FormControl(""),
+      //"mail": new FormControl(this.userService.utente.mail, [Validators.required, Validators.email]),
+      "telefono": new FormControl(""),
+      "scuola": new FormControl("", Validators.required),
     })
     this.cercaMieiLibri();
   }
 
   submitAccount() {
-    console.log("submitted", this.accountForm.value);
-    this.mode = "see";
+    this.stoModificandoUtente = true;
+    const utenteModificato = this.accountForm.value;
+    this.db.collection("users").doc(this.userService.utente.uid).update(utenteModificato)
+      .catch(err => {
+        console.log("errore", err);
+        this.stoModificandoUtente = false;
+      })
+      .then(res => {
+        console.log("submitted", utenteModificato);
+        this.stoModificandoUtente = false;
+        this.mode = "see";
+      })
   }
 
   cercaMieiLibri() {
@@ -134,5 +145,15 @@ export class AccountComponent implements OnInit {
         console.log("Utente eliminato.");
         this.snackBar.open("Eliminazione effettuata con successo", "", { duration: 2000 });
       });
+  }
+
+  modificaDati() {
+    this.mode = "edit";
+    this.accountForm.setValue({
+      "nome": this.userService.utente.nome,
+      "cognome": this.userService.utente.cognome,
+      "telefono": this.userService.utente.telefono,
+      "scuola": this.userService.utente.scuola
+    })
   }
 }
