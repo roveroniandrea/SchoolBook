@@ -8,6 +8,15 @@
     text-align: center;
 }
 
+a {
+    font-size: 0.8em;
+    color: #3f51b5;
+}
+
+a:hover {
+    color: red;
+}
+
 /* Error */
 p {
     color: red;

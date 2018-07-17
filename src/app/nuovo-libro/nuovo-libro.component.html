@@ -4,13 +4,12 @@
   <mat-divider class="spaziatore"></mat-divider>
   <form [formGroup]="uploadForm" (ngSubmit)="submitForm()" *ngIf="!stoCercandoLibroDaModificare" (change)="onChange()">
     <div class="sinistro" *ngIf="!stoCaricandoImmagine">
+      <img alt="immagine" [src]="urlNuovaFoto || newLibro.imageUrl" *ngIf="newLibro && (urlNuovaFoto || newLibro.imageUrl)">
+      <img alt="immagine" [src]="libroUrlService.defaultUrl" *ngIf="!(newLibro && (urlNuovaFoto || newLibro.imageUrl))">
       <label class="mat-primary mat-raised-button" for="image">
         Seleziona immagine
         <input name="files[]" style="display: none" title="Seleziona immagine" type="file" id="image" accept="image/*" (change)="immagineSelezionata($event)">
       </label>
-      <br>
-      <img alt="immagine" [src]="urlNuovaFoto || newLibro.imageUrl" *ngIf="newLibro&&(urlNuovaFoto || newLibro.imageUrl)">
-      <img alt="immagine" [src]="libroUrlService.defaultUrl" *ngIf="!(newLibro&&(urlNuovaFoto || newLibro.imageUrl))">
     </div>
     <div clas="sinistro" *ngIf="stoCaricandoImmagine">
       <mat-spinner></mat-spinner>
@@ -26,26 +25,23 @@
         <input matInput placeholder="ISBN:" formControlName="isbn">
       </mat-form-field>
       <mat-form-field class="width">
-        <input matInput placeholder="Prezzo:" formControlName="prezzo">
+        <input type="number" matInput placeholder="Prezzo:" formControlName="prezzo">
       </mat-form-field>
     </div>
-    <mat-form-field class="width">
-      <textarea matInput placeholder="Descrizione:" formControlName="descrizione"></textarea>
-    </mat-form-field>
+    <div>
+      <mat-form-field class="width">
+        <textarea matInput placeholder="Descrizione:" formControlName="descrizione"></textarea>
+      </mat-form-field>
+    </div>
     <div class="btn">
       <button mat-raised-button color="primary" (click)="annullaForm()" type="button">Annulla</button>
       <button mat-raised-button color="primary" type="submit" [disabled]="!uploadForm.valid || stoCaricandoImmagine">Salva</button>
-      <!-- (click)="" aggiunge ai preferiti -->
     </div>
-
   </form>
   <mat-spinner *ngIf="stoCercandoLibroDaModificare"></mat-spinner>
 </div>
 <div *ngIf="progressoCaricamento>=0">
-<h2>Caricamento in corso...</h2>
-<mat-progress-spinner
-        color="primary"
-        [mode]="(progressoCaricamento>0)? 'determinate' : 'indeterminate'"
-        [value]="progressoCaricamento">
-    </mat-progress-spinner>
+  <h2>Caricamento in corso...</h2>
+  <mat-progress-spinner color="primary" [mode]="(progressoCaricamento>0)? 'determinate' : 'indeterminate'" [value]="progressoCaricamento">
+  </mat-progress-spinner>
 </div>

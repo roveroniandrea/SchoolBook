@@ -156,4 +156,21 @@ export class AccountComponent implements OnInit {
       "scuola": this.userService.utente.scuola
     })
   }
+
+  modificaPassword() {
+    let desc = "Il link verrà inviato alla seguente mail: " + this.userService.utente.mail + ".";
+    const dialogRef = this.matDialog.open(PerditaModificheComponent, { data: { titolo: "Conferma modifica password!", descrizione: desc } });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.autenticazione.auth.sendPasswordResetEmail(this.userService.utente.mail)
+          .catch(error => {
+            console.log(error);
+            this.snackBar.open("Errore durante l'invio della mail", "", { duration: 2000 });
+          })
+          .then(result => {
+            this.snackBar.open("Mail inviata", "", { duration: 2000 });
+          })
+      }
+    })
+  }
 }

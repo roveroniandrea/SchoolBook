@@ -22,8 +22,6 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
   uploadForm: FormGroup;
   //patternPrezzo = "^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$";
   immagine: File; //l'immagine caricata
-  //filePath: string;  //conterrà il percorso generato dall'uuid
-  //imageRef: any;
   newLibro: any = {}; //non rendere di classe Libro
   progressoCaricamento = -1;
   uuidv4 = require('uuid/v4');
@@ -64,7 +62,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
       this.uploadForm.setValue({
         "titolo": this.newLibro.titolo,
         "isbn": this.newLibro.isbn,
-        "prezzo": this.newLibro.prezzo,
+        "prezzo": (<number>this.newLibro.prezzo).toFixed(2),
         "descrizione": this.newLibro.descrizione
       });
       this.stoCercandoLibroDaModificare = false;
@@ -92,7 +90,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
   submitForm() {
     this.newLibro.titolo = this.uploadForm.value.titolo.toLowerCase();
     this.newLibro.isbn = this.uploadForm.value.isbn;
-    this.newLibro.prezzo = this.uploadForm.value.prezzo;
+    this.newLibro.prezzo = (<number>this.uploadForm.value.prezzo).toFixed(2);
     this.newLibro.descrizione = this.uploadForm.value.descrizione;   //aggiorno newLibro
     this.newLibro.id_utente = this.userService.utente.uid;
 

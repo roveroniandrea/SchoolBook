@@ -22,11 +22,6 @@
       <mat-form-field class="inputAccount">
         <input matInput placeholder="Cognome: " formControlName="cognome">
       </mat-form-field>
-      <!--
-      <mat-form-field class="inputAccount">
-        <input matInput placeholder="Mail: " formControlName="mail">
-      </mat-form-field>
-    -->
       <mat-form-field class="inputAccount">
         <input matInput placeholder="Telefono: " formControlName="telefono">
       </mat-form-field>
@@ -34,6 +29,7 @@
         <input matInput placeholder="Località o Scuola: " formControlName="scuola">
       </mat-form-field>
     </div>
+    <button mat-raised-button color="primary" (click)="modificaPassword()">Modifica Password</button>
     <div class="btn">
       <button mat-raised-button color="primary" (click)="mode='see'" type="reset" [disabled]="stoModificandoUtente">Annulla modifiche</button>
       <button mat-raised-button color="primary" [disabled]="!accountForm.valid || stoModificandoUtente" type="submit">Conferma modifiche</button>
