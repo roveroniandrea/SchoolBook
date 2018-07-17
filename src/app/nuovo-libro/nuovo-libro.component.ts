@@ -62,7 +62,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
       this.uploadForm.setValue({
         "titolo": this.newLibro.titolo,
         "isbn": this.newLibro.isbn,
-        "prezzo": (<number>this.newLibro.prezzo).toFixed(2),
+        "prezzo": this.newLibro.prezzo,
         "descrizione": this.newLibro.descrizione
       });
       this.stoCercandoLibroDaModificare = false;
