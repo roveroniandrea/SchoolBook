@@ -7,7 +7,7 @@
     height: 25em; 
     float: left;
     text-align: center;
-    margin-bottom: 1em;
+    margin-bottom: 4em;
 }
 
 .destro {
@@ -18,9 +18,16 @@
     margin-bottom: 1em;
 }
 
+.btnImg {
+    width: 50%;
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+
 img {
     height: 100%;
     width: 70%;
+    margin-bottom: 1em;
 }
 
 .divisore {
@@ -48,15 +55,15 @@ button {
 
 @media(max-width: 499px) {
     .sinistro {
-        width: 50%; 
+        width: 100%; 
         float: none;
         height: 10em;
         text-align: center;
-        margin-bottom: 1em;
+        margin-bottom: 2em;
     }
     
     .destro {
-        width: 50%; 
+        width: 100%; 
         float: none;
         height: 20em;
         text-align: center;
