@@ -1,4 +1,4 @@
-<mat-card *ngIf="libro"
+<mat-card *ngIf="libro && libro.id"
   class="card" 
   [routerLink]="['/infoLibro',libro.id]">
   <mat-grid-list cols="34" rowHeight="1em">
