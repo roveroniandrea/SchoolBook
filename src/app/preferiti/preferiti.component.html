@@ -5,4 +5,6 @@
 <!-- Spinner caricamento -->
 <mat-spinner *ngIf="stoCercandoLibri"></mat-spinner>
 <!-- Se ci sono libri -->
-<app-libro *ngFor="let book of libro" [libro]="book"></app-libro>
+<div *ngIf="libro[1] != null">
+    <app-libro *ngFor="let book of libro" [libro]="book"></app-libro>
+</div>
