@@ -1,4 +1,5 @@
 <!-- Form -->
+<div>
 <form [formGroup]="loginForm" (ngSubmit)="login()" *ngIf="!passwordDimenticata">
     <mat-card class="card">
         <div class="contenuto">
@@ -39,3 +40,4 @@
         </div>
     </mat-card>
 </form>
+</div>
