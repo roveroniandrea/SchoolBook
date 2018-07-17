@@ -12,8 +12,11 @@
             </mat-form-field>
             <!-- Error -->
             <p *ngIf="error">{{error.message}}</p>
+            <!-- Link password -->
+            <div>
+                <a (click)="passwordDimenticata = true">Password dimenticata?</a>
+            </div>
             <!-- Button -->
-            <button mat-raised-button color="warn" type="button" (click)="passwordDimenticata = true">Password dimenticata?</button>
             <button mat-raised-button color="primary" routerLink="/" type="button">Annulla</button>
             <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Entra</button>
         </div>
