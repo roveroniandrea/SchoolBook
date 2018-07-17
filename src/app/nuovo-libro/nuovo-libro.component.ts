@@ -22,8 +22,6 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
   uploadForm: FormGroup;
   //patternPrezzo = "^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$";
   immagine: File; //l'immagine caricata
-  //filePath: string;  //conterrà il percorso generato dall'uuid
-  //imageRef: any;
   newLibro: any = {}; //non rendere di classe Libro
   progressoCaricamento = -1;
   uuidv4 = require('uuid/v4');
