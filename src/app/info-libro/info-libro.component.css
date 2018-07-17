@@ -53,15 +53,15 @@ button {
 
 @media(max-width: 499px) {
     .sinistro {
-        width: 50%; 
+        width: 100%; 
         float: none;
-        height: 10em;
+        height: 15em;
         text-align: center;
         margin-bottom: 1em;
     }
     
     .destro {
-        width: 50%; 
+        width: 100%; 
         height: 25em; 
         float: none;
         text-align: center;

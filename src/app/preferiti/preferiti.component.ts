@@ -47,13 +47,32 @@ export class PreferitiComponent implements OnInit {
           this.libro[i].id = val.payload.id;
           this.libro[i] = this.libroUrlService.setLibroUrl(this.libro[i]);
         }
-        else{
-          this.libro[i] = null; //imposto a null l'elemento. La card comparirà solo se libro != null
+        else {
+          this.libro[i] = new Libro(); //imposto a null l'elemento. La card comparirà solo se libro != null
         }
-        
+        if (this.libro.length == this.preferiti.length) {
+          this.controllaPreferiti(); //solo quando il for ha finito controllo i libri nulli
+        }
       })
     }
     this.stoCercandoLibri = false;
   }
 
+  controllaPreferiti() { //elimina i libri nulli
+    console.log(this.libro);
+    if (this.libro) {
+      for (let i = 0; i < this.libro.length; i++) {
+        if (this.libro[i]&&this.libro[i].id == "") {
+          this.libro[i] = this.libro[this.libro.length - 1];
+          //console.log("libri",this.libro)
+          this.libro.pop();
+          //console.log("pop")
+        }
+      }
+    }
+    else {
+      this.libro = [];
+      console.log(this.libro);
+    }
+  }
 }
