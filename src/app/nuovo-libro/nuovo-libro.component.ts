@@ -62,7 +62,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
       this.uploadForm.setValue({
         "titolo": this.newLibro.titolo,
         "isbn": this.newLibro.isbn,
-        "prezzo": this.newLibro.prezzo,
+        "prezzo": (<number>this.newLibro.prezzo).toFixed(2),
         "descrizione": this.newLibro.descrizione
       });
       this.stoCercandoLibroDaModificare = false;
@@ -90,7 +90,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
   submitForm() {
     this.newLibro.titolo = this.uploadForm.value.titolo.toLowerCase();
     this.newLibro.isbn = this.uploadForm.value.isbn;
-    this.newLibro.prezzo = this.uploadForm.value.prezzo;
+    this.newLibro.prezzo = (<number>this.uploadForm.value.prezzo).toFixed(2);
     this.newLibro.descrizione = this.uploadForm.value.descrizione;   //aggiorno newLibro
     this.newLibro.id_utente = this.userService.utente.uid;
 
