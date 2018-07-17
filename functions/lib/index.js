@@ -52,16 +52,29 @@ exports.contattaUtente = functions.https.onRequest((req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     const mailOptions = {
-        from: `<noreply@firebase.com>`,
+        from: "<noreply@firebase.com>",
         to: req.body.mailDestinatario,
-        subject: "Qualcuno è interessato al tuo libro!",
-        text: "Ciao " + req.body.nomeDestinatario + "!" +
-            "Qualcuno è interessato al tuo libro!"
+        subject: "Qualcuno è interessato al tuo libro " + req.body.titoloLibro + "!",
+        text: "Ciao " + req.body.nomeDestinatario + "!"
+            + "\n" + req.body.nomeMittente + " è interessato al tuo libro e ti ha scritto:\n" +
+            req.body.testo + "\n Contattalo: " + req.body.mailMittente
     };
-    return mailTransport.sendMail(mailOptions)
-        .then(() => {
-        res.send("Funziona!");
-        return console.log('Email di benvenuto spedita a: ', req.body.mailDestinatario);
-    });
+    if (req.method == "POST") { //se è metodo post (no options)
+        return mailTransport.sendMail(mailOptions)
+            .then(() => {
+            res.send({
+                error: "",
+                message: "Email inviata"
+            });
+            return console.log('Richiesta di contatto spedita a: ', req.body.mailDestinatario);
+        });
+    }
+    else {
+        res.send({
+            error: "OPTIONS",
+            message: "Email inviata"
+        });
+        return console.log("Bloccato metodo sbagliato: " + req.method);
+    }
 });
 //# sourceMappingURL=index.js.map

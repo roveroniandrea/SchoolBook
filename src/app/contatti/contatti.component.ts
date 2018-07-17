@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Autore } from '../classe-autore/classe-autore';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Libro } from '../classe-libro/classe-libro';
 import { LibroUrlService } from '../servizi/libro-url.service';
 import { UserService } from '../servizi/utente.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormGroup, FormControl, Validators } from '../../../node_modules/@angular/forms';
+import { MatSnackBar } from '../../../node_modules/@angular/material';
 
 @Component({
   selector: 'app-contatti',
@@ -14,13 +16,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ContattiComponent implements OnInit {
   infoMail = {
-    nomeDestinatario : null,
-    mailDestinatario : null,
-    nomeMittente : null,
-    mailMittente : null,
-    //testo = 
-    titoloLibro : null
-    
+    nomeDestinatario: null,
+    mailDestinatario: null,
+    nomeMittente: null,
+    mailMittente: null,
+    testo: null,
+    titoloLibro: null
   }
   panelOpenState = false;
   utente: Autore = new Autore();
@@ -31,30 +32,38 @@ export class ContattiComponent implements OnInit {
       //'Access-Control-Allow-Origin' : "*"
       //'Access-Control-Allow-Headers' : "Content-Type"
     })
-  }
-
-  constructor(private route: ActivatedRoute, 
-    private userService: UserService, 
-    private db: AngularFirestore, 
-    private libroUrlService:LibroUrlService,
-    private httpClient : HttpClient) { }
-
-  ngOnInit() {
-    const id_libro = this.route.snapshot.params["id_libro"];
-      this.libro.id = id_libro;
-      this.cercaLibro();
-  }
-
-  cercaUtente(id_utente){
-    this.db.collection("users").doc(id_utente).valueChanges().subscribe(val=>{
-      let datiUtente = val;
-      this.utente = <Autore>{uid: id_utente, ...datiUtente};
+  };
+  testoForm: FormGroup;
+  stoInviandoRichiesta = false;
+  constructor(private route: ActivatedRoute,
+    private userService: UserService,
+    private db: AngularFirestore,
+    private libroUrlService: LibroUrlService,
+    private httpClient: HttpClient,
+    private snackBar: MatSnackBar,
+    private router: Router) {
+    //imposto il form
+    this.testoForm = new FormGroup({
+      "testo": new FormControl("", Validators.required),
     })
   }
 
-  cercaLibro(){
-    this.db.collection("books").doc(this.libro.id).valueChanges().subscribe(val=>{
-      const myLibro = <Libro>{id: this.libro.id, ...val}
+  ngOnInit() {
+    const id_libro = this.route.snapshot.params["id_libro"];
+    this.libro.id = id_libro;
+    this.cercaLibro();
+  }
+
+  cercaUtente(id_utente) {
+    this.db.collection("users").doc(id_utente).valueChanges().subscribe(val => {
+      let datiUtente = val;
+      this.utente = <Autore>{ uid: id_utente, ...datiUtente };
+    })
+  }
+
+  cercaLibro() {
+    this.db.collection("books").doc(this.libro.id).valueChanges().subscribe(val => {
+      const myLibro = <Libro>{ id: this.libro.id, ...val }
       this.libro = this.libroUrlService.setLibroUrl(myLibro);
       this.cercaUtente(this.libro.id_utente);
     })
@@ -65,17 +74,24 @@ export class ContattiComponent implements OnInit {
     this.infoMail.mailDestinatario = this.utente.mail;
     this.infoMail.nomeMittente = this.userService.utente.nome;
     this.infoMail.mailMittente = this.userService.utente.mail;
-    //testo = 
-    this.infoMail.titoloLibro = this.libro.titolo; 
-    console.log("nomeDestinatario",this.infoMail.nomeDestinatario,
-      "mailDestinatario", this.infoMail.mailDestinatario,
-      "nomeMittente", this.infoMail.nomeMittente,
-      "mailMittente", this.infoMail.mailMittente,
-      "titoloLibro", this.infoMail.titoloLibro);
-    this.httpClient.post("//us-central1-school-book-an.cloudfunctions.net/contattaUtente", this.infoMail, this.httpOptions).subscribe(
-      result => {
-        console.log("invio mail: ",result);
-      })
-      console.log("richiesta inviata.");
+    this.infoMail.testo = this.testoForm.value.testo;
+    this.infoMail.titoloLibro = this.libro.titolo;
+    //console.log("info mail",<Object>this.infoMail);
+    this.stoInviandoRichiesta = true;
+    this.httpClient.post("//us-central1-school-book-an.cloudfunctions.net/contattaUtente", this.infoMail, this.httpOptions).subscribe(result => {
+      let response = <any>result;
+      this.stoInviandoRichiesta = false;
+      if (response.error) {
+        if (response.error != "OPTIONS") {
+          this.snackBar.open("Errore nella richiesta: " + response.error, "", { duration: 2000 });
+        }
+      }
+      else {
+        this.snackBar.open("Richiesta inviata correttamente!", "", { duration: 2000 }).afterDismissed().subscribe(dismiss => {
+          this.router.navigate(["/infoLibro",this.libro.id]);
+        })
+      }
+    })
+    console.log("richiesta inviata.");
   }
 }
