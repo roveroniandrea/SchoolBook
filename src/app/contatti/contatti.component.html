@@ -1,31 +1,36 @@
 <h2>Contatta Proprietario</h2>
 <mat-divider class="spaziatore"></mat-divider>
-<mat-accordion> 
-  <mat-expansion-panel class="dimension" (opened)="panelOpenState = true" (closed)="panelOpenState = false"> 
-    <mat-expansion-panel-header> 
-      <mat-panel-title> 
-        Proprietario 
-      </mat-panel-title> 
-      <mat-panel-description class="capitalize"> 
-        {{ utente.nome }} {{ utente.cognome }} 
-      </mat-panel-description> 
-    </mat-expansion-panel-header> 
+<mat-accordion>
+  <mat-expansion-panel class="dimension" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Proprietario
+      </mat-panel-title>
+      <mat-panel-description class="capitalize">
+        {{ utente.nome }} {{ utente.cognome }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
     <p>Mail: {{ utente.mail }}</p>
     <p>Telefono: {{ utente.telefono }}</p>
     <p class="capitalize">Località o Scuola: {{ utente.scuola }}</p>
-  </mat-expansion-panel> 
-</mat-accordion> 
+  </mat-expansion-panel>
+</mat-accordion>
 <div>
   <p>Libro:</p>
   <app-libro [libro]="libro"></app-libro>
 </div>
-<form>
+<form class="width" [formGroup]="testoForm" (submit)="invioMail()" *ngIf="!stoInviandoRichiesta">
   <mat-form-field class="width">
-      <textarea matInput placeholder="Testo"></textarea>
+    <!--<textarea matInput placeholder="Testo" fromControlName="testo"></textarea>-->
+    <input matInput placeholder="Testo" formControlName="testo">
   </mat-form-field>
+  <p class="alert">Ricordati di lasciare un tuo contatto nel testo, altrimenti il proprietario non riuscirà a risponderti!</p>
+  <div class="btn">
+    <button mat-raised-button color="primary" type="button" routerLink="/">Annulla</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!testoForm.valid">Invio</button>
+  </div>
 </form>
-<p class="alert">Ricordati di lasciare un tuo contatto nel testo, altrimenti il proprietario non riuscirà a risponderti!</p>
-<div class="btn">
-  <button mat-raised-button color="primary" routerLink="/">Annulla</button>
-  <button mat-raised-button color="primary" (click)="invioMail()">Invio</button>
+<div *ngIf="stoInviandoRichiesta">
+  <p>Sto inviando la richiesta...</p>
+  <mat-spinner></mat-spinner>
 </div>
