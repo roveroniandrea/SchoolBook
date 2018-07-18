@@ -11,8 +11,8 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <p>Mail: {{ utente.mail }}</p>
-    <p>Telefono: {{ utente.telefono }}</p>
-    <p class="capitalize">Località o Scuola: {{ utente.scuola }}</p>
+    <p *ngIf="utente.telefono">Telefono: {{ utente.telefono }}</p>
+    <p class="capitalize" *ngIf="utente.scuola">Località: {{ utente.scuola }}</p>
   </mat-expansion-panel>
 </mat-accordion>
 <div>
