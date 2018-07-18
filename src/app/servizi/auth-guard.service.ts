@@ -21,3 +21,21 @@ export class AuthGuard implements CanActivate{
       })
     }
 }
+
+@Injectable()
+export class AuthGuardLoginRegister implements CanActivate{ //GUARDIA PER LOGIN/REGISTER DOVE L'UTENTE NON DEVE ESSERE LOGGATO
+    constructor(private userService : UserService, private router : Router){}
+    canActivate(route : ActivatedRouteSnapshot, state : RouterStateSnapshot) : Observable<boolean> | Promise<boolean> | boolean{
+      return this.userService.verificaStatoUtente()   //il servizio ritorna l'utente con credenziali (no proprietà di firebase)
+      .then(user=>{
+          //console.log("utente",user);
+          if(!user){
+              return true;
+          }
+          else{
+              this.router.navigateByUrl("/not-found");
+              return false;
+          }
+      })
+    }
+}
