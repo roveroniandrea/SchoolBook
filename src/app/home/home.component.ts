@@ -37,22 +37,22 @@ export class HomeComponent{
     //controllo se ho il queryParam libroEliminato
     const libroEliminato = route.snapshot.queryParams.libroEliminato;
     if(libroEliminato == 0){
-      snackBar.open("Libro non eliminato :(","",{duration: 2000});
+      snackBar.open("Errore durante l'eliminazione del libro","",{duration: 5000});
     }
     if(libroEliminato == 1){
-      snackBar.open("Libro eliminato correttamente!","",{duration: 2000});
+      snackBar.open("Libro eliminato correttamente","",{duration: 5000});
     }
 
     //controllo se ho effettuato il logout nei queryParams
     const utenteLoggato = route.snapshot.queryParams.utenteLoggato;
     if(utenteLoggato== 0){
-      snackBar.open("Hai effettuato il logout","",{duration: 2000});
+      snackBar.open("Hai effettuato il logout","",{duration: 5000});
     }
     if(utenteLoggato== 1){
-      snackBar.open("Hai effettuato il login","",{duration: 2000});
+      snackBar.open("Hai effettuato il login","",{duration: 5000});
     }
     if(utenteLoggato== 2){
-      snackBar.open("Email di recupero correttamente inviata","",{duration:2000});
+      snackBar.open("Email di recupero correttamente inviata","",{duration:5000});
     }
   }
 }
