@@ -36,7 +36,7 @@ export class RegistrazioneComponent implements OnInit {
       "cognome": new FormControl(""),
       "mail": new FormControl("", [Validators.required, Validators.email]),
       "telefono": new FormControl(""),
-      "scuola": new FormControl("", Validators.required),
+      "scuola": new FormControl(""),
       "password": new FormControl("", Validators.required),
     })
   }

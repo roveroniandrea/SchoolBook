@@ -43,7 +43,7 @@ export class AccountComponent implements OnInit {
       "cognome": new FormControl(""),
       //"mail": new FormControl(this.userService.utente.mail, [Validators.required, Validators.email]),
       "telefono": new FormControl(""),
-      "scuola": new FormControl("", Validators.required),
+      "scuola": new FormControl(""),
     })
     this.cercaMieiLibri();
   }

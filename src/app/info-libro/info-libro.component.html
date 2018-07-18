@@ -12,11 +12,10 @@
     <p>Prezzo: {{libro.prezzo}} €</p>
     <mat-divider class="divisore"></mat-divider>
     <h3>Proprietario</h3>
-    <p class="capitalize">Nome: {{autore.nome}}</p>
-    <p class="capitalize">Cognome: {{autore.cognome}}</p>
+    <p class="capitalize">Proprietario: {{autore.nome}} {{autore.cognome}}</p>
     <p>Mail: {{autore.mail}}</p>
-    <p>Telefono: {{autore.telefono}}</p>
-    <p class="capitalize">Località o Scuola: {{autore.scuola}}</p>
+    <p *ngIf="autore.telefono">Telefono: {{autore.telefono}}</p>
+    <p class="capitalize" *ngIf="autore.scuola">Località: {{autore.scuola}}</p>
   </div>
   <h3 class="desc">Descrizione</h3>
   <p class="descrizione">{{libro.descrizione}}</p>

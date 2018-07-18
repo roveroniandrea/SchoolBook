@@ -3,10 +3,10 @@
 <div *ngIf="mode==='see'">
   <div>
     <p class="capitalize">Nome: {{userService.utente.nome}}</p>
-    <p class="capitalize">Cognome: {{userService.utente.cognome}}</p>
+    <p class="capitalize" *ngIf="userService.utente.cognome">Cognome: {{userService.utente.cognome}}</p>
     <p>Mail: {{userService.utente.mail}}</p>
-    <p>Telefono: {{userService.utente.telefono}}</p>
-    <p class="capitalize">Località o Scuola: {{userService.utente.scuola}}</p>
+    <p *ngIf="userService.utente.telefono">Telefono: {{userService.utente.telefono}}</p>
+    <p class="capitalize" *ngIf="userService.utente.scuola">Località: {{userService.utente.scuola}}</p>
   </div>
   <div class="btn">
     <button mat-raised-button color="primary" (click)="eliminaAccount()">Elimina Account</button>
@@ -26,7 +26,7 @@
         <input matInput placeholder="Telefono: " formControlName="telefono">
       </mat-form-field>
       <mat-form-field class="inputAccount">
-        <input matInput placeholder="Località o Scuola: " formControlName="scuola">
+        <input matInput placeholder="Località: " formControlName="scuola">
       </mat-form-field>
     </div>
     <button mat-raised-button color="primary" (click)="modificaPassword()">Modifica Password</button>
