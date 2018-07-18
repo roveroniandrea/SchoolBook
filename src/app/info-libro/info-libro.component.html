@@ -24,7 +24,7 @@
     <button class="btn2" mat-raised-button color="primary" [routerLink]="['/']">Vai alla Home</button>
     <button *ngIf="userService.utente.mail" class="btn2" mat-raised-button color="primary" [routerLink]="['/contatti',idLibro]"
       [disabled]="!autore.uid">Contatta Proprietario</button>
-    <button *ngIf="userService.utente.mail && !isPreferiti" class="btn2" mat-raised-button color="primary" (click)="aggiungiPreferiti()">Aggiungi ai Preferiti</button>
+    <button *ngIf="userService.utente.mail && !isPreferiti" class="btn2" mat-raised-button color="primary" (click)="aggiungiPreferiti()" [disabled]="!autore.uid">Aggiungi ai Preferiti</button>
     <button *ngIf="userService.utente.mail && isPreferiti" class="btn2" mat-raised-button color="primary" (click)="eliminaPreferiti()">Elimina dai Preferiti</button>
   </div>
   <div *ngIf="isProprietario == true" class="btn">
