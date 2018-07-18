@@ -2,14 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 //import * as functions from "firebase-functions";
 const functions = require("firebase-functions");
-//import { nodemailer } from "nodemailer";
+//var admin = require('firebase-admin');
+const admin = require("firebase-admin");
 const nodemailer = require('nodemailer');
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
 const APP_NAME = 'School Book';
 const gmailEmail = functions.config().gmail.email;
 const gmailPassword = functions.config().gmail.password;
@@ -20,11 +15,6 @@ const mailTransport = nodemailer.createTransport({
         pass: gmailPassword,
     },
 });
-// [START sendWelcomeEmail]
-/**
- * Sends a welcome email to new user.
- */
-// [START onCreateTrigger]
 exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
     // [END onCreateTrigger]
     // [START eventAttributes]
@@ -76,5 +66,11 @@ exports.contattaUtente = functions.https.onRequest((req, res) => {
         });
         return console.log("Bloccato metodo sbagliato: " + req.method);
     }
+});
+exports.impostaDataLibro = functions.firestore.document("books/{id}").onCreate((snapshot, context) => {
+    const data = admin.firestore.FieldValue.serverTimestamp();
+    return snapshot.ref.update({ data })
+        .catch(err => console.log("errore", err))
+        .then(res => console.log("funziona"));
 });
 //# sourceMappingURL=index.js.map

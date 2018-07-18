@@ -1,4 +1,5 @@
 import { Data } from "@angular/router";
+import { Timestamp } from "../../../node_modules/rxjs/internal/operators/timestamp";
 
 export class Libro {
     titolo : string;
@@ -6,7 +7,7 @@ export class Libro {
     descrizione: string;
     id: string;
     isbn: string;
-    data : Data;
+    data : any;
     id_utente : string;
     imageUrl : string;
     imagePath : string;
