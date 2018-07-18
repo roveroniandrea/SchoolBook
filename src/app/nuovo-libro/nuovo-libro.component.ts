@@ -94,8 +94,8 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     this.newLibro.descrizione = this.uploadForm.value.descrizione;   //aggiorno newLibro
     this.newLibro.id_utente = this.userService.utente.uid;
 
-    let data = Date.now();
-    this.newLibro.data = data;
+    //let data = Date.now();
+    //this.newLibro.data = data;
 
     if (this.pathNuovaFoto && this.newLibro.imagePath) {  //se c'è una nuova foto e il libro ne ha una vecchia
       console.log("cancello vecchia foto");
