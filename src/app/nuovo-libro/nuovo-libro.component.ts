@@ -7,7 +7,6 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Libro } from '../classe-libro/classe-libro';
 import { UserService } from '../servizi/utente.service';
 import { AngularFireStorage } from 'angularfire2/storage';
-import { LibroUrlService } from '../servizi/libro-url.service';
 import { CanComponentDeactivate } from '../servizi/canDeactivate-guard.service';
 import { Observable } from '../../../node_modules/rxjs';
 
@@ -34,12 +33,10 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
 
   constructor(private matDialog: MatDialog,
     private router: Router,
-    private db: AngularFirestore,
+    private database: AngularFirestore,
     private userService: UserService,
     private storage: AngularFireStorage,
-    private route: ActivatedRoute,
-    private libroUrlService: LibroUrlService
-  ) { }
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.idLibroDaURL = this.route.snapshot.queryParams.id_libro;
@@ -56,7 +53,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
   }
 
   cercaLibro() {       //cerco il libro con id passato da queryParams
-    this.db.collection("books").doc(this.idLibroDaURL).snapshotChanges().subscribe(val => {
+    this.database.collection("books").doc(this.idLibroDaURL).snapshotChanges().subscribe(val => {
       this.newLibro = <Libro>val.payload.data();
       this.newLibro.id = val.payload.id;
       this.uploadForm.setValue({
@@ -106,10 +103,12 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     const idLibro = this.newLibro.id || this.uuidv4(); //se il libro non ha un suoi id (quindi è nuovo), glielo imposto con uuid
     delete this.newLibro.id;
     console.log(this.newLibro);
-    this.db.collection("books").doc(idLibro).set(this.newLibro)
-      .catch(err => console.log(err))
-      .then(resolve => {
-        //console.log("resolve", resolve);
+    this.database.collection("books").doc(idLibro).set(this.newLibro)
+      .catch(error => 
+        console.log(error)
+      )
+      .then(result => {
+        //console.log("result", result);
         this.modificheEffettuate = false;
         this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 1 } });
       })

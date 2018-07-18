@@ -96,8 +96,8 @@ export class InfoLibroComponent implements OnInit {
   aggiungiPreferiti() {
     this.preferiti.push(this.idLibro);
     this.database.collection("users").doc(this.userService.utente.uid).update({ "preferiti": this.preferiti })
-      .catch(err => {
-        console.log(err);
+      .catch(error => {
+        console.log(error);
       })
       .then(result => {
         console.log("result", result);
@@ -117,8 +117,8 @@ export class InfoLibroComponent implements OnInit {
       }
     }
     this.database.collection("users").doc(this.userService.utente.uid).update({ "preferiti": this.preferiti })
-      .catch(err => {
-        console.log(err);
+      .catch(error => {
+        console.log(error);
       })
       .then(result => {
         console.log("result", result);

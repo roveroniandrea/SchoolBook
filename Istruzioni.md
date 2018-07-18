@@ -136,7 +136,7 @@ AngularFirestoreModule
 //nel component che ci interessa
 books : Observable<any[]>
 constructor(bd: AngularFirestore){
-	this.books = db.collection("books").valueChanges();
+	this.books = database.collection("books").valueChanges();
 }
 ```
 ```

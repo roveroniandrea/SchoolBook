@@ -37,7 +37,7 @@ export class ContattiComponent implements OnInit {
   stoInviandoRichiesta = false;
   constructor(private route: ActivatedRoute,
     private userService: UserService,
-    private db: AngularFirestore,
+    private database: AngularFirestore,
     private libroUrlService: LibroUrlService,
     private httpClient: HttpClient,
     private snackBar: MatSnackBar,
@@ -55,14 +55,14 @@ export class ContattiComponent implements OnInit {
   }
 
   cercaUtente(id_utente) {
-    this.db.collection("users").doc(id_utente).valueChanges().subscribe(val => {
+    this.database.collection("users").doc(id_utente).valueChanges().subscribe(val => {
       let datiUtente = val;
       this.utente = <Autore>{ uid: id_utente, ...datiUtente };
     })
   }
 
   cercaLibro() {
-    this.db.collection("books").doc(this.libro.id).valueChanges().subscribe(val => {
+    this.database.collection("books").doc(this.libro.id).valueChanges().subscribe(val => {
       const myLibro = <Libro>{ id: this.libro.id, ...val }
       this.libro = this.libroUrlService.setLibroUrl(myLibro);
       this.cercaUtente(this.libro.id_utente);
@@ -83,10 +83,8 @@ export class ContattiComponent implements OnInit {
       this.stoInviandoRichiesta = false;
       if (response.error) {
         if (response.error != "OPTIONS") {
-          this.snackBar.open("Errore durante l'invio della mail", "", { duration: 5000 });
-        }
-        else {
           console.log("Mail non inviata errore: ", response.error);
+          this.snackBar.open("Errore durante l'invio della mail", "", { duration: 5000 });
         }
       }
       else {
