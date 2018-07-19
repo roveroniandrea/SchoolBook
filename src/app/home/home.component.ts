@@ -4,8 +4,10 @@ import { Libro } from '../classe-libro/classe-libro';
 import { LibroUrlService } from '../servizi/libro-url.service';
 import { MatSnackBar } from '../../../node_modules/@angular/material';
 import { ActivatedRoute } from '../../../node_modules/@angular/router';
-import { Timestamp } from '../../../node_modules/rxjs';
-import { DatePipe } from '../../../node_modules/@angular/common';
+import { Observable } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -16,7 +18,27 @@ export class HomeComponent {
   booksPrice: Libro[];
   booksData: Libro[];
 
-  constructor(db: AngularFirestore, libroUrlService: LibroUrlService, private snackBar: MatSnackBar, private route: ActivatedRoute) {
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches)
+    );
+
+  constructor(db: AngularFirestore, 
+    libroUrlService: LibroUrlService, 
+    private snackBar: MatSnackBar, 
+    private route: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver) {
+
+    this.isHandset$.subscribe(val => {
+      if (val) {
+        this.numRisultatiDaMostrare = 6;
+      }
+      else{
+        this.numRisultatiDaMostrare = 8;
+      }
+    })
+    
+      
     db.collection("books", ref => ref.orderBy("prezzo").limit(6)).snapshotChanges().subscribe(items => {
       const nbooks = items.map(item => {
         const id = item.payload.doc.id;
