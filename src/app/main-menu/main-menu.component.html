@@ -25,7 +25,8 @@
         <button mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="">Home</button>
         <button mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="catalogo">Catalogo</button>
         <button *ngIf="userService.utente.mail" mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="preferiti">Preferiti</button>
-        <!-- login and register btn -->
+ <!--       <button *ngIf="userService.utente.mail" mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="account#mieiLibri">Miei Libri</button>
+ -->        <!-- login and register btn -->
         <div *ngIf="!userService.utente.mail" class="position-right">
           <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" matTooltip="Login"
             routerLink="login">
@@ -37,6 +38,7 @@
           </button>
         </div>
         <div *ngIf="userService.utente.mail" class="position-right">
+          <p>Ciao {{ userService.utente.nome }}</p>
           <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" [matTooltip]="userService.utente.nome"
             routerLink="account">
             <mat-icon>person</mat-icon>

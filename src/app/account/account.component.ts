@@ -35,6 +35,15 @@ export class AccountComponent implements OnInit {
     this.inserimentoLibro = this.route.snapshot.queryParams.inserimentoLibro;
     this.controllaUtenteCreato(this.route.snapshot.queryParams.utenteCreato); //se l'utente è stato creato faccio comparire uno snack bar
     this.controllaUploadLibro();
+
+    //controllo se ho il queryParam libroEliminato
+    const libroEliminato = this.route.snapshot.queryParams.libroEliminato;
+    if (libroEliminato == 0) {
+      this.snackBar.open("Errore durante l'eliminazione del libro", "", { duration: 5000 });
+    }
+    if (libroEliminato == 1) {
+      this.snackBar.open("Libro eliminato correttamente", "", { duration: 5000 });
+    }
   }
 
   ngOnInit() {

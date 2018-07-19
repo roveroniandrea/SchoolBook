@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatDialogModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatDialogModule, MatPaginatorModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -98,7 +98,8 @@ const appRoutes: Routes = [
     MatDialogModule,
     MatSnackBarModule,
     AngularFireAuthModule,
-    HttpClientModule
+    HttpClientModule,
+    MatPaginatorModule
   ],
   providers: [AuthGuard, UserService, CanDeactivateGuard],
   bootstrap: [AppComponent],
