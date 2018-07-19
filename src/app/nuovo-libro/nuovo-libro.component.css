@@ -48,7 +48,7 @@ p {
     margin-top: 1em;
 }
 
-button {
+button, label {
     padding: 0.5em;
     margin-right: 0.5em; 
 }

@@ -6,7 +6,7 @@
     <div class="sinistro" *ngIf="!stoCaricandoImmagine">
       <img alt="immagine" [src]="urlNuovaFoto || newLibro.imageUrl" *ngIf="newLibro && (urlNuovaFoto || newLibro.imageUrl)">
       <img alt="immagine" [src]="libroUrlService.defaultUrl" *ngIf="!(newLibro && (urlNuovaFoto || newLibro.imageUrl))">
-      <label class="mat-primary mat-raised-button" for="image">
+      <label class=" mat-primary mat-raised-button" for="image">
         Seleziona immagine
         <input name="files[]" style="display: none" title="Seleziona immagine" type="file" id="image" accept="image/*" (change)="immagineSelezionata($event)">
       </label>
