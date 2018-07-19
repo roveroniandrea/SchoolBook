@@ -10,6 +10,7 @@
         Seleziona immagine
         <input name="files[]" style="display: none" title="Seleziona immagine" type="file" id="image" accept="image/*" (change)="immagineSelezionata($event)">
       </label>
+      <button mat-raised-button color="primary" *ngIf="newLibro && (pathNuovaFoto || newLibro.imagePath)" type="button" (click)="rimuoviImmagine()">Rimuovi foto</button>
     </div>
     <div clas="sinistro" *ngIf="stoCaricandoImmagine">
       <mat-spinner></mat-spinner>
