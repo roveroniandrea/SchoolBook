@@ -34,39 +34,25 @@ export class HomeComponent {
       */
     });
 
-    db.collection("books", ref => ref.orderBy("data","desc").limit(6)).snapshotChanges().subscribe(items => {
+    db.collection("books", ref => ref.orderBy("data", "desc").limit(6)).snapshotChanges().subscribe(items => {
       const nbooks = items.map(item => {
         const id = item.payload.doc.id;
         const doc = item.payload.doc.data();
         return libroUrlService.setLibroUrl(<Libro>{ id, ...doc });
       });
       this.booksData = nbooks;
-      this.clickButton(2, 1);
     });
-
-    //controllo se ho il queryParam libroEliminato
-    const libroEliminato = route.snapshot.queryParams.libroEliminato;
-    if (libroEliminato == 0) {
-      snackBar.open("Libro non eliminato :(", "", { duration: 2000 });
-    }
-    if (libroEliminato == 1) {
-      snackBar.open("Libro eliminato correttamente!", "", { duration: 2000 });
-    }
-    if (utenteLoggato == 2) {
-      this.snackBar.open("Email di recupero correttamente inviata", "", { duration: 5000 });
-    }
-  }
-
+    
     //controllo se ho effettuato il logout nei queryParams
     const utenteLoggato = route.snapshot.queryParams.utenteLoggato;
     if (utenteLoggato == 0) {
-      snackBar.open("Hai effettuato il logout", "", { duration: 2000 });
+      snackBar.open("Hai effettuato il logout", "", { duration: 5000 });
     }
     if (utenteLoggato == 1) {
-      snackBar.open("Hai effettuato il login", "", { duration: 2000 });
+      snackBar.open("Hai effettuato il login", "", { duration: 5000 });
     }
     if (utenteLoggato == 2) {
-      snackBar.open("Email di recupero correttamente inviata", "", { duration: 2000 });
+      snackBar.open("Email di recupero correttamente inviata", "", { duration: 5000 });
     }
   }
 }
