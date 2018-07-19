@@ -4,8 +4,8 @@ import { Libro } from '../classe-libro/classe-libro';
 import { LibroUrlService } from '../servizi/libro-url.service';
 import { MatSnackBar } from '../../../node_modules/@angular/material';
 import { ActivatedRoute } from '../../../node_modules/@angular/router';
-import { Timestamp } from '../../../node_modules/rxjs';
-import { DatePipe } from '../../../node_modules/@angular/common';
+import { PaginatorService } from '../servizi/paginator.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,34 +13,39 @@ import { DatePipe } from '../../../node_modules/@angular/common';
 })
 export class HomeComponent {
   title = 'app';
-  booksPrice: Libro[];
-  booksData: Libro[];
+  booksPrice: Libro[] = [];
+  booksPriceDisplay : Libro[] = [];
+  booksData: Libro[] = [];
+  booksDataDisplay : Libro[] = [];
+  paginaCorrentePrezzo = 1; //La pagina corrente del prezzo
+  paginaCorrenteData = 1;
+  numRisultatiDaMostrare = 8;
+  nPages = [1,2,3,4,5];
 
-  constructor(db: AngularFirestore, libroUrlService: LibroUrlService, private snackBar: MatSnackBar, private route: ActivatedRoute) {
-    db.collection("books", ref => ref.orderBy("prezzo").limit(6)).snapshotChanges().subscribe(items => {
+  constructor(private db: AngularFirestore,
+    private libroUrlService: LibroUrlService,
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute,
+    public paginatorService : PaginatorService
+  ) {
+    db.collection("books", ref => ref.orderBy("prezzo")).snapshotChanges().subscribe(items => {
       const nbooks = items.map(item => {
         const id = item.payload.doc.id;
         const doc = item.payload.doc.data();
-        //console.log((<Libro>{id,...doc}).data)
-        //console.log(datePipe.transform((<Libro>doc).data,"full","+0130"));
-        //console.log(new Date((<Libro>doc).data))
         return libroUrlService.setLibroUrl(<Libro>{ id, ...doc });
       });
       this.booksPrice = nbooks;
-      /*
-      console.log(this.booksPrice[4].data.seconds);
-      let datePipe = new DatePipe("en-EN");
-      console.log(datePipe.transform(this.booksPrice[4].data.nanoseconds,"full","+0130"))
-      */
+      this.cambiaPaginaPrezzo(this.paginaCorrentePrezzo);
     });
 
-    db.collection("books", ref => ref.orderBy("data", "desc").limit(6)).snapshotChanges().subscribe(items => {
+    db.collection("books", ref => ref.orderBy("data", "desc")).snapshotChanges().subscribe(items => {
       const nbooks = items.map(item => {
         const id = item.payload.doc.id;
         const doc = item.payload.doc.data();
         return libroUrlService.setLibroUrl(<Libro>{ id, ...doc });
       });
       this.booksData = nbooks;
+      this.cambiaPaginaData(this.paginaCorrenteData);
     });
     
     //controllo se ho effettuato il logout nei queryParams
@@ -54,5 +59,17 @@ export class HomeComponent {
     if (utenteLoggato == 2) {
       snackBar.open("Email di recupero correttamente inviata", "", { duration: 5000 });
     }
+  }
+
+  cambiaPaginaPrezzo(num){
+    this.paginaCorrentePrezzo = num;
+    this.booksPriceDisplay = this.paginatorService.impostaPaginaCorrente(this.booksPrice,this.paginaCorrentePrezzo,this.numRisultatiDaMostrare);
+    //console.log(this.booksPriceDisplay);
+  }
+
+  cambiaPaginaData(num){
+    this.paginaCorrenteData = num;
+    this.booksDataDisplay = this.paginatorService.impostaPaginaCorrente(this.booksData,this.paginaCorrenteData,this.numRisultatiDaMostrare);
+    console.log(this.booksDataDisplay);
   }
 }
