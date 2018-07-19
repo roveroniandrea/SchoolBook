@@ -31,10 +31,10 @@ export class MainMenuComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.autenticazione.auth.signOut()
-          .catch(err => {
+          .catch(error => {
             console.log("Logout non effettuato.");
           })
-          .then(res => {
+          .then(result => {
             console.log("Logout effettuato.");
             this.router.navigateByUrl("/", { queryParams: { "utenteLoggato": 0 } })
           })

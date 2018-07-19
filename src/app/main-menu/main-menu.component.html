@@ -6,10 +6,16 @@
       <!-- right menu link -->
       <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="">Home</a>
       <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="catalogo">Catalogo</a>
-      <a mat-list-item *ngIf="userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="preferiti">Preferiti</a>
-      <a mat-list-item *ngIf="!userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="login">Login</a>
-      <a mat-list-item *ngIf="!userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="registrazione">Registrazione</a>
-      <a mat-list-item *ngIf="userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="account">Account</a>
+      <a mat-list-item *ngIf="userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}"
+        routerLink="preferiti">Preferiti</a>
+      <a mat-list-item *ngIf="userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}"
+        routerLink="new-book">Aggiungi Libro</a>
+      <a mat-list-item *ngIf="!userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}"
+        routerLink="login">Login</a>
+      <a mat-list-item *ngIf="!userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}"
+        routerLink="registrazione">Registrazione</a>
+      <a mat-list-item *ngIf="userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}"
+        routerLink="account">Account</a>
       <a mat-list-item *ngIf="userService.utente.mail" (click)="logout()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -24,7 +30,10 @@
         <!-- link btn -->
         <button mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="">Home</button>
         <button mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="catalogo">Catalogo</button>
-        <button *ngIf="userService.utente.mail" mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="preferiti">Preferiti</button>
+        <button *ngIf="userService.utente.mail" mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}"
+          routerLink="preferiti">Preferiti</button>
+        <button *ngIf="userService.utente.mail" mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}"
+          routerLink="new-book">Aggiungi Libro </button>
         <!-- login and register btn -->
         <div *ngIf="!userService.utente.mail" class="position-right">
           <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" matTooltip="Login"
@@ -37,6 +46,7 @@
           </button>
         </div>
         <div *ngIf="userService.utente.mail" class="position-right">
+          <p>Ciao {{ userService.utente.nome }}</p>
           <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" [matTooltip]="userService.utente.nome"
             routerLink="account">
             <mat-icon>person</mat-icon>

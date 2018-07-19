@@ -41,6 +41,7 @@ export class HomeComponent {
         return libroUrlService.setLibroUrl(<Libro>{ id, ...doc });
       });
       this.booksData = nbooks;
+      this.clickButton(2, 1);
     });
 
     //controllo se ho il queryParam libroEliminato
@@ -51,6 +52,10 @@ export class HomeComponent {
     if (libroEliminato == 1) {
       snackBar.open("Libro eliminato correttamente!", "", { duration: 2000 });
     }
+    if (utenteLoggato == 2) {
+      this.snackBar.open("Email di recupero correttamente inviata", "", { duration: 5000 });
+    }
+  }
 
     //controllo se ho effettuato il logout nei queryParams
     const utenteLoggato = route.snapshot.queryParams.utenteLoggato;

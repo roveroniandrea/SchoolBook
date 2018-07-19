@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '../../../node_modules/@angular/material';
 //import * as firebase from "firebase";
 
 @Component({
@@ -22,7 +21,6 @@ export class LoginComponent implements OnInit {
 
   constructor(private autenticazione: AngularFireAuth,
     private route: Router,
-    private snakcBar: MatSnackBar
   ) { }
 
   ngOnInit() {
