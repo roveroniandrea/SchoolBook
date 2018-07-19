@@ -15,7 +15,9 @@ export class CatalogoLibriComponent implements OnInit {
   allBooks: Libro[];
   nessunLibroTrovato = false;
   ricercaInCorso = false;
-  constructor(private db: AngularFirestore, private stringService: StringService, private libroUrlService: LibroUrlService) { }
+  constructor(private database: AngularFirestore, 
+    private stringService: StringService, 
+    private libroUrlService: LibroUrlService) { }
 
   ngOnInit() {
     this.searchForm = new FormGroup({
@@ -32,7 +34,7 @@ export class CatalogoLibriComponent implements OnInit {
       cercaTra = "isbn";
     }
     console.log("cerco libro")
-    this.db.collection("books", ref => ref.orderBy(cercaTra).startAt(parametroRicerca).endAt(parametroRicerca + "\uf8ff")).snapshotChanges().subscribe(val => {
+    this.database.collection("books", ref => ref.orderBy(cercaTra).startAt(parametroRicerca).endAt(parametroRicerca + "\uf8ff")).snapshotChanges().subscribe(val => {
       
       let nbooks: any[];   //nell'observable recupero tutti i libri corrispondenti alla stringa cercata
       nbooks = val.map(item => {

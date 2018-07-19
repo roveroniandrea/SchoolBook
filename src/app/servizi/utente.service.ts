@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Autore } from '../classe-autore/classe-autore';
-import { FirebaseAuth } from 'angularfire2';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 
@@ -9,14 +8,15 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class UserService {
   utente = new Autore()
-  //autenticazione : FirebaseAuth;
-  constructor(private autenticazione: AngularFireAuth, private db: AngularFirestore) {
-    autenticazione.auth.onAuthStateChanged(user => {
+
+  constructor(private autenticazione: AngularFireAuth, 
+    private database: AngularFirestore) {
+
+    this.autenticazione.auth.onAuthStateChanged(user => {
       this.utente.mail = user && user.email;
       this.utente.uid = user && user.uid;
-      //console.log("cerco utente");
       if (user) {
-        db.collection("users").doc(this.utente.uid).valueChanges().subscribe(val => {
+        this.database.collection("users").doc(this.utente.uid).valueChanges().subscribe(val => {
           let datiUtente = <Autore>val;
           if (datiUtente) {
             this.utente.nome = datiUtente.nome;
@@ -48,9 +48,4 @@ export class UserService {
     )
     return promise;
   }
-  /*
-    verificaStatoUtente2() {
-      return this.utente;
-    }
-    */
 }

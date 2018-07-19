@@ -26,7 +26,7 @@ export class AccountComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private userService: UserService,
-    private db: AngularFirestore,
+    private database: AngularFirestore,
     private libroUrlService: LibroUrlService,
     private snackBar: MatSnackBar,
     private autenticazione: AngularFireAuth,
@@ -35,6 +35,15 @@ export class AccountComponent implements OnInit {
     this.inserimentoLibro = this.route.snapshot.queryParams.inserimentoLibro;
     this.controllaUtenteCreato(this.route.snapshot.queryParams.utenteCreato); //se l'utente è stato creato faccio comparire uno snack bar
     this.controllaUploadLibro();
+
+    //controllo se ho il queryParam libroEliminato
+    const libroEliminato = this.route.snapshot.queryParams.libroEliminato;
+    if (libroEliminato == 0) {
+      this.snackBar.open("Errore durante l'eliminazione del libro", "", { duration: 5000 });
+    }
+    if (libroEliminato == 1) {
+      this.snackBar.open("Libro eliminato correttamente", "", { duration: 5000 });
+    }
   }
 
   ngOnInit() {
@@ -51,7 +60,7 @@ export class AccountComponent implements OnInit {
   submitAccount() {
     this.stoModificandoUtente = true;
     const utenteModificato = this.accountForm.value;
-    this.db.collection("users").doc(this.userService.utente.uid).update(utenteModificato)
+    this.database.collection("users").doc(this.userService.utente.uid).update(utenteModificato)
       .catch(err => {
         console.log("errore", err);
         this.stoModificandoUtente = false;
@@ -64,7 +73,7 @@ export class AccountComponent implements OnInit {
   }
 
   cercaMieiLibri() {
-    this.db.collection("books", ref => ref.where("id_utente", "==", this.userService.utente.uid)).snapshotChanges().subscribe(val => {
+    this.database.collection("books", ref => ref.where("id_utente", "==", this.userService.utente.uid)).snapshotChanges().subscribe(val => {
       this.myBooks = val.map(item => {
         const libro = <Libro>{ id: item.payload.doc.id, ...item.payload.doc.data() }
         return this.libroUrlService.setLibroUrl(libro);
@@ -123,7 +132,7 @@ export class AccountComponent implements OnInit {
 
   //elimina dati in users
   eliminaUsers() {
-    this.db.collection("users").doc(this.userService.utente.uid).delete()
+    this.database.collection("users").doc(this.userService.utente.uid).delete()
       .catch(error => {
         console.log(error);
         this.snackBar.open("Errore durante l'eliminazione dello user.", "", { duration: 2000 });
