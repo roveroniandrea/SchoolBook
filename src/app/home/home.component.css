@@ -3,12 +3,14 @@
         height: 1170px;
     }
 }
-@media(min-width: 688px) and (max-width:975px) {
-        .separatore{
-            height: 600px;
-        }
+
+@media(min-width: 688px) and (max-width:1247px) {
+    .separatore{
+        height: 600px;
+    }
 }
-@media(min-width: 976px) {
+
+@media(min-width: 1248px) {
     .separatore{
         height: 400px;
     }

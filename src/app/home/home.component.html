@@ -5,11 +5,9 @@
     <p *ngIf="booksPrice && booksPrice.length && (!booksPriceDisplay || !booksPriceDisplay.length)">Non ci sono altri libri! Perchè non ne carichi qualcuno?</p>
     <app-libro *ngFor="let book of booksPriceDisplay" [libro]="book"></app-libro>
 </div>
-
 <div>
     <button class="button" (click)="cambiaPaginaPrezzo(nPage)" mat-mini-fab *ngFor="let nPage of nPages" [ngClass]="{'selezionato' : (nPage == paginaCorrentePrezzo)}">{{ nPage }}</button>
 </div>
-
 <h2>Ultimi aggiunti</h2>
 <mat-divider class="spaziatore"></mat-divider>
 <div class="separatore">
