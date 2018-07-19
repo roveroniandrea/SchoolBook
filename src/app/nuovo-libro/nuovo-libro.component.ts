@@ -12,6 +12,7 @@ import { Observable } from '../../../node_modules/rxjs';
 import { resolve } from 'url';
 import { StringService } from '../servizi/string.service';
 import { ValidatorInteger } from '../servizi/only-number.validator';
+import { LibroUrlService } from '../servizi/libro-url.service';
 
 declare var require: any
 
@@ -43,8 +44,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     private userService: UserService,
     private storage: AngularFireStorage,
     private route: ActivatedRoute,
-    private libroUrlService: LibroUrlService,
-    private stringService : StringService
+    private libroUrlService: LibroUrlService
   ) { }
 
   ngOnInit() {
@@ -187,15 +187,6 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
         this.urlVecchiaFoto = this.newLibro.imageUrl;
         this.newLibro.imagePath = "";
         this.newLibro.imageUrl = "";
-        /*
-        this.storage.ref(this.newLibro.imagePath).delete().toPromise()
-          .catch(err => console.log("Errore rimozione foto ORIGINALE", err))
-          .then(res => {
-            console.log("eliminata foto originale");
-            this.newLibro.imagePath = "";
-            this.newLibro.imageUrl = "";
-          })
-          */
       }
     }
   }

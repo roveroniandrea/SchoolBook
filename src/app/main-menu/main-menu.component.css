@@ -45,12 +45,6 @@ div.menu-bar { /* fix the menu div */
   height: 100%;
 }
 
-p { /* fix the name size */ 
-  display: inline; 
-  font-size: 0.8em; 
-  margin-right: 1em;
-}
-
 @media(max-width: 499px) { 
   .space { /* fix the padding in all page */
     padding: 0 1.5em!important;

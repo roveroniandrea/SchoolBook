@@ -46,7 +46,6 @@
           </button>
         </div>
         <div *ngIf="userService.utente.mail" class="position-right">
-          <p>Ciao {{ userService.utente.nome }}</p>
           <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" [matTooltip]="userService.utente.nome"
             routerLink="account">
             <mat-icon>person</mat-icon>
