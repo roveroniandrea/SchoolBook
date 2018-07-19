@@ -32,8 +32,6 @@
         <button mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="catalogo">Catalogo</button>
         <button *ngIf="userService.utente.mail" mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}"
           routerLink="preferiti">Preferiti</button>
-        <button *ngIf="userService.utente.mail" mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}"
-          routerLink="new-book">Aggiungi Libro </button>
         <!-- login and register btn -->
         <div *ngIf="!userService.utente.mail" class="position-right">
           <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" matTooltip="Login"
@@ -46,6 +44,10 @@
           </button>
         </div>
         <div *ngIf="userService.utente.mail" class="position-right">
+          <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" [matTooltip]="'Aggiugi Libro'"
+            routerLink="new-book">
+            <mat-icon>add_circle_outline</mat-icon>
+          </button>
           <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" [matTooltip]="userService.utente.nome"
             routerLink="account">
             <mat-icon>person</mat-icon>
