@@ -14,5 +14,5 @@ export class StringService {
   hasOnlyNumber(stringa) {
     return /^\d+$/.test(stringa);
   }
-
+  
 }
