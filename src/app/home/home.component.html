@@ -1,18 +1,22 @@
 <h2>Prezzo più basso</h2>
 <mat-divider class="spaziatore"></mat-divider>
 <div class="separatore">
-    <mat-spinner *ngIf="!booksDataDisplay"></mat-spinner>
-    <app-libro *ngFor="let book of booksDataDisplay" [libro]="book"></app-libro>
+    <mat-spinner *ngIf="!booksPrice"></mat-spinner>
+    <app-libro *ngFor="let book of booksPrice" [libro]="book"></app-libro>
 </div>
+<!--
 <div>
     <button class="button" (click)="clickButton(1,nPage)" mat-mini-fab *ngFor="let nPage of nPages">{{ nPage }}</button>
 </div>
+-->
 <h2>Ultimi aggiunti</h2>
 <mat-divider class="spaziatore"></mat-divider>
 <div>
     <mat-spinner *ngIf="!booksData"></mat-spinner>
-    <app-libro *ngFor="let bookData of booksDataDisplay" [libro]="bookData"></app-libro>
+    <app-libro *ngFor="let bookData of booksData" [libro]="bookData"></app-libro>
 </div>
+<!--
 <div>
     <button class="button" (click)="clickButton(2,nPage)" mat-mini-fab *ngFor="let nPage of nPages">{{ nPage }}</button>
 </div>
+-->
