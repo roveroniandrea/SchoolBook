@@ -7,7 +7,7 @@
     height: 25em; 
     float: left;
     text-align: center;
-    margin-bottom: 4em;
+    margin-bottom: 5em;
 }
 
 .destro {
@@ -27,7 +27,7 @@
 img {
     height: 100%;
     width: 70%;
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
 }
 
 .divisore {
@@ -48,9 +48,20 @@ p {
     margin-top: 1em;
 }
 
-button {
+button, label {
     padding: 0.5em;
     margin-right: 0.5em; 
+}
+
+@media(max-width: 630px) {
+
+    label {
+        margin-bottom: 0.5em;
+    }
+
+    .sinistro {
+        margin-bottom: 8em;
+    }
 }
 
 @media(max-width: 499px) {
@@ -59,7 +70,7 @@ button {
         float: none;
         height: 10em;
         text-align: center;
-        margin-bottom: 2em;
+        margin-bottom: 3em;
     }
     
     .destro {
@@ -72,7 +83,7 @@ button {
     
     .button {
         padding: 0.5em;
-    margin-right: 0.5em; 
+        margin-right: 0.5em; 
         margin-top: 1em;
     }
 }
