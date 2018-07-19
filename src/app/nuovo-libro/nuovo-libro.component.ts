@@ -11,6 +11,8 @@ import { LibroUrlService } from '../servizi/libro-url.service';
 import { CanComponentDeactivate } from '../servizi/canDeactivate-guard.service';
 import { Observable } from '../../../node_modules/rxjs';
 import { resolve } from 'url';
+import { StringService } from '../servizi/string.service';
+import { ValidatorInteger } from '../servizi/only-number.validator';
 
 declare var require: any
 
@@ -42,7 +44,8 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     private userService: UserService,
     private storage: AngularFireStorage,
     private route: ActivatedRoute,
-    private libroUrlService: LibroUrlService
+    private libroUrlService: LibroUrlService,
+    private stringService : StringService
   ) { }
 
   ngOnInit() {
@@ -54,7 +57,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     this.uploadForm = new FormGroup({
       "titolo": new FormControl("", Validators.required),
       "isbn": new FormControl(null, Validators.required),
-      "prezzo": new FormControl("", Validators.required), //inserire pattern moneta
+      "prezzo": new FormControl(0, [Validators.required,Validators.min(0),Validators.max(99),ValidatorInteger]), //inserire pattern moneta
       "descrizione": new FormControl("", Validators.required)
     })
   }
@@ -96,7 +99,8 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
   submitForm() {
     this.newLibro.titolo = this.uploadForm.value.titolo.toLowerCase();
     this.newLibro.isbn = this.uploadForm.value.isbn;
-    this.newLibro.prezzo = (<number>this.uploadForm.value.prezzo).toFixed(2);
+    this.newLibro.prezzo = (<number>this.uploadForm.value.prezzo);
+    //this.newLibro.prezzo = this.newLibro.prezzo;
     this.newLibro.descrizione = this.uploadForm.value.descrizione;   //aggiorno newLibro
     this.newLibro.id_utente = this.userService.utente.uid;
 
