@@ -34,7 +34,7 @@ export class HomeComponent {
     private libroUrlService: LibroUrlService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
-    public paginatorService : PaginatorService
+    public paginatorService : PaginatorService,
     private breakpointObserver: BreakpointObserver) {
 
     this.isHandset$.subscribe(val => {
@@ -44,6 +44,15 @@ export class HomeComponent {
       else{
         this.numRisultatiDaMostrare = 8;
       }
+
+      if(this.booksPrice && this.booksPrice.length){
+        this.cambiaPaginaPrezzo(this.paginaCorrentePrezzo);
+      }
+      if(this.booksData && this.booksData.length){
+        this.cambiaPaginaData(this.paginaCorrenteData);
+      }
+
+      console.log(this.numRisultatiDaMostrare);
     })
     
     db.collection("books", ref => ref.orderBy("prezzo")).snapshotChanges().subscribe(items => {
