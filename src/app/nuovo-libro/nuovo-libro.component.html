@@ -6,11 +6,12 @@
     <div class="sinistro" *ngIf="!stoCaricandoImmagine">
       <img alt="immagine" [src]="urlNuovaFoto || newLibro.imageUrl" *ngIf="newLibro && (urlNuovaFoto || newLibro.imageUrl)">
       <img alt="immagine" [src]="libroUrlService.defaultUrl" *ngIf="!(newLibro && (urlNuovaFoto || newLibro.imageUrl))">
+      <br>
       <label class=" mat-primary mat-raised-button" for="image">
-        Seleziona immagine
+        Carica immagine
         <input name="files[]" style="display: none" title="Seleziona immagine" type="file" id="image" accept="image/*" (change)="immagineSelezionata($event)">
       </label>
-      <button mat-raised-button color="primary" *ngIf="newLibro && (pathNuovaFoto || newLibro.imagePath)" type="button" (click)="rimuoviImmagine()">Rimuovi foto</button>
+      <button mat-raised-button color="primary" *ngIf="newLibro && (pathNuovaFoto || newLibro.imagePath)" type="button" (click)="rimuoviImmagine()">Rimuovi immagine</button>
     </div>
     <div clas="sinistro" *ngIf="stoCaricandoImmagine">
       <mat-spinner></mat-spinner>
