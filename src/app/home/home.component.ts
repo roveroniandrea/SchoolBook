@@ -4,6 +4,9 @@ import { Libro } from '../classe-libro/classe-libro';
 import { LibroUrlService } from '../servizi/libro-url.service';
 import { MatSnackBar } from '../../../node_modules/@angular/material';
 import { ActivatedRoute } from '../../../node_modules/@angular/router';
+import { Observable } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 import { PaginatorService } from '../servizi/paginator.service';
 
 @Component({
@@ -22,12 +25,27 @@ export class HomeComponent {
   numRisultatiDaMostrare = 8;
   nPages = [1,2,3,4,5];
 
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches)
+    );
+
   constructor(private db: AngularFirestore,
     private libroUrlService: LibroUrlService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
     public paginatorService : PaginatorService
-  ) {
+    private breakpointObserver: BreakpointObserver) {
+
+    this.isHandset$.subscribe(val => {
+      if (val) {
+        this.numRisultatiDaMostrare = 6;
+      }
+      else{
+        this.numRisultatiDaMostrare = 8;
+      }
+    })
+    
     db.collection("books", ref => ref.orderBy("prezzo")).snapshotChanges().subscribe(items => {
       const nbooks = items.map(item => {
         const id = item.payload.doc.id;
