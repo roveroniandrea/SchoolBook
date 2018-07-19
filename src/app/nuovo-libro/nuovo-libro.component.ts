@@ -56,7 +56,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     this.uploadForm = new FormGroup({
       "titolo": new FormControl("", Validators.required),
       "isbn": new FormControl(null, Validators.required),
-      "prezzo": new FormControl(0, [Validators.required,Validators.min(0),Validators.max(99),ValidatorInteger]), //inserire pattern moneta
+      "prezzo": new FormControl(0, [Validators.required, Validators.min(0), Validators.max(99), ValidatorInteger]), //inserire pattern moneta
       "descrizione": new FormControl("", Validators.required)
     })
   }
@@ -71,7 +71,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
         "prezzo": this.newLibro.prezzo,
         "descrizione": this.newLibro.descrizione
       });
-      console.log("libro",this.newLibro);
+      console.log("libro", this.newLibro);
       this.stoCercandoLibroDaModificare = false;
     })
   }
@@ -122,7 +122,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     delete this.newLibro.id;
     console.log(this.newLibro);
     this.database.collection("books").doc(idLibro).set(this.newLibro)
-      .catch(error => 
+      .catch(error =>
         console.log(error)
       )
       .then(result => {
@@ -139,7 +139,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     let _self = this;
 
-    console.log(_self.modificheEffettuate);
+    console.log("modifiche effettuate", _self.modificheEffettuate);
     return new Promise(function (resolve, reject) {
       if (_self.modificheEffettuate) {  //se ci sono modifiche in corso chiedo se vuole uscire
         const dialogRef = _self.matDialog.open(PerditaModificheComponent, { data: { titolo: "Uscire?", descrizione: "Confermando le modifiche andranno perse" } });
@@ -147,13 +147,13 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
           if (result) {  //se ho confermato l'uscita cancello l'eventuale foto caricata
             if (_self.pathNuovaFoto) {
               _self.storage.ref(_self.pathNuovaFoto).delete().toPromise()
-              .catch(err=>console.log("errore nella cancellazione della foto originale",err))
-              .then(res=>{
-                _self.reimpostaVecchiaFoto();
-              })
+                .catch(err => console.log("errore nella cancellazione della foto originale", err))
+                .then(res => {
+                  resolve(_self.reimpostaVecchiaFoto());
+                })
             }
             else {
-              _self.reimpostaVecchiaFoto();
+              resolve(_self.reimpostaVecchiaFoto());
             }
           }
           else {
@@ -172,6 +172,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
   }
 
   rimuoviImmagine() {    //quando voglio liminare una foto che ho caricato
+    this.modificheEffettuate = true;
     if (this.pathNuovaFoto) {   //ha la priorità la foto appena caricata
       this.storage.ref(this.pathNuovaFoto).delete().toPromise()
         .catch(err => console.log("Errore rimozione foto", err))
@@ -191,11 +192,9 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     }
   }
 
-  reimpostaVecchiaFoto(){   //chiamato quando ho confermato di voler uscire senza salvare
-    return new Promise((resolve,reject)=>{
-      this.newLibro.imagePath = this.pathVecchiaFoto || this.newLibro.imagePath;
-      this.newLibro.imageUrl = this.urlVecchiaFoto || this.newLibro.imageUrl;
-      resolve(true);
-    })
+  reimpostaVecchiaFoto() {   //chiamato quando ho confermato di voler uscire senza salvare
+    this.newLibro.imagePath = this.pathVecchiaFoto || this.newLibro.imagePath;
+    this.newLibro.imageUrl = this.urlVecchiaFoto || this.newLibro.imageUrl;
+    return true;
   }
 }
