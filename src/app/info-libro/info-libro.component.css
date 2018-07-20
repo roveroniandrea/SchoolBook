@@ -41,16 +41,6 @@ p {
     color: red;
 }
 
-.btn {
-    float: right;
-    margin-top: 1em;
-}
-
-button {
-    padding: 0.5em;
-    margin-right: 0.5em; 
-}
-
 @media(max-width: 499px) {
     .sinistro {
         width: 100%; 

@@ -14,15 +14,7 @@ p {
     font-size: 0.8em;
 }
 
-/* Per posizionare i pulsanti */
-.btn {
-    float: right;
-    margin-top: 1em;
-}
-
 button {
-    padding: 0.5em;
-    margin-right: 0.5em; 
     margin-top: 0.5em;
 }
 

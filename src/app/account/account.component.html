@@ -8,9 +8,9 @@
     <p *ngIf="userService.utente.telefono">Telefono: {{userService.utente.telefono}}</p>
     <p class="capitalize" *ngIf="userService.utente.scuola">Località: {{userService.utente.scuola}}</p>
   </div>
-  <div class="btn">
-    <button mat-raised-button color="primary" (click)="eliminaAccount()">Elimina Account</button>
-    <button mat-raised-button color="primary" (click)="modificaDati()">Modifica Dati</button>
+  <div class="divEsternoBtn">
+    <button mat-raised-button class="decorazioneBtn" color="primary" (click)="eliminaAccount()">Elimina Account</button>
+    <button mat-raised-button class="decorazioneBtn" color="primary" (click)="modificaDati()">Modifica Dati</button>
   </div>
 </div>
 <div *ngIf="mode==='edit'">
@@ -30,9 +30,9 @@
       </mat-form-field>
     </div>
     <button mat-raised-button color="primary" (click)="modificaPassword()">Modifica Password</button>
-    <div class="btn">
-      <button mat-raised-button color="primary" (click)="mode='see'" type="reset" [disabled]="stoModificandoUtente">Annulla modifiche</button>
-      <button mat-raised-button color="primary" [disabled]="!accountForm.valid || stoModificandoUtente" type="submit">Conferma modifiche</button>
+    <div class="divEsternoBtn">
+      <button mat-raised-button class="decorazioneBtn" color="primary" (click)="mode='see'" type="reset" [disabled]="stoModificandoUtente">Annulla modifiche</button>
+      <button mat-raised-button class="decorazioneBtn" color="primary" [disabled]="!accountForm.valid || stoModificandoUtente" type="submit">Conferma modifiche</button>
     </div>
   </form>
 </div>
@@ -41,8 +41,8 @@
 <mat-divider class="spaziatore"></mat-divider>
 <br>
 <div class="inline">Clicca su un libro per modificare.</div>
-<div class="btn inline">
-  <button mat-raised-button color="primary" routerLink="/new-book">Aggiungi Libro</button>
+<div class="divEsternoBtn inline">
+  <button mat-raised-button class="decorazioneBtn" color="primary" routerLink="/new-book">Aggiungi Libro</button>
 </div>
 <br>
 <br>
