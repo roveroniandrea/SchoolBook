@@ -6,7 +6,7 @@ import { UserService } from '../servizi/utente.service';
 import { PerditaModificheComponent } from '../perdita-modifiche/perdita-modifiche.component';
 import { MatDialog } from '@angular/material';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Router } from '../../../node_modules/@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '../../../node_modules/@angular/router';
 
 @Component({
   selector: 'main-menu',
@@ -15,16 +15,31 @@ import { Router } from '../../../node_modules/@angular/router';
 })
 export class MainMenuComponent {
 
+  footerCompare = false;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
 
-  constructor(private autenticazione: AngularFireAuth, 
-    public userService: UserService, 
-    private breakpointObserver: BreakpointObserver, 
-    private matDialog: MatDialog, 
-    private router: Router) { }
+  constructor(private autenticazione: AngularFireAuth,
+    public userService: UserService,
+    private breakpointObserver: BreakpointObserver,
+    private matDialog: MatDialog,
+    private router: Router) {
+    router.events.subscribe(val => {
+      if (val instanceof NavigationEnd) { //se siamo in navigation end
+        const url = val.urlAfterRedirects;
+        if(url === "/"){
+          //console.log("home")
+          this.footerCompare = true;
+        }
+        else{
+          this.footerCompare = false;
+        }
+      }
+    })
+  }
 
   logout() {  //apre mat dialog per conferma
     const dialogRef = this.matDialog.open(PerditaModificheComponent, { data: { titolo: "Conferma Logout!", descrizione: "" } });
