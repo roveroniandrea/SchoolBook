@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate{
               return true;
           }
           else{
-              this.router.navigateByUrl("/not-found");
+              this.router.navigateByUrl("/login");
               return false;
           }
       })
@@ -33,7 +33,7 @@ export class AuthGuardLoginRegister implements CanActivate{ //GUARDIA PER LOGIN/
               return true;
           }
           else{
-              this.router.navigateByUrl("/not-found");
+              this.router.navigateByUrl("/");
               return false;
           }
       })
