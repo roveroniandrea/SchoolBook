@@ -43,3 +43,7 @@ body {
     background-color: #3f51b5!important;
     color: white!important;
 }
+
+.paginator.disabilitato{
+    display: none;
+}

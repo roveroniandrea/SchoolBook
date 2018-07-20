@@ -1,7 +1,7 @@
 <h2>Preferiti</h2>
 <mat-divider class="spaziatore"></mat-divider>
 <div style="text-align: center">
-    <button class="paginator" (click)="cambiaPagina(nPage)" mat-mini-fab *ngFor="let nPage of nPages" [ngClass]="{'selezionato' : (nPage == paginaCorrente)}">{{ nPage }}</button>
+    <button class="paginator" (click)="cambiaPagina(nPage)" mat-mini-fab *ngFor="let nPage of nPages" [ngClass]="{'selezionato' : (nPage == paginaCorrente), 'disabilitato' : (libro && (nPage-1) > (libro.length/numRisultatiDaMostrare))}">{{ nPage }}</button>
 </div>
 <!-- Spinner caricamento -->
 <mat-spinner *ngIf="stoCercandoLibri"></mat-spinner>
