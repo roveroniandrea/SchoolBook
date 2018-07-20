@@ -95,12 +95,8 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     this.newLibro.titolo = this.uploadForm.value.titolo.toLowerCase();
     this.newLibro.isbn = this.uploadForm.value.isbn;
     this.newLibro.prezzo = (<number>this.uploadForm.value.prezzo);
-    //this.newLibro.prezzo = this.newLibro.prezzo;
     this.newLibro.descrizione = this.uploadForm.value.descrizione;   //aggiorno newLibro
     this.newLibro.id_utente = this.userService.utente.uid;
-
-    //let data = Date.now();
-    //this.newLibro.data = data;
 
     if (this.pathNuovaFoto && this.newLibro.imagePath) {  //se c'è una nuova foto e il libro ne ha una vecchia
       this.storage.ref(this.newLibro.imagePath).delete();
@@ -131,7 +127,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
 
     return new Promise(function (resolve, reject) {
       if (_self.modificheEffettuate) {  //se ci sono modifiche in corso chiedo se vuole uscire
-        const dialogRef = _self.matDialog.open(PerditaModificheComponent, { data: { titolo: "Uscire?", descrizione: "Confermando le modifiche andranno perse" } });
+        const dialogRef = _self.matDialog.open(PerditaModificheComponent, { data: { titolo: "Conferma uscita!", descrizione: "Confermando le modifiche andranno perse" } });
         dialogRef.afterClosed().subscribe(result => {
           if (result) {  //se ho confermato l'uscita cancello l'eventuale foto caricata
             if (_self.pathNuovaFoto) {

@@ -102,10 +102,10 @@ export class AccountComponent implements OnInit {
         this.snackBar.open("Caricamento libro annullato", "", { duration: 2000 })
       }
       if (this.inserimentoLibro == 1) {
-        this.snackBar.open("Libro caricato correttamente!", "", { duration: 2000 })
+        this.snackBar.open("Libro caricato correttamente", "", { duration: 2000 })
       }
       if (this.inserimentoLibro == 2) {
-        this.snackBar.open("Errore nel caricamento del libro :(", "", { duration: 2000 })
+        this.snackBar.open("Errore durante il caricamento del libro", "", { duration: 2000 })
       }
     }
   }
@@ -133,7 +133,7 @@ export class AccountComponent implements OnInit {
       lunghezza--;
       this.libroUrlService.eliminaLibro(this.myBooks[lunghezza].id, this.myBooks[lunghezza].imagePath)
         .catch(error => {
-          this.snackBar.open("Errore durante l'eliminazione dei libri.", "", { duration: 2000 });
+          this.snackBar.open("Errore durante l'eliminazione dei libri", "", { duration: 2000 });
         })
         .then(result => {
           this.eliminaLibriImmagini(lunghezza);
@@ -163,7 +163,7 @@ export class AccountComponent implements OnInit {
         this.snackBar.open("Errore durante l'eliminazione dell'authentication", "", { duration: 2000 });
       })
       .then(result => {
-        this.snackBar.open("Eliminazione effettuata con successo", "", { duration: 2000 });
+        this.snackBar.open("Account eliminato correttamente", "", { duration: 2000 });
       });
   }
 
@@ -187,7 +187,7 @@ export class AccountComponent implements OnInit {
             this.snackBar.open("Errore durante l'invio della mail", "", { duration: 2000 });
           })
           .then(result => {
-            this.snackBar.open("Mail inviata", "", { duration: 2000 });
+            this.snackBar.open("Mail inviata correttamente", "", { duration: 2000 });
           })
       }
     })

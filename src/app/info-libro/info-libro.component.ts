@@ -31,9 +31,7 @@ export class InfoLibroComponent implements OnInit {
     private userService: UserService,
     private matDialog: MatDialog,
     private router: Router,
-    private storage: AngularFireStorage,
-  ) { }
-  //todo modificare subbmit
+    private storage: AngularFireStorage,) { }
 
   ngOnInit() {
     this.idLibro = this.route.snapshot.params.id;   //ottengo l'id del libro dai query params. Lo uso per ottenere info sul libro

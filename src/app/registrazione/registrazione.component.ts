@@ -53,8 +53,8 @@ export class RegistrazioneComponent implements OnInit {
     /* Se preme annulla appare il matDialog */
     this.matDialog.open(PerditaModificheComponent, {
       data: {
-        titolo: "Tornare alla home?",
-        descrizione: "Continuando perderai i dati immessi"
+        titolo: "Conferma uscita!",
+        descrizione: "Confermando i dati andranno persi"
       }
     }).afterClosed().subscribe(result => {
       if (result) {

@@ -24,13 +24,13 @@
     <!--<textarea matInput placeholder="Testo" fromControlName="testo"></textarea>-->
     <input matInput placeholder="Testo" formControlName="testo">
   </mat-form-field>
-  <p class="alert">Ricordati di lasciare un tuo contatto nel testo, altrimenti il proprietario non riuscirà a risponderti!</p>
+  <p class="alert">Ricordati di lasciare un tuo contatto nel testo, altrimenti il proprietario non riuscirà a risponderti.</p>
   <div class="btn">
     <button mat-raised-button color="primary" type="button" routerLink="/">Annulla</button>
     <button mat-raised-button color="primary" type="submit" [disabled]="!testoForm.valid">Invio</button>
   </div>
 </form>
 <div *ngIf="stoInviandoRichiesta">
-  <p>Sto inviando la richiesta...</p>
+  <p>Sto inviando la mail...</p>
   <mat-spinner></mat-spinner>
 </div>
