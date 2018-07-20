@@ -57,8 +57,8 @@ exports.contattaUtente = functions.https.onRequest((req, res) => {
         to: req.body.mailDestinatario,
         subject: "Qualcuno è interessato al tuo libro " + req.body.titoloLibro + "!",
         text: "Ciao " + req.body.nomeDestinatario + "!"
-            + "\n" + req.body.nomeMittente + " è interessato al tuo libro e ti ha scritto il seguente messaggio:\n" +
-            req.body.testo + "\n Puoi contattarlo al seguente indirizzo: " + req.body.mailMittente
+            + "\n" + req.body.nomeMittente + " è interessato al tuo libro e ti ha scritto il seguente messaggio:\n\n" +
+            req.body.testo + "\n\nPuoi contattarlo al seguente indirizzo: " + req.body.mailMittente
     };
     if (req.method == "POST") { //se è metodo post (no options)
         return mailTransport.sendMail(mailOptions)
@@ -98,7 +98,7 @@ exports.contattaUtente = functions.https.onRequest((req, res) => {
 exports.impostaDataLibro = functions.firestore.document("books/{id}").onCreate((snapshot, context) => {
     const data = admin.firestore.FieldValue.serverTimestamp();
     return snapshot.ref.update({ data })
-        .catch(error => {})
-        .then(result => {});
+        .catch(error => { })
+        .then(result => { });
 });
 //# sourceMappingURL=index.js.map
