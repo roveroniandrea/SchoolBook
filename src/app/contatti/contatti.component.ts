@@ -80,15 +80,19 @@ export class ContattiComponent implements OnInit {
     this.stoInviandoRichiesta = true;
     this.httpClient.post("//us-central1-school-book-an.cloudfunctions.net/contattaUtente", this.infoMail, this.httpOptions).subscribe(result => {
       let response = <any>result;
-      this.stoInviandoRichiesta = false;
       if (response.error) {
         if (response.error != "OPTIONS") {
           console.log("Mail non inviata errore: ", response.error);
-          this.snackBar.open("Errore durante l'invio della mail", "", { duration: 5000 });
+          this.snackBar.open("Errore durante l'invio della mail", "", { duration: 5000 })
+          .afterDismissed().subscribe(dismiss=>{
+            this.stoInviandoRichiesta = false;
+          });
         }
       }
       else {
-        this.snackBar.open("Richiesta inviata correttamente", "", { duration: 5000 }).afterDismissed().subscribe(dismiss => {
+        //LASCIARE 2 SECONDI, ALTRIMENTI CI METT TROPPO TEMPO A REINDIRIZZARE ED E' BRUTTO
+        this.snackBar.open("Richiesta inviata correttamente", "", { duration: 2000 }).afterDismissed().subscribe(dismiss => {
+          this.stoInviandoRichiesta = false;
           this.router.navigate(["/infoLibro", this.libro.id]);
         })
       }
