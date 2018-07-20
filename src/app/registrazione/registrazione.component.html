@@ -10,13 +10,13 @@
     <div class="contenuto">
       <h2>Registrazione</h2>
       <mat-form-field class="inputAccount">
-        <input matInput placeholder="Nome: " formControlName="nome">
+        <input matInput placeholder="Nome: *" formControlName="nome">
       </mat-form-field>
       <mat-form-field class="inputAccount">
         <input matInput placeholder="Cognome: " formControlName="cognome">
       </mat-form-field>
       <mat-form-field class="inputAccount">
-        <input matInput placeholder="Mail: " formControlName="mail">
+        <input matInput placeholder="Mail: *" formControlName="mail">
       </mat-form-field>
       <mat-form-field class="inputAccount">
         <input matInput placeholder="Telefono: " formControlName="telefono">
@@ -25,9 +25,10 @@
         <input matInput placeholder="Località: " formControlName="scuola">
       </mat-form-field>
       <mat-form-field class="inputAccount">
-        <input matInput placeholder="Password: " formControlName="password" type="password">
+        <input matInput placeholder="Password: *" formControlName="password" type="password">
       </mat-form-field>
       <p *ngIf="error">{{error.message}}</p>
+      <p>*Campi Obbligatori</p>
       <!-- Pulsanti registrazione -->
       <button mat-raised-button color="primary" (click)="annullaRegistrazione()" type="button">Annulla</button>
       <button mat-raised-button color="primary" type="submit" [disabled]="!accountForm.valid">Conferma</button>
