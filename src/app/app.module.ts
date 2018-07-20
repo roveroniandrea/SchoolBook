@@ -37,6 +37,7 @@ import { AuthGuard, AuthGuardLoginRegister} from './servizi/auth-guard.service';
 import { UserService } from './servizi/utente.service';
 import { CanDeactivateGuard } from './servizi/canDeactivate-guard.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FooterComponent } from './footer/footer.component';
 
 
 const appRoutes: Routes = [
@@ -70,7 +71,8 @@ const appRoutes: Routes = [
     NotFoundComponent,
     NuovoLibroComponent,
     PerditaModificheComponent,
-    PreferitiComponent
+    PreferitiComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
