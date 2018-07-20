@@ -17,7 +17,7 @@ export class CatalogoLibriComponent implements OnInit {
   allBooksDisplay : Libro[] = [];
   nessunLibroTrovato = false;
   ricercaInCorso = false;
-  numRisultatiDaMostrare = 8;
+  numRisultatiDaMostrare = 16;
   paginaCorrente = 1;
   nPages = [1, 2, 3, 4, 5];
 

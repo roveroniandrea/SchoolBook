@@ -48,4 +48,8 @@
 <br>
 <br>
 </div>
-<app-libro *ngFor="let book of myBooks" [libro]="book"></app-libro>
+<div style="text-align: center">
+  <button class="paginator" (click)="cambiaPagina(nPage)" mat-mini-fab *ngFor="let nPage of nPages" [ngClass]="{'selezionato' : (nPage == paginaCorrente), 'disabilitato' : (myBooks && (nPage-1) > (myBooks.length/numRisultatiDaMostrare))}">{{ nPage }}</button>
+</div>
+<p *ngIf="myBooks && myBooks.length && (!myBooksDisplay || !myBooksDisplay.length)">Non hai caricato altri libri!</p>
+<app-libro *ngFor="let book of myBooksDisplay" [libro]="book"></app-libro>

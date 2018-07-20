@@ -9,6 +9,7 @@ import { Router } from '../../../node_modules/@angular/router';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { PerditaModificheComponent } from '../perdita-modifiche/perdita-modifiche.component';
+import { PaginatorService } from '../servizi/paginator.service';
 
 @Component({
   selector: 'app-account',
@@ -20,9 +21,13 @@ export class AccountComponent implements OnInit {
   inserimentoLibro = null;
   mode = "see";
   accountForm: FormGroup;
-  myBooks: Libro[];
+  myBooks: Libro[] = [];
+  myBooksDisplay: Libro[] = [];
   stoModificandoUtente = false; //impostato a true quando l'update su firebase è in corso (disabilita i pulsanti)
   user = this.autenticazione.auth.currentUser;
+  numRisultatiDaMostrare = 16;
+  paginaCorrente = 1;
+  nPages = [1, 2, 3, 4, 5];
 
   constructor(private route: ActivatedRoute,
     private userService: UserService,
@@ -31,7 +36,8 @@ export class AccountComponent implements OnInit {
     private snackBar: MatSnackBar,
     private autenticazione: AngularFireAuth,
     private matDialog: MatDialog,
-    private router: Router) {
+    private router: Router,
+    private paginatorService: PaginatorService) {
     this.inserimentoLibro = this.route.snapshot.queryParams.inserimentoLibro;
     this.controllaUtenteCreato(this.route.snapshot.queryParams.utenteCreato); //se l'utente è stato creato faccio comparire uno snack bar
     this.controllaUploadLibro();
@@ -44,6 +50,16 @@ export class AccountComponent implements OnInit {
     if (libroEliminato == 1) {
       this.snackBar.open("Libro eliminato correttamente", "", { duration: 5000 });
     }
+
+    paginatorService.isHandset$.subscribe(val => {
+      if (val) {
+        this.numRisultatiDaMostrare = 6;
+      }
+      else {
+        this.numRisultatiDaMostrare = 8;
+      }
+      this.cambiaPagina(this.paginaCorrente);
+    });
   }
 
   ngOnInit() {
@@ -78,6 +94,7 @@ export class AccountComponent implements OnInit {
         const libro = <Libro>{ id: item.payload.doc.id, ...item.payload.doc.data() }
         return this.libroUrlService.setLibroUrl(libro);
       });
+      this.cambiaPagina(this.paginaCorrente);
     })
   }
 
@@ -181,5 +198,12 @@ export class AccountComponent implements OnInit {
           })
       }
     })
+  }
+
+  cambiaPagina(num) {
+    //console.log("pagina");
+    this.paginaCorrente = num;
+    this.myBooksDisplay = this.paginatorService.impostaPaginaCorrente(<any[]>this.myBooks, this.paginaCorrente, this.numRisultatiDaMostrare);
+    console.log("allBooksDisplay", this.myBooksDisplay)
   }
 }
