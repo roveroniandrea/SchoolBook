@@ -29,7 +29,7 @@
       <mat-form-field class="width">
         <input type="number" matInput placeholder="Prezzo (max 99):" formControlName="prezzo">
       </mat-form-field>
-      <p *ngIf="uploadForm.get('prezzo').hasError('isInteger')" style="color: red">Inserisci solo prezzi interi!</p>
+      <p *ngIf="uploadForm.get('prezzo').hasError('isInteger')" style="color: red">Inserire prezzo intero!</p>
     </div>
     <div>
       <mat-form-field class="width">

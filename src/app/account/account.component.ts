@@ -77,12 +77,10 @@ export class AccountComponent implements OnInit {
     this.stoModificandoUtente = true;
     const utenteModificato = this.accountForm.value;
     this.database.collection("users").doc(this.userService.utente.uid).update(utenteModificato)
-      .catch(err => {
-        console.log("errore", err);
+      .catch(error => {
         this.stoModificandoUtente = false;
       })
-      .then(res => {
-        console.log("submitted", utenteModificato);
+      .then(result => {
         this.stoModificandoUtente = false;
         this.mode = "see";
       })
@@ -104,10 +102,10 @@ export class AccountComponent implements OnInit {
         this.snackBar.open("Caricamento libro annullato", "", { duration: 2000 })
       }
       if (this.inserimentoLibro == 1) {
-        this.snackBar.open("Libro caricato correttamente!", "", { duration: 2000 })
+        this.snackBar.open("Libro caricato correttamente", "", { duration: 2000 })
       }
       if (this.inserimentoLibro == 2) {
-        this.snackBar.open("Errore nel caricamento del libro :(", "", { duration: 2000 })
+        this.snackBar.open("Errore durante il caricamento del libro", "", { duration: 2000 })
       }
     }
   }
@@ -135,8 +133,7 @@ export class AccountComponent implements OnInit {
       lunghezza--;
       this.libroUrlService.eliminaLibro(this.myBooks[lunghezza].id, this.myBooks[lunghezza].imagePath)
         .catch(error => {
-          console.log(error);
-          this.snackBar.open("Errore durante l'eliminazione dei libri.", "", { duration: 2000 });
+          this.snackBar.open("Errore durante l'eliminazione dei libri", "", { duration: 2000 });
         })
         .then(result => {
           this.eliminaLibriImmagini(lunghezza);
@@ -151,7 +148,6 @@ export class AccountComponent implements OnInit {
   eliminaUsers() {
     this.database.collection("users").doc(this.userService.utente.uid).delete()
       .catch(error => {
-        console.log(error);
         this.snackBar.open("Errore durante l'eliminazione dello user.", "", { duration: 2000 });
       })
       .then(result => {
@@ -164,12 +160,10 @@ export class AccountComponent implements OnInit {
   eliminaAuthentication() {
     this.user.delete()
       .catch(error => {
-        console.log(error);
         this.snackBar.open("Errore durante l'eliminazione dell'authentication", "", { duration: 2000 });
       })
       .then(result => {
-        console.log("Utente eliminato.");
-        this.snackBar.open("Eliminazione effettuata con successo", "", { duration: 2000 });
+        this.snackBar.open("Account eliminato correttamente", "", { duration: 2000 });
       });
   }
 
@@ -190,20 +184,17 @@ export class AccountComponent implements OnInit {
       if (result) {
         this.autenticazione.auth.sendPasswordResetEmail(this.userService.utente.mail)
           .catch(error => {
-            console.log(error);
             this.snackBar.open("Errore durante l'invio della mail", "", { duration: 2000 });
           })
           .then(result => {
-            this.snackBar.open("Mail inviata", "", { duration: 2000 });
+            this.snackBar.open("Mail inviata correttamente", "", { duration: 2000 });
           })
       }
     })
   }
 
   cambiaPagina(num) {
-    //console.log("pagina");
     this.paginaCorrente = num;
     this.myBooksDisplay = this.paginatorService.impostaPaginaCorrente(<any[]>this.myBooks, this.paginaCorrente, this.numRisultatiDaMostrare);
-    console.log("allBooksDisplay", this.myBooksDisplay)
   }
 }

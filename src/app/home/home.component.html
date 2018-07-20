@@ -1,18 +1,18 @@
-<h2>Prezzo più basso</h2>
+<h2>Più Economici</h2>
 <mat-divider class="spaziatore"></mat-divider>
 <div class="separatore">
     <mat-spinner *ngIf="!booksPrice"></mat-spinner>
-    <p *ngIf="booksPrice && booksPrice.length && (!booksPriceDisplay || !booksPriceDisplay.length)">Non ci sono altri libri! Perchè non ne carichi qualcuno?</p>
+    <p *ngIf="booksPrice && booksPrice.length && (!booksPriceDisplay || !booksPriceDisplay.length)">Non ci sono altri libri!</p>
     <app-libro *ngFor="let book of booksPriceDisplay" [libro]="book"></app-libro>
 </div>
 <div>
     <button class="paginator" (click)="cambiaPaginaPrezzo(nPage)" mat-mini-fab *ngFor="let nPage of nPages" [ngClass]="{'selezionato' : (nPage == paginaCorrentePrezzo), 'disabilitato' : (booksPrice && (nPage-1) > (booksPrice.length/numRisultatiDaMostrare))}">{{ nPage }}</button>
 </div>
-<h2>Ultimi aggiunti</h2>
+<h2>Ultimi Aggiunti</h2>
 <mat-divider class="spaziatore"></mat-divider>
 <div class="separatore">
     <mat-spinner *ngIf="!booksData"></mat-spinner>
-    <p *ngIf="booksData&& booksData.length && (!booksDataDisplay || !booksDataDisplay.length)">Non ci sono altri libri! Perchè non ne carichi qualcuno?</p>
+    <p *ngIf="booksData&& booksData.length && (!booksDataDisplay || !booksDataDisplay.length)">Non ci sono altri libri!</p>
     <app-libro *ngFor="let bookData of booksDataDisplay" [libro]="bookData"></app-libro>
 </div>
 <div>

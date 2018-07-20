@@ -31,9 +31,7 @@ export class InfoLibroComponent implements OnInit {
     private userService: UserService,
     private matDialog: MatDialog,
     private router: Router,
-    private storage: AngularFireStorage,
-  ) { }
-  //todo modificare subbmit
+    private storage: AngularFireStorage,) { }
 
   ngOnInit() {
     this.idLibro = this.route.snapshot.params.id;   //ottengo l'id del libro dai query params. Lo uso per ottenere info sul libro
@@ -41,7 +39,6 @@ export class InfoLibroComponent implements OnInit {
       .valueChanges().subscribe(val => {
         if (val) { //uso un controllo per verificare se il libro esiste ancora e non è stato eliminato
           this.libro = this.libroUrlService.setLibroUrl(<Libro>val);
-          //console.log(this.libro.id_utente);
           this.cercaAutore();
           this.cercaPreferito();
         }
@@ -57,7 +54,6 @@ export class InfoLibroComponent implements OnInit {
         .snapshotChanges().subscribe(val => {
           const id = val.payload.id;
           this.autore = <Autore>{ uid: id, ...val.payload.data() };
-          //console.log(this.autore);
           this.confrontaUtenti();
         })
     }
@@ -79,7 +75,6 @@ export class InfoLibroComponent implements OnInit {
         this.eliminazioneInCorso = true;
         this.libroUrlService.eliminaLibro(this.idLibro, this.libro.imagePath)
           .catch(error => {
-            console.log(error);
             this.eliminazioneInCorso = false;
             this.router.navigate(["/account"], { queryParams: { "libroEliminato": 0 } });
           })
@@ -97,15 +92,12 @@ export class InfoLibroComponent implements OnInit {
     this.preferiti.push(this.idLibro);
     this.database.collection("users").doc(this.userService.utente.uid).update({ "preferiti": this.preferiti })
       .catch(error => {
-        console.log(error);
       })
       .then(result => {
-        console.log("result", result);
       });
   }
 
   eliminaPreferiti() {
-    console.log(this.preferiti);
     for (let i = 0; i < this.preferiti.length; i++) {
       if (this.preferiti[i] == this.idLibro) {          //per info vedi perferiti.component.ts in cercaLibro()
         if (this.preferiti[i] == this.preferiti[this.preferiti.length - 1]) {
@@ -118,10 +110,8 @@ export class InfoLibroComponent implements OnInit {
     }
     this.database.collection("users").doc(this.userService.utente.uid).update({ "preferiti": this.preferiti })
       .catch(error => {
-        console.log(error);
       })
       .then(result => {
-        console.log("result", result);
       });
   }
 
@@ -132,7 +122,6 @@ export class InfoLibroComponent implements OnInit {
           this.preferiti = (<any>val).preferiti || [];
           let preferito = false;
           for (let i = 0; i < this.preferiti.length; i++) {
-            console.log(this.preferiti[i])
             if (this.preferiti[i] == this.idLibro) {
               preferito = true;
             }

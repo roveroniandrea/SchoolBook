@@ -29,8 +29,6 @@ export class ContattiComponent implements OnInit {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      //'Access-Control-Allow-Origin' : "*"
-      //'Access-Control-Allow-Headers' : "Content-Type"
     })
   };
   testoForm: FormGroup;
@@ -82,13 +80,12 @@ export class ContattiComponent implements OnInit {
       let response = <any>result;
       this.stoInviandoRichiesta = false;
       if (response.error) {
-        if (response.error != "OPTIONS") {
-          console.log("Mail non inviata errore: ", response.error);
+        if (response.error != "OPTIONS") {;
           this.snackBar.open("Errore durante l'invio della mail", "", { duration: 5000 });
         }
       }
       else {
-        this.snackBar.open("Richiesta inviata correttamente", "", { duration: 5000 }).afterDismissed().subscribe(dismiss => {
+        this.snackBar.open("Mail inviata correttamente", "", { duration: 5000 }).afterDismissed().subscribe(dismiss => {
           this.router.navigate(["/infoLibro", this.libro.id]);
         })
       }

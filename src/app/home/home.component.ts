@@ -25,7 +25,7 @@ export class HomeComponent {
   paginatorSubscription = Subscription;
 
 
-  constructor(private db: AngularFirestore,
+  constructor(private database: AngularFirestore,
     private libroUrlService: LibroUrlService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
@@ -45,11 +45,9 @@ export class HomeComponent {
       if (this.booksData && this.booksData.length) {
         this.cambiaPaginaData(this.paginaCorrenteData);
       }
-
-      //console.log(this.numRisultatiDaMostrare);
     })
 
-    db.collection("books", ref => ref.orderBy("prezzo")).snapshotChanges().subscribe(items => {
+    database.collection("books", ref => ref.orderBy("prezzo")).snapshotChanges().subscribe(items => {
       const nbooks = items.map(item => {
         const id = item.payload.doc.id;
         const doc = item.payload.doc.data();
@@ -59,7 +57,7 @@ export class HomeComponent {
       this.cambiaPaginaPrezzo(this.paginaCorrentePrezzo);
     });
 
-    db.collection("books", ref => ref.orderBy("data", "desc")).snapshotChanges().subscribe(items => {
+    database.collection("books", ref => ref.orderBy("data", "desc")).snapshotChanges().subscribe(items => {
       const nbooks = items.map(item => {
         const id = item.payload.doc.id;
         const doc = item.payload.doc.data();
@@ -72,20 +70,19 @@ export class HomeComponent {
     //controllo se ho effettuato il logout nei queryParams
     const utenteLoggato = route.snapshot.queryParams.utenteLoggato;
     if (utenteLoggato == 0) {
-      snackBar.open("Hai effettuato il logout", "", { duration: 5000 });
+      snackBar.open("Logout effettuato correttamente", "", { duration: 5000 });
     }
     if (utenteLoggato == 1) {
-      snackBar.open("Hai effettuato il login", "", { duration: 5000 });
+      snackBar.open("Login effettuato correttamente", "", { duration: 5000 });
     }
     if (utenteLoggato == 2) {
-      snackBar.open("Email di recupero correttamente inviata", "", { duration: 5000 });
+      snackBar.open("Email di recupero inviata correttamente", "", { duration: 5000 });
     }
   }
 
   cambiaPaginaPrezzo(num) {
     this.paginaCorrentePrezzo = num;
     this.booksPriceDisplay = this.paginatorService.impostaPaginaCorrente(this.booksPrice, this.paginaCorrentePrezzo, this.numRisultatiDaMostrare);
-    //console.log(this.booksPriceDisplay);
   }
 
   cambiaPaginaData(num) {

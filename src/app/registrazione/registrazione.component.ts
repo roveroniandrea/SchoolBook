@@ -53,8 +53,8 @@ export class RegistrazioneComponent implements OnInit {
     /* Se preme annulla appare il matDialog */
     this.matDialog.open(PerditaModificheComponent, {
       data: {
-        titolo: "Tornare alla home?",
-        descrizione: "Continuando perderai i dati immessi"
+        titolo: "Conferma uscita!",
+        descrizione: "Confermando i dati andranno persi"
       }
     }).afterClosed().subscribe(result => {
       if (result) {
@@ -82,7 +82,6 @@ export class RegistrazioneComponent implements OnInit {
     /* Creo lo user nel mio database */
     this.database.collection("users").doc(this.nuovoUtente.uid).set(this.nuovoUtente)
       .catch(error => {
-        console.log("Registrazione errore: ", error);
         this.registrazioneInCorso = false;
         this.snackBar.open("Errore durante la registrazione", "", { duration: 5000 });
       }

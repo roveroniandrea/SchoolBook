@@ -71,7 +71,6 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
         "prezzo": this.newLibro.prezzo,
         "descrizione": this.newLibro.descrizione
       });
-      console.log("libro", this.newLibro);
       this.stoCercandoLibroDaModificare = false;
     })
   }
@@ -80,11 +79,8 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     this.immagine = <File>event.target.files[0];
     this.pathNuovaFoto = this.pathNuovaFoto || this.uuidv4();     //se pathNuovaFoto vale qualcosa vuol dire che ho già caricato una foto precedentemente, e sostituisco quindi quella nuova
     this.stoCaricandoImmagine = true;
-    console.log("carico foto con path", this.pathNuovaFoto);
     this.storage.upload(this.pathNuovaFoto, this.immagine)
-      .catch(error =>
-        console.log("errore upload foto", error)
-      )
+      .catch(error => {})
       .then(result => {
         if (result) {
           this.storage.ref(this.pathNuovaFoto).getDownloadURL().subscribe(val => {
@@ -99,20 +95,14 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     this.newLibro.titolo = this.uploadForm.value.titolo.toLowerCase();
     this.newLibro.isbn = this.uploadForm.value.isbn;
     this.newLibro.prezzo = (<number>this.uploadForm.value.prezzo);
-    //this.newLibro.prezzo = this.newLibro.prezzo;
     this.newLibro.descrizione = this.uploadForm.value.descrizione;   //aggiorno newLibro
     this.newLibro.id_utente = this.userService.utente.uid;
 
-    //let data = Date.now();
-    //this.newLibro.data = data;
-
     if (this.pathNuovaFoto && this.newLibro.imagePath) {  //se c'è una nuova foto e il libro ne ha una vecchia
-      console.log("cancello foto originale");
       this.storage.ref(this.newLibro.imagePath).delete();
     }
 
     if (this.pathVecchiaFoto) {  //se c'è una vecchia foto (cioè l'originale rimossa)
-      console.log("cancello vecchia foto");
       this.storage.ref(this.pathVecchiaFoto).delete();
     }
 
@@ -120,13 +110,9 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     this.newLibro.imageUrl = this.urlNuovaFoto || this.newLibro.imageUrl || "";
     const idLibro = this.newLibro.id || this.uuidv4(); //se il libro non ha un suoi id (quindi è nuovo), glielo imposto con uuid
     delete this.newLibro.id;
-    console.log(this.newLibro);
     this.database.collection("books").doc(idLibro).set(this.newLibro)
-      .catch(error =>
-        console.log(error)
-      )
+      .catch(error => {})
       .then(result => {
-        //console.log("result", result);
         this.modificheEffettuate = false;
         this.router.navigate(["/account"], { queryParams: { inserimentoLibro: 1 } });
       })
@@ -139,16 +125,15 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     let _self = this;
 
-    console.log("modifiche effettuate", _self.modificheEffettuate);
     return new Promise(function (resolve, reject) {
       if (_self.modificheEffettuate) {  //se ci sono modifiche in corso chiedo se vuole uscire
-        const dialogRef = _self.matDialog.open(PerditaModificheComponent, { data: { titolo: "Uscire?", descrizione: "Confermando le modifiche andranno perse" } });
+        const dialogRef = _self.matDialog.open(PerditaModificheComponent, { data: { titolo: "Conferma uscita!", descrizione: "Confermando le modifiche andranno perse" } });
         dialogRef.afterClosed().subscribe(result => {
           if (result) {  //se ho confermato l'uscita cancello l'eventuale foto caricata
             if (_self.pathNuovaFoto) {
               _self.storage.ref(_self.pathNuovaFoto).delete().toPromise()
-                .catch(err => console.log("errore nella cancellazione della foto originale", err))
-                .then(res => {
+                .catch(error => {})
+                .then(result => {
                   resolve(_self.reimpostaVecchiaFoto());
                 })
             }
@@ -175,9 +160,8 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     this.modificheEffettuate = true;
     if (this.pathNuovaFoto) {   //ha la priorità la foto appena caricata
       this.storage.ref(this.pathNuovaFoto).delete().toPromise()
-        .catch(err => console.log("Errore rimozione foto", err))
-        .then(res => {
-          console.log("eliminata foto nuova");
+        .catch(error => {})
+        .then(result => {
           this.pathNuovaFoto = null;
           this.urlNuovaFoto = null;
         })

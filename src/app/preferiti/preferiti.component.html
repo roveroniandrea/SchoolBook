@@ -6,7 +6,7 @@
 <!-- Spinner caricamento -->
 <mat-spinner *ngIf="stoCercandoLibri"></mat-spinner>
 <!-- Se non ci sono libri -->
-<p *ngIf="(!preferiti.length || !libro.length) && !stoCercandoLibri">Nessun preferito</p>
-<p *ngIf="libro && libro.length && (!libroDisplay || !libroDisplay.length)">Non ci sono altri preferiti!</p>
+<p *ngIf="(!preferiti.length || !libro.length) && !stoCercandoLibri">Nessun libro!</p>
+<p *ngIf="libro && libro.length && (!libroDisplay || !libroDisplay.length)">Non ci sono altri libri!</p>
 <!-- Se ci sono libri -->
 <app-libro *ngFor="let book of libroDisplay" [libro]="book"></app-libro>
