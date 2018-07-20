@@ -31,7 +31,6 @@ export class MainMenuComponent {
       if (val instanceof NavigationEnd) { //se siamo in navigation end
         const url = val.urlAfterRedirects;
         if(url === "/"){
-          //console.log("home")
           this.footerCompare = true;
         }
         else{
@@ -47,10 +46,8 @@ export class MainMenuComponent {
       if (result) {
         this.autenticazione.auth.signOut()
           .catch(error => {
-            console.log("Logout non effettuato.");
           })
           .then(result => {
-            console.log("Logout effettuato.");
             this.router.navigateByUrl("/", { queryParams: { "utenteLoggato": 0 } })
           })
       }

@@ -59,22 +59,10 @@ export class LoginComponent implements OnInit {
         this.stoInviandoRichiestaRecupero = false;
       })
       .then(result => {
-        //console.log("iviato", this.errorRecuperoPassword)
         if (!this.errorRecuperoPassword) {  //result è sempre undefined, controllo se non ci sono errori
           this.stoInviandoRichiestaRecupero = false;
           this.route.navigate(["/"], { queryParams: { "utenteLoggato": 2 } });
         }
       })
   }
-  /* GOOGLE login
-    google() {
-      this.autenticazione.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider)
-      .catch(err=>{
-        console.log(err);
-      })
-      .then(user=>{
-        console.log(user);
-      })
-    }
-  */
 }

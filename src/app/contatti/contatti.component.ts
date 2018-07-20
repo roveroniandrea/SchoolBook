@@ -82,8 +82,7 @@ export class ContattiComponent implements OnInit {
       let response = <any>result;
       this.stoInviandoRichiesta = false;
       if (response.error) {
-        if (response.error != "OPTIONS") {
-          console.log("Mail non inviata errore: ", response.error);
+        if (response.error != "OPTIONS") {;
           this.snackBar.open("Errore durante l'invio della mail", "", { duration: 5000 });
         }
       }

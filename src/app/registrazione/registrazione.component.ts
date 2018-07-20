@@ -82,7 +82,6 @@ export class RegistrazioneComponent implements OnInit {
     /* Creo lo user nel mio database */
     this.database.collection("users").doc(this.nuovoUtente.uid).set(this.nuovoUtente)
       .catch(error => {
-        console.log("Registrazione errore: ", error);
         this.registrazioneInCorso = false;
         this.snackBar.open("Errore durante la registrazione", "", { duration: 5000 });
       }

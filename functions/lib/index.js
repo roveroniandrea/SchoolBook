@@ -70,7 +70,7 @@ exports.contattaUtente = functions.https.onRequest((req, res) => {
 exports.impostaDataLibro = functions.firestore.document("books/{id}").onCreate((snapshot, context) => {
     const data = admin.firestore.FieldValue.serverTimestamp();
     return snapshot.ref.update({ data })
-        .catch(err => console.log("errore", err))
-        .then(res => console.log("funziona"));
+        .catch(error => {})
+        .then(result => {});
 });
 //# sourceMappingURL=index.js.map

@@ -25,7 +25,7 @@ export class HomeComponent {
   paginatorSubscription = Subscription;
 
 
-  constructor(private db: AngularFirestore,
+  constructor(private database: AngularFirestore,
     private libroUrlService: LibroUrlService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
@@ -49,7 +49,7 @@ export class HomeComponent {
       //console.log(this.numRisultatiDaMostrare);
     })
 
-    db.collection("books", ref => ref.orderBy("prezzo")).snapshotChanges().subscribe(items => {
+    database.collection("books", ref => ref.orderBy("prezzo")).snapshotChanges().subscribe(items => {
       const nbooks = items.map(item => {
         const id = item.payload.doc.id;
         const doc = item.payload.doc.data();
@@ -59,7 +59,7 @@ export class HomeComponent {
       this.cambiaPaginaPrezzo(this.paginaCorrentePrezzo);
     });
 
-    db.collection("books", ref => ref.orderBy("data", "desc")).snapshotChanges().subscribe(items => {
+    database.collection("books", ref => ref.orderBy("data", "desc")).snapshotChanges().subscribe(items => {
       const nbooks = items.map(item => {
         const id = item.payload.doc.id;
         const doc = item.payload.doc.data();
