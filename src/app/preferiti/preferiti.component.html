@@ -1,8 +1,12 @@
 <h2>Preferiti</h2>
 <mat-divider class="spaziatore"></mat-divider>
-<!-- Se non ci sono libri -->
-<p *ngIf="(!preferiti.length || !libro.length) && !stoCercandoLibri">Nessun preferito</p>
+<div style="text-align: center">
+    <button class="paginator" (click)="cambiaPagina(nPage)" mat-mini-fab *ngFor="let nPage of nPages" [ngClass]="{'selezionato' : (nPage == paginaCorrente), 'disabilitato' : (libro && (nPage-1) > (libro.length/numRisultatiDaMostrare))}">{{ nPage }}</button>
+</div>
 <!-- Spinner caricamento -->
 <mat-spinner *ngIf="stoCercandoLibri"></mat-spinner>
+<!-- Se non ci sono libri -->
+<p *ngIf="(!preferiti.length || !libro.length) && !stoCercandoLibri">Nessun preferito</p>
+<p *ngIf="libro && libro.length && (!libroDisplay || !libroDisplay.length)">Non ci sono altri preferiti!</p>
 <!-- Se ci sono libri -->
-<app-libro *ngFor="let book of libro" [libro]="book"></app-libro>
+<app-libro *ngFor="let book of libroDisplay" [libro]="book"></app-libro>

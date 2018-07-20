@@ -10,11 +10,11 @@
 </form>
 <p>Attenzione! Per la ricerca inserire codice ISBN o titolo per intero.</p>
 <div *ngIf="!ricercaInCorso && (allBooks && allBooks.length)">
-        <p *ngIf="allBooks && allBooks.length && (!allBooksDisplay || !allBooksDisplay.length)">Non ci sono altri libri! Perchè non ne carichi qualcuno?</p>
-    <app-libro *ngFor="let book of allBooksDisplay" [libro]="book"></app-libro>
-    <div>
-        <button class="paginator" (click)="cambiaPagina(nPage)" mat-mini-fab *ngFor="let nPage of nPages" [ngClass]="{'selezionato' : (nPage == paginaCorrente)}">{{ nPage }}</button>
+    <div style="text-align: center">
+        <button class="paginator" (click)="cambiaPagina(nPage)" mat-mini-fab *ngFor="let nPage of nPages" [ngClass]="{'selezionato' : (nPage == paginaCorrente), 'disabilitato' : (allBooks && (nPage-1) > (allBooks.length/numRisultatiDaMostrare))}">{{ nPage }}</button>
     </div>
+    <p *ngIf="allBooks && allBooks.length && (!allBooksDisplay || !allBooksDisplay.length)">Non ci sono altri libri!</p>
+    <app-libro *ngFor="let book of allBooksDisplay" [libro]="book"></app-libro>
 </div>
 <mat-spinner *ngIf="ricercaInCorso"></mat-spinner>
 <p *ngIf="nessunLibroTrovato">Nessun libro trovato!</p>
