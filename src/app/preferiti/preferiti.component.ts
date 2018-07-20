@@ -3,6 +3,7 @@ import { Libro } from '../classe-libro/classe-libro';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { UserService } from '../servizi/utente.service';
 import { LibroUrlService } from '../servizi/libro-url.service';
+import { PaginatorService } from '../servizi/paginator.service';
 
 @Component({
   selector: 'app-preferiti',
@@ -13,12 +14,25 @@ import { LibroUrlService } from '../servizi/libro-url.service';
 export class PreferitiComponent implements OnInit {
   /* Variabili */
   libro: Libro[] = [];
+  libroDisplay : Libro[] = [];
   preferiti: string[] = [];
   stoCercandoLibri = false;
-
+  numRisultatiDaMostrare = 16;
+  paginaCorrente = 1;
+  nPages = [1, 2, 3, 4, 5];
   constructor(private database: AngularFirestore,
     private userService: UserService,
-    private libroUrlService: LibroUrlService) {
+    private libroUrlService: LibroUrlService,
+    private paginatorService: PaginatorService) {
+    paginatorService.isHandset$.subscribe(val => {
+      if (val) {
+        this.numRisultatiDaMostrare = 12;
+      }
+      else {
+        this.numRisultatiDaMostrare = 16;
+      }
+      this.cambiaPagina(this.paginaCorrente);
+    });
     this.cercaPreferiti();
   }
 
@@ -62,7 +76,7 @@ export class PreferitiComponent implements OnInit {
     console.log(this.libro);
     if (this.libro) {
       for (let i = 0; i < this.libro.length; i++) {
-        if (this.libro[i]&&this.libro[i].id == "") {
+        if (this.libro[i] && this.libro[i].id == "") {
           this.libro[i] = this.libro[this.libro.length - 1];
           //console.log("libri",this.libro)
           this.libro.pop();
@@ -74,5 +88,13 @@ export class PreferitiComponent implements OnInit {
       this.libro = [];
       console.log(this.libro);
     }
+    this.cambiaPagina(this.paginaCorrente);
+  }
+
+  cambiaPagina(num) {
+    //console.log("pagina");
+    this.paginaCorrente = num;
+    this.libroDisplay = this.paginatorService.impostaPaginaCorrente(<any[]>this.libro, this.paginaCorrente, this.numRisultatiDaMostrare);
+    console.log("libroDisplay",this.libroDisplay)
   }
 }

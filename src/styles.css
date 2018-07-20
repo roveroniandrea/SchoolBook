@@ -32,9 +32,9 @@ body {
 }
 
 .paginator {
-    border: 1px solid #3f51b5;
-    margin: 0.5em;
-    font-weight: bold;
+    border: 1px solid #3f51b5!important;
+    margin: 0.5em!important;
+    font-weight: bold!important;
     background-color: white!important;
     color: #3f51b5!important;
 }
