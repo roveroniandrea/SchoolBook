@@ -37,9 +37,9 @@
       </mat-form-field>
     </div>
     <p class="error">*Campi Obbligatori</p>
-    <div class="btn">
-      <button mat-raised-button color="primary" (click)="annullaForm()" type="button">Annulla</button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!uploadForm.valid || stoCaricandoImmagine">Salva</button>
+    <div class="divEsternoBtn">
+      <button mat-raised-button class="decorazioneBtn" color="primary" (click)="annullaForm()" type="button">Annulla</button>
+      <button mat-raised-button class="decorazioneBtn" color="primary" type="submit" [disabled]="!uploadForm.valid || stoCaricandoImmagine">Salva</button>
     </div>
   </form>
   <mat-spinner *ngIf="stoCercandoLibroDaModificare"></mat-spinner>

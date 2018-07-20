@@ -47,12 +47,7 @@ p {
     font-size: 0.8em
 }
 
-.btn {
-    float: right;
-    margin-top: 1em;
-}
-
-button, label {
+label {
     padding: 0.5em;
     margin-right: 0.5em; 
 }

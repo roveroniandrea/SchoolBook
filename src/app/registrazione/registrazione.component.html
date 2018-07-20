@@ -30,8 +30,8 @@
       <p *ngIf="error">{{error.message}}</p>
       <p>*Campi Obbligatori</p>
       <!-- Pulsanti registrazione -->
-      <button mat-raised-button color="primary" (click)="annullaRegistrazione()" type="button">Annulla</button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!accountForm.valid">Conferma</button>
+      <button mat-raised-button class="decorazioneBtn" color="primary" (click)="annullaRegistrazione()" type="button">Annulla</button>
+      <button mat-raised-button class="decorazioneBtn" color="primary" type="submit" [disabled]="!accountForm.valid">Conferma</button>
     </div>
   </mat-card>
 </form>
