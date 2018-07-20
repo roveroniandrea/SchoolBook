@@ -29,7 +29,7 @@
         <input matInput placeholder="Località: " formControlName="scuola">
       </mat-form-field>
     </div>
-    <button mat-raised-button color="primary" (click)="modificaPassword()">Modifica Password</button>
+    <button mat-raised-button color="primary" (click)="modificaPassword()" type="button">Modifica Password</button>
     <div class="divEsternoBtn">
       <button mat-raised-button class="decorazioneBtn" color="primary" (click)="mode='see'" type="reset" [disabled]="stoModificandoUtente">Annulla modifiche</button>
       <button mat-raised-button class="decorazioneBtn" color="primary" [disabled]="!accountForm.valid || stoModificandoUtente" type="submit">Conferma modifiche</button>
