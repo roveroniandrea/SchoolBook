@@ -10,7 +10,6 @@ export class AuthGuard implements CanActivate{
     canActivate(route : ActivatedRouteSnapshot, state : RouterStateSnapshot) : Observable<boolean> | Promise<boolean> | boolean{
       return this.userService.verificaStatoUtente()   //il servizio ritorna l'utente con credenziali (no proprietà di firebase)
       .then(user=>{
-          //console.log("utente",user);
           if(user){
               return true;
           }
@@ -28,7 +27,6 @@ export class AuthGuardLoginRegister implements CanActivate{ //GUARDIA PER LOGIN/
     canActivate(route : ActivatedRouteSnapshot, state : RouterStateSnapshot) : Observable<boolean> | Promise<boolean> | boolean{
       return this.userService.verificaStatoUtente()   //il servizio ritorna l'utente con credenziali (no proprietà di firebase)
       .then(user=>{
-          //console.log("utente",user);
           if(!user){
               return true;
           }

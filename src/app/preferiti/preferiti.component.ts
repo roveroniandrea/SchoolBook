@@ -73,28 +73,22 @@ export class PreferitiComponent implements OnInit {
   }
 
   controllaPreferiti() { //elimina i libri nulli
-    console.log(this.libro);
     if (this.libro) {
       for (let i = 0; i < this.libro.length; i++) {
         if (this.libro[i] && this.libro[i].id == "") {
           this.libro[i] = this.libro[this.libro.length - 1];
-          //console.log("libri",this.libro)
           this.libro.pop();
-          //console.log("pop")
         }
       }
     }
     else {
       this.libro = [];
-      console.log(this.libro);
     }
     this.cambiaPagina(this.paginaCorrente);
   }
 
   cambiaPagina(num) {
-    //console.log("pagina");
     this.paginaCorrente = num;
     this.libroDisplay = this.paginatorService.impostaPaginaCorrente(<any[]>this.libro, this.paginaCorrente, this.numRisultatiDaMostrare);
-    console.log("libroDisplay",this.libroDisplay)
   }
 }

@@ -29,8 +29,6 @@ export class ContattiComponent implements OnInit {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      //'Access-Control-Allow-Origin' : "*"
-      //'Access-Control-Allow-Headers' : "Content-Type"
     })
   };
   testoForm: FormGroup;
@@ -82,7 +80,6 @@ export class ContattiComponent implements OnInit {
       let response = <any>result;
       if (response.error) {
         if (response.error != "OPTIONS") {
-          console.log("Mail non inviata errore: ", response.error);
           this.snackBar.open("Errore durante l'invio della mail", "", { duration: 5000 })
           .afterDismissed().subscribe(dismiss=>{
             this.stoInviandoRichiesta = false;

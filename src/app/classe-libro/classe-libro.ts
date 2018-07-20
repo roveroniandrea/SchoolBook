@@ -1,6 +1,3 @@
-import { Data } from "@angular/router";
-import { Timestamp } from "../../../node_modules/rxjs/internal/operators/timestamp";
-
 export class Libro {
     titolo : string;
     prezzo: number;
