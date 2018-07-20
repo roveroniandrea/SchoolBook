@@ -30,3 +30,16 @@ body {
     margin: 10% 33% 0% 33%; 
     padding: 1em; 
 }
+
+.paginator {
+    border: 1px solid #3f51b5;
+    margin: 0.5em;
+    font-weight: bold;
+    background-color: white!important;
+    color: #3f51b5!important;
+}
+
+.paginator:hover,.paginator.selezionato {
+    background-color: #3f51b5!important;
+    color: white!important;
+}
