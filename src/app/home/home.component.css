@@ -1,14 +1,22 @@
-@media(max-width: 687px) {
+@media(max-width: 599px) {
     .separatore{
         height: 1170px;
     }
 }
-@media(min-width: 688px) and (max-width:975px) {
-        .separatore{
-            height: 600px;
-        }
+
+@media(min-width: 600px) and (max-width: 671px) {
+    .separatore{
+        height: 1550px;
+    }
 }
-@media(min-width: 976px) {
+
+@media(min-width: 672px) and (max-width:1247px) {
+    .separatore{
+        height: 600px;
+    }
+}
+
+@media(min-width: 1248px) {
     .separatore{
         height: 400px;
     }
