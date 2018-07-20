@@ -17,8 +17,8 @@
                 <a (click)="passwordDimenticata = true">Password dimenticata?</a>
             </div>
             <!-- Button -->
-            <button mat-raised-button color="primary" routerLink="/" type="button">Annulla</button>
-            <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Entra</button>
+            <button mat-raised-button class="decorazioneBtn" color="primary" routerLink="/" type="button">Annulla</button>
+            <button mat-raised-button class="decorazioneBtn" color="primary" type="submit" [disabled]="!loginForm.valid">Entra</button>
         </div>
     </mat-card>
 </form>
@@ -34,8 +34,8 @@
             <!-- Error -->
             <p *ngIf="errorRecuperoPassword">{{errorRecuperoPassword.message}}</p>
             <!-- Button -->
-            <button mat-raised-button color="primary" type="button" (click)="passwordDimenticata = false" [disabled]="stoInviandoRichiestaRecupero">Annulla</button>
-            <button mat-raised-button color="primary" type="submit" [disabled]="!recuperoForm.valid || stoInviandoRichiestaRecupero">Invia Mail</button>
+            <button mat-raised-button class="decorazioneBtn" color="primary" type="button" (click)="passwordDimenticata = false" [disabled]="stoInviandoRichiestaRecupero">Annulla</button>
+            <button mat-raised-button class="decorazioneBtn" color="primary" type="submit" [disabled]="!recuperoForm.valid || stoInviandoRichiestaRecupero">Invia email</button>
         </div>
     </mat-card>
 </form>

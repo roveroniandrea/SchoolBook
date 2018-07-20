@@ -56,7 +56,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     this.uploadForm = new FormGroup({
       "titolo": new FormControl("", Validators.required),
       "isbn": new FormControl(null, Validators.required),
-      "prezzo": new FormControl(0, [Validators.required, Validators.min(0), Validators.max(99), ValidatorInteger]), //inserire pattern moneta
+      "prezzo": new FormControl(0, [Validators.required, Validators.min(1), Validators.max(99), ValidatorInteger]), //inserire pattern moneta
       "descrizione": new FormControl("", Validators.required)
     })
   }

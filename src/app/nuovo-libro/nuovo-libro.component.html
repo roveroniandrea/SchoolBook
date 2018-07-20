@@ -21,24 +21,25 @@
       <h3>Libro</h3>
       <p>Inserisci le informazioni del libro.</p>
       <mat-form-field class="width">
-        <input matInput placeholder="Titolo:" formControlName="titolo">
+        <input matInput placeholder="Titolo: *" formControlName="titolo">
       </mat-form-field>
       <mat-form-field class="width">
-        <input matInput placeholder="ISBN:" formControlName="isbn">
+        <input matInput placeholder="ISBN: *" formControlName="isbn">
       </mat-form-field>
       <mat-form-field class="width">
-        <input type="number" matInput placeholder="Prezzo (max 99):" formControlName="prezzo">
+        <input type="number" matInput placeholder="Prezzo (max 99): *" formControlName="prezzo">
       </mat-form-field>
-      <p *ngIf="uploadForm.get('prezzo').hasError('isInteger')" style="color: red">Inserire prezzo intero!</p>
+      <p class="error" *ngIf="uploadForm.get('prezzo').hasError('isInteger')">Inserisci solo prezzi interi!</p>
     </div>
     <div>
       <mat-form-field class="width">
-        <textarea matInput placeholder="Descrizione:" formControlName="descrizione"></textarea>
+        <textarea matInput placeholder="Descrizione: *" formControlName="descrizione"></textarea>
       </mat-form-field>
     </div>
-    <div class="btn">
-      <button mat-raised-button color="primary" (click)="annullaForm()" type="button">Annulla</button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!uploadForm.valid || stoCaricandoImmagine">Salva</button>
+    <p class="error">*Campi Obbligatori</p>
+    <div class="divEsternoBtn">
+      <button mat-raised-button class="decorazioneBtn" color="primary" (click)="annullaForm()" type="button">Annulla</button>
+      <button mat-raised-button class="decorazioneBtn" color="primary" type="submit" [disabled]="!uploadForm.valid || stoCaricandoImmagine">Salva</button>
     </div>
   </form>
   <mat-spinner *ngIf="stoCercandoLibroDaModificare"></mat-spinner>

@@ -19,16 +19,16 @@
   </div>
   <h3 class="desc">Descrizione</h3>
   <p class="descrizione">{{libro.descrizione}}</p>
-  <div *ngIf="isProprietario == false" class="btn">
-    <button class="btn2" mat-raised-button color="primary" [routerLink]="['/']">Vai alla Home</button>
-    <button *ngIf="userService.utente.mail" class="btn2" mat-raised-button color="primary" [routerLink]="['/contatti',idLibro]"
+  <div *ngIf="isProprietario == false" class="divEsternoBtn">
+    <button mat-raised-button class="decorazioneBtn" color="primary" [routerLink]="['/']">Vai alla Home</button>
+    <button *ngIf="userService.utente.mail" mat-raised-button class="decorazioneBtn" color="primary" [routerLink]="['/contatti',idLibro]"
       [disabled]="!autore.uid">Contatta Proprietario</button>
-    <button *ngIf="userService.utente.mail && !isPreferiti" class="btn2" mat-raised-button color="primary" (click)="aggiungiPreferiti()" [disabled]="!autore.uid">Aggiungi ai Preferiti</button>
-    <button *ngIf="userService.utente.mail && isPreferiti" class="btn2" mat-raised-button color="primary" (click)="eliminaPreferiti()">Elimina dai Preferiti</button>
+    <button *ngIf="userService.utente.mail && !isPreferiti" mat-raised-button class="decorazioneBtn" color="primary" (click)="aggiungiPreferiti()" [disabled]="!autore.uid">Aggiungi ai Preferiti</button>
+    <button *ngIf="userService.utente.mail && isPreferiti" mat-raised-button class="decorazioneBtn" color="primary" (click)="eliminaPreferiti()">Elimina dai Preferiti</button>
   </div>
-  <div *ngIf="isProprietario == true" class="btn">
-    <button class="btn2" mat-raised-button color="primary" [routerLink]="['/new-book']" [queryParams]="{'id_libro' : idLibro}">Modifica Dati</button>
-    <button class="btn2" mat-raised-button color="primary" (click)="eliminaLibro()">Elimina Libro</button>
+  <div *ngIf="isProprietario == true" class="divEsternoBtn">
+    <button mat-raised-button class="decorazioneBtn" color="primary" [routerLink]="['/new-book']" [queryParams]="{'id_libro' : idLibro}">Modifica Dati</button>
+    <button mat-raised-button class="decorazioneBtn" color="primary" (click)="eliminaLibro()">Elimina Libro</button>
   </div>
 </div>
 <div *ngIf="eliminazioneInCorso&&!libroNonTrovato">
@@ -36,6 +36,6 @@
   <mat-spinner></mat-spinner>
 </div>
 <div *ngIf="libroNonTrovato">
-  <p class="erroreLibro">Libro non trovato. Potrebbe essere stato eliminato.</p>
-  <button mat-raised-button color="primary" [routerLink]="['/']">Vai alla Home</button>
+  <p class="erroreLibro">Libro non trovato. Potrebbe essere stato eliminato!</p>
+  <button mat-raised-button class="decorazioneBtn" color="primary" [routerLink]="['/']">Vai alla Home</button>
 </div>
