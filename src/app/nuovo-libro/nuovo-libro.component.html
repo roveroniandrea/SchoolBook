@@ -24,10 +24,11 @@
         <input matInput placeholder="Titolo: *" formControlName="titolo">
       </mat-form-field>
       <mat-form-field class="width">
-        <input matInput placeholder="ISBN: *" formControlName="isbn">
+        <input matInput placeholder="ISBN: *" formControlName="isbn" type="number">
       </mat-form-field>
       <mat-form-field class="width">
         <input type="number" matInput placeholder="Prezzo (max 99): *" formControlName="prezzo">
+        <mat-hint align="start"><strong>Inserisci solo numeri interi</strong> </mat-hint>
       </mat-form-field>
       <p class="error" *ngIf="uploadForm.get('prezzo').hasError('isInteger')">Inserisci solo prezzi interi!</p>
     </div>

@@ -1,7 +1,7 @@
 <h2>Più Economici</h2>
 <mat-divider class="spaziatore"></mat-divider>
 <div class="separatore">
-    <mat-spinner *ngIf="!booksPrice"></mat-spinner>
+    <mat-spinner *ngIf="stoCercandoPrezzo"></mat-spinner>
     <p *ngIf="booksPrice && booksPrice.length && (!booksPriceDisplay || !booksPriceDisplay.length)">Non ci sono altri libri!</p>
     <app-libro *ngFor="let book of booksPriceDisplay" [libro]="book"></app-libro>
 </div>
@@ -11,7 +11,7 @@
 <h2>Ultimi Aggiunti</h2>
 <mat-divider class="spaziatore"></mat-divider>
 <div class="separatore">
-    <mat-spinner *ngIf="!booksData"></mat-spinner>
+    <mat-spinner *ngIf="stoCercandoData"></mat-spinner>
     <p *ngIf="booksData&& booksData.length && (!booksDataDisplay || !booksDataDisplay.length)">Non ci sono altri libri!</p>
     <app-libro *ngFor="let bookData of booksDataDisplay" [libro]="bookData"></app-libro>
 </div>

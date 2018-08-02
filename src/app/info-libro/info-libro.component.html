@@ -19,6 +19,7 @@
   </div>
   <h3 class="desc">Descrizione</h3>
   <p class="descrizione">{{libro.descrizione}}</p>
+  <p class="desc" style="color: red" *ngIf="!userService.utente.mail">Effettua il login per poter contattare il proprietario!</p>
   <div *ngIf="isProprietario == false" class="divEsternoBtn">
     <button mat-raised-button class="decorazioneBtn" color="primary" [routerLink]="['/']">Vai alla Home</button>
     <button *ngIf="userService.utente.mail" mat-raised-button class="decorazioneBtn" color="primary" [routerLink]="['/contatti',idLibro]"

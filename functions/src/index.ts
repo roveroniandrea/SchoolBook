@@ -10,7 +10,7 @@ const mailgun = require("mailgun-js")({   //FIREBASE BLOCCA LE API ESTERNE SE AC
   domain: "www.school-book-an.random-domain.com"
 });
 */
-const APP_NAME = 'School Book';
+const APP_NAME = 'School Book AN';
 const gmailEmail = functions.config().gmail.email;
 const gmailPassword = functions.config().gmail.password;
 
@@ -39,7 +39,8 @@ function sendWelcomeEmail(email) {
     from: `<noreply@firebase.com>`,
     to: email,
     subject: `Benvenuto su ${APP_NAME}!`,
-    text: `Ciao! Benvenuto su ${APP_NAME}, ora potrai vendere i tuoi libri e comprarne altri!`
+    text: `Ciao! Benvenuto su ${APP_NAME}!
+    \nOra potrai mettere in vendita i libri che non usi e contattare altri utenti!`
   };
 
   return mailTransport.sendMail(mailOptions).then(() => {
@@ -61,10 +62,10 @@ exports.contattaUtente = functions.https.onRequest((req, res) => {
   const mailOptions = {
     from: "<noreply@firebase.com>",
     to: req.body.mailDestinatario,
-    subject: "Qualcuno è interessato al tuo libro "+req.body.titoloLibro+"!",
+    subject: "Qualcuno è interessato al tuo libro \""+<string>req.body.titoloLibro+"\"!",
     text: "Ciao " + req.body.nomeDestinatario + "!"
       +"\n"+req.body.nomeMittente+" è interessato al tuo libro e ti ha scritto il seguente messaggio:\n\n"+
-      req.body.testo+"\n\nPuoi contattarlo al seguente indirizzo: "+req.body.mailMittente
+      req.body.testo+"\n\nPuoi rispondergli al seguente indirizzo: "+req.body.mailMittente
   };
 
   if(req.method =="POST"){  //se è metodo post (no options)

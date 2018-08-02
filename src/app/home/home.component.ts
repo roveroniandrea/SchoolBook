@@ -24,6 +24,8 @@ export class HomeComponent {
   nPages = [1, 2, 3, 4, 5];
   paginatorSubscription = Subscription;
 
+  stoCercandoPrezzo = false; //per i due mat spinner
+  stoCercandoData = false;
 
   constructor(private database: AngularFirestore,
     private libroUrlService: LibroUrlService,
@@ -47,6 +49,8 @@ export class HomeComponent {
       }
     })
 
+    this.stoCercandoPrezzo = true;
+    this.stoCercandoData = true;
     database.collection("books", ref => ref.orderBy("prezzo")).snapshotChanges().subscribe(items => {
       const nbooks = items.map(item => {
         const id = item.payload.doc.id;
@@ -54,6 +58,7 @@ export class HomeComponent {
         return libroUrlService.setLibroUrl(<Libro>{ id, ...doc });
       });
       this.booksPrice = nbooks;
+      this.stoCercandoPrezzo = false;
       this.cambiaPaginaPrezzo(this.paginaCorrentePrezzo);
     });
 
@@ -64,6 +69,7 @@ export class HomeComponent {
         return libroUrlService.setLibroUrl(<Libro>{ id, ...doc });
       });
       this.booksData = nbooks;
+      this.stoCercandoData = false;
       this.cambiaPaginaData(this.paginaCorrenteData);
     });
 
