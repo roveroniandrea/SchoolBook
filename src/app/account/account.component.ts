@@ -87,7 +87,7 @@ export class AccountComponent implements OnInit {
   }
 
   cercaMieiLibri() {
-    this.database.collection("books", ref => ref.where("id_utente", "==", this.userService.utente.uid).orderBy("data", "desc")).snapshotChanges().subscribe(val => {
+    this.database.collection("books", ref => ref.where("id_utente", "==", this.userService.utente.uid)).snapshotChanges().subscribe(val => {
       this.myBooks = val.map(item => {
         const libro = <Libro>{ id: item.payload.doc.id, ...item.payload.doc.data() }
         return this.libroUrlService.setLibroUrl(libro);
