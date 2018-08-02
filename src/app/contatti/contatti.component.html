@@ -1,3 +1,36 @@
-<p>
-  contatti works!
-</p>
+<h2>Contatta Proprietario</h2>
+<mat-divider class="spaziatore"></mat-divider>
+<mat-accordion>
+  <mat-expansion-panel class="dimension" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Proprietario
+      </mat-panel-title>
+      <mat-panel-description class="capitalize">
+        {{ utente.nome }} {{ utente.cognome }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>Mail: {{ utente.mail }}</p>
+    <p *ngIf="utente.telefono">Telefono: {{ utente.telefono }}</p>
+    <p class="capitalize" *ngIf="utente.scuola">Località: {{ utente.scuola }}</p>
+  </mat-expansion-panel>
+</mat-accordion>
+<div>
+  <p>Libro:</p>
+  <app-libro [libro]="libro"></app-libro>
+</div>
+<form [formGroup]="testoForm" (submit)="invioMail()" *ngIf="!stoInviandoRichiesta">
+  <mat-form-field class="width">
+    <!--<textarea matInput placeholder="Testo" fromControlName="testo"></textarea>-->
+    <input matInput placeholder="Testo" formControlName="testo">
+  </mat-form-field>
+  <p class="alert">Ricordati di lasciare un tuo contatto nel testo, altrimenti il proprietario non riuscirà a risponderti!</p>
+  <div class="divEsternoBtn">
+    <button mat-raised-button class="decorazioneBtn" color="primary" type="button" routerLink="/">Annulla</button>
+    <button mat-raised-button class="decorazioneBtn" color="primary" type="submit" [disabled]="!testoForm.valid">Invio</button>
+  </div>
+</form>
+<div *ngIf="stoInviandoRichiesta">
+  <p>Sto inviando la mail...</p>
+  <mat-spinner></mat-spinner>
+</div>

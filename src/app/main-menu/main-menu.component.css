@@ -1,10 +1,53 @@
-.sidenav-container {
+.sidenav-container { /* fix the right menu height and btn*/
   height: 100%;
-  padding-bottom: 2em;
-  min-height: 500px;
+  /* padding-bottom: 2em; */
 }
 
-.sidenav {
-  width: 200px;
+.sidenav { /* fix the right menu width*/
+  width: 12.5em;
   box-shadow: 3px 0 6px rgba(0,0,0,.24);
+}
+
+.hidden { /* hide the right menu */
+  display: none!important;
+} 
+
+button.rottaActive {  /* fix the red underline */
+  border-bottom: 2px solid red!important;
+}
+
+a.rottaActive { /* fix the red text */
+  color:red!important;
+}
+
+span { /* fix the title site */
+  margin: 1em!important;
+}
+
+div.menu-bar { /* fix the menu div */
+  width: 100%;
+}
+
+.menu-link { /* fix the btn position */
+  padding: 1em 4em!important;
+}
+
+.menu-link2 { /* fix the btn position */
+  padding: 1em 0em!important;
+}
+
+.position-right { /* fix login and register btn at hte right */
+  float: right!important;
+}
+
+.space { /* fix the padding in all page */
+  padding: 0 3em!important;
+  /* height: 100%; */
+}
+
+@media(max-width: 499px) { 
+  .space { /* fix the padding in all page */
+    padding: 0 1.5em!important;
+    /* height: 100%; */
+  }
 }

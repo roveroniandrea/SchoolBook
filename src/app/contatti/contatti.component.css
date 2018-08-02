@@ -1,0 +1,22 @@
+.dimension {
+  width: 28em!important;
+}
+
+.width {
+  width: 70%;
+}
+
+.alert {
+  font-size: 0.8em;
+}
+
+div {
+  height: 14em;
+  margin-bottom: 1em;
+}
+
+@media(max-width: 515px) { 
+  .dimension {
+    width: 19em!important;
+  }
+}

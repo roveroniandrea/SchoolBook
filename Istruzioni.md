@@ -136,7 +136,7 @@ AngularFirestoreModule
 //nel component che ci interessa
 books : Observable<any[]>
 constructor(bd: AngularFirestore){
-	this.books = db.collection("books").valueChanges();
+	this.books = database.collection("books").valueChanges();
 }
 ```
 ```
@@ -185,3 +185,8 @@ constructor(private route: ActivatedRoute){}
 ngOnInit(){
 	console.log(this.route.snapshot.queryParams);
 }
+```
+# spread operator
+```
+{id,...doc}
+```

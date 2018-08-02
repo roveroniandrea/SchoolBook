@@ -1,0 +1,52 @@
+<div *ngIf="progressoCaricamento==-1">
+  <h2 *ngIf="!idLibroDaURL">Aggiungi Libro</h2>
+  <h2 *ngIf="idLibroDaURL">Modifica Libro</h2>
+  <mat-divider class="spaziatore"></mat-divider>
+  <form [formGroup]="uploadForm" (ngSubmit)="submitForm()" *ngIf="!stoCercandoLibroDaModificare" (change)="onChange()">
+    <div class="sinistro" *ngIf="!stoCaricandoImmagine">
+      <img alt="immagine" [src]="urlNuovaFoto || newLibro.imageUrl" *ngIf="newLibro && (urlNuovaFoto || newLibro.imageUrl)">
+      <img alt="immagine" [src]="libroUrlService.defaultUrl" *ngIf="!(newLibro && (urlNuovaFoto || newLibro.imageUrl))">
+      <br>
+      <label class=" mat-primary mat-raised-button" for="image">
+        Carica immagine
+        <input name="files[]" style="display: none" title="Seleziona immagine" type="file" id="image" accept="image/*" (change)="immagineSelezionata($event)">
+      </label>
+      <button mat-raised-button color="primary" *ngIf="newLibro && (pathNuovaFoto || newLibro.imagePath)" type="button" (click)="rimuoviImmagine()">Rimuovi immagine</button>
+    </div>
+    <div clas="sinistro" *ngIf="stoCaricandoImmagine">
+      <mat-spinner></mat-spinner>
+    </div>
+    <div class="destro">
+      <br>
+      <h3>Libro</h3>
+      <p>Inserisci le informazioni del libro.</p>
+      <mat-form-field class="width">
+        <input matInput placeholder="Titolo: *" formControlName="titolo">
+      </mat-form-field>
+      <mat-form-field class="width">
+        <input matInput placeholder="ISBN: *" formControlName="isbn" type="number">
+      </mat-form-field>
+      <mat-form-field class="width">
+        <input type="number" matInput placeholder="Prezzo (max 99): *" formControlName="prezzo">
+        <mat-hint align="start"><strong>Inserisci solo numeri interi</strong> </mat-hint>
+      </mat-form-field>
+      <p class="error" *ngIf="uploadForm.get('prezzo').hasError('isInteger')">Inserisci solo prezzi interi!</p>
+    </div>
+    <div>
+      <mat-form-field class="width">
+        <textarea matInput placeholder="Descrizione: *" formControlName="descrizione"></textarea>
+      </mat-form-field>
+    </div>
+    <p class="error">*Campi Obbligatori</p>
+    <div class="divEsternoBtn">
+      <button mat-raised-button class="decorazioneBtn" color="primary" (click)="annullaForm()" type="button">Annulla</button>
+      <button mat-raised-button class="decorazioneBtn" color="primary" type="submit" [disabled]="!uploadForm.valid || stoCaricandoImmagine">Salva</button>
+    </div>
+  </form>
+  <mat-spinner *ngIf="stoCercandoLibroDaModificare"></mat-spinner>
+</div>
+<div *ngIf="progressoCaricamento>=0">
+  <h2>Caricamento in corso...</h2>
+  <mat-progress-spinner color="primary" [mode]="(progressoCaricamento>0)? 'determinate' : 'indeterminate'" [value]="progressoCaricamento">
+  </mat-progress-spinner>
+</div>

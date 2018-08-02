@@ -1,10 +1,66 @@
-.float-left{
+.sinistro {
+    width: 50%; 
+    height: 25em; 
     float: left;
+    text-align: center;
+    margin-bottom: 1em;
 }
-img{
-    max-width: 30%;
+
+.destro {
+    width: 50%; 
+    height: 25em; 
+    float: right;
+    text-align: center;
+    margin-bottom: 1em;
 }
-.ciao{
-    align-items: left!important;
-    justify-content: top!important;
+
+img {
+    height: 100%;
+    width: 70%;
+}
+
+.divisore {
+    width: 50%;
+    margin: auto!important;
+}
+
+.desc {
+    margin: 2.58em 0.86em 0.86em 0.86em!important;
+}
+
+p {
+    width: 100%;
+    margin-right: 1em!important;
+}
+
+.descrizione {
+    margin-left: 1em!important;
+}
+
+.erroreLibro {
+    color: red;
+}
+
+@media(max-width: 499px) {
+    .sinistro {
+        width: 100%; 
+        float: none;
+        height: 15em;
+        text-align: center;
+        margin-bottom: 1em;
+    }
+    
+    .destro {
+        width: 100%; 
+        height: 25em; 
+        float: none;
+        text-align: center;
+        margin-bottom: 1em;
+    }
+    
+    button {
+        padding: 0.5em;
+        margin-right: 0.5em; 
+        margin-top: 1em;
+    }
 }

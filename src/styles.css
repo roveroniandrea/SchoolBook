@@ -1,0 +1,61 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* Per impostare schermo intero */
+html, body{
+    height: 100%;
+}
+
+/* Per impostare il font del body */
+body {
+    font-family: Roboto, sans-serif;
+    margin: 0;
+}
+
+/* Per impostare la lettera maiuscola */
+.capitalize {
+    text-transform: capitalize;
+}
+
+/* Per impostare il mat-divider */
+.spaziatore {
+    margin-top: 1em!important;
+    margin-bottom: 1em!important;
+}
+
+/* Dimensioni spinner */
+.spinner {
+    width: 34%;
+    height: auto; 
+    margin: 10% 33% 0% 33%; 
+    padding: 1em; 
+}
+
+.paginator {
+    border: 1px solid #3f51b5!important;
+    margin: 0.5em!important;
+    font-weight: bold!important;
+    background-color: white!important;
+    color: #3f51b5!important;
+}
+
+.paginator:hover,.paginator.selezionato {
+    background-color: #3f51b5!important;
+    color: white!important;
+}
+
+.paginator.disabilitato{
+    display: none;
+}
+
+/* Per posizionare i pulsanti */
+.divEsternoBtn {
+    float: right!important;
+    margin-top: 1em!important;
+}
+
+/* Per decorare i pulsanti */
+.decorazioneBtn {
+    padding: 0.5em!important;
+    margin-right: 0.5em!important; 
+}

@@ -1,17 +1,42 @@
-<h1>{{libro.titolo}}</h1>
-<mat-grid-list cols="6" rowHeight="15em">
-  <mat-grid-tile [colspan]="2" [rowspan]="1" style="background-color: green">
-    <!--<img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
-    Immagine del libro
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="1" [rowspan]="2" style="background-color: blue"></mat-grid-tile>
-  <mat-grid-tile [colspan]="3" [rowspan]="2" style="background-color: red">
-    <div>
-      <h2>Dati del libro</h2>
-      <p>ISBN: {{libro.isbn}}</p>
-      <p>Prezzo: {{libro.prezzo}} €</p>
-      <hr>
-      <h2>Dati dell'autore</h2>
-    </div>
-  </mat-grid-tile>
-</mat-grid-list>
+<h2>Info Libro</h2>
+<mat-divider class="spaziatore"></mat-divider>
+<div *ngIf="!eliminazioneInCorso&&!libroNonTrovato">
+  <div class="sinistro">
+    <img [src]="libro.imageUrl" alt="Nessuna foto">
+  </div>
+  <div class="destro">
+    <br>
+    <h3>Libro</h3>
+    <p class="capitalize">Titolo: {{libro.titolo}}</p>
+    <p>ISBN: {{libro.isbn}}</p>
+    <p>Prezzo: {{libro.prezzo}} €</p>
+    <mat-divider class="divisore"></mat-divider>
+    <h3>Proprietario</h3>
+    <p class="capitalize">Proprietario: {{autore.nome}} {{autore.cognome}}</p>
+    <p>Mail: {{autore.mail}}</p>
+    <p *ngIf="autore.telefono">Telefono: {{autore.telefono}}</p>
+    <p class="capitalize" *ngIf="autore.scuola">Località: {{autore.scuola}}</p>
+  </div>
+  <h3 class="desc">Descrizione</h3>
+  <p class="descrizione">{{libro.descrizione}}</p>
+  <p class="desc" style="color: red" *ngIf="!userService.utente.mail">Effettua il login per poter contattare il proprietario!</p>
+  <div *ngIf="isProprietario == false" class="divEsternoBtn">
+    <button mat-raised-button class="decorazioneBtn" color="primary" [routerLink]="['/']">Vai alla Home</button>
+    <button *ngIf="userService.utente.mail" mat-raised-button class="decorazioneBtn" color="primary" [routerLink]="['/contatti',idLibro]"
+      [disabled]="!autore.uid">Contatta Proprietario</button>
+    <button *ngIf="userService.utente.mail && !isPreferiti" mat-raised-button class="decorazioneBtn" color="primary" (click)="aggiungiPreferiti()" [disabled]="!autore.uid">Aggiungi ai Preferiti</button>
+    <button *ngIf="userService.utente.mail && isPreferiti" mat-raised-button class="decorazioneBtn" color="primary" (click)="eliminaPreferiti()">Elimina dai Preferiti</button>
+  </div>
+  <div *ngIf="isProprietario == true" class="divEsternoBtn">
+    <button mat-raised-button class="decorazioneBtn" color="primary" [routerLink]="['/new-book']" [queryParams]="{'id_libro' : idLibro}">Modifica Dati</button>
+    <button mat-raised-button class="decorazioneBtn" color="primary" (click)="eliminaLibro()">Elimina Libro</button>
+  </div>
+</div>
+<div *ngIf="eliminazioneInCorso&&!libroNonTrovato">
+  <p>Eliminazione in corso...</p>
+  <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="libroNonTrovato">
+  <p class="erroreLibro">Libro non trovato. Potrebbe essere stato eliminato!</p>
+  <button mat-raised-button class="decorazioneBtn" color="primary" [routerLink]="['/']">Vai alla Home</button>
+</div>

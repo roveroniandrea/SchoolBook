@@ -3,25 +3,66 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list (click)="drawer.toggle()">
-      <a mat-list-item routerLink="" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">{{link[0]}}</a>
-      <a mat-list-item routerLink="catalogo" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">{{link[1]}}</a>
-      <a mat-list-item routerLink="contatti" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">{{link[2]}}</a>
-      <a mat-list-item routerLink="login" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">{{link[4]}}</a>
-      <a mat-list-item routerLink="registrazione" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">{{link[5]}}</a>
+      <!-- right menu link -->
+      <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="">Home</a>
+      <a mat-list-item routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="catalogo">Catalogo</a>
+      <a mat-list-item *ngIf="userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}"
+        routerLink="preferiti">Preferiti</a>
+      <a mat-list-item *ngIf="userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}"
+        routerLink="new-book">Aggiungi Libro</a>
+      <a mat-list-item *ngIf="!userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}"
+        routerLink="login">Login</a>
+      <a mat-list-item *ngIf="!userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}"
+        routerLink="registrazione">Registrazione</a>
+      <a mat-list-item *ngIf="userService.utente.mail" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}"
+        routerLink="account">Account</a>
+      <a mat-list-item *ngIf="userService.utente.mail" (click)="logout()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
+      <!-- menu btn -->
       <button #menuButton type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span *ngIf="(isHandset$ | async)" style="margin: 1em">SchoolBook</span>
+      <span>SchoolBook</span>
       <div *ngIf="!(isHandset$ | async)" class="menu-bar">
-        <button mat-button class="menu-link" routerLink="" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">{{link[0]}}</button>
-        <button mat-button class="menu-link" routerLink="catalogo" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">{{link[1]}}</button>
-        <button mat-button class="menu-link" routerLink="contatti" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}">{{link[2]}}</button>
+        <!-- link btn -->
+        <button mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="">Home</button>
+        <button mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" routerLink="catalogo">Catalogo</button>
+        <button *ngIf="userService.utente.mail" mat-button class="menu-link" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}"
+          routerLink="preferiti">Preferiti</button>
+        <!-- login and register btn -->
+        <div *ngIf="!userService.utente.mail" class="position-right">
+          <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" matTooltip="Login"
+            routerLink="login">
+            <mat-icon>person</mat-icon>
+          </button>
+          <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" matTooltip="Registrazione"
+            routerLink="registrazione">
+            <mat-icon>person_add</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="userService.utente.mail" class="position-right">
+          <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" [matTooltip]="'Aggiugi Libro'"
+            routerLink="new-book">
+            <mat-icon>add_circle_outline</mat-icon>
+          </button>
+          <button mat-button class="menu-link2" routerLinkActive="rottaActive" [routerLinkActiveOptions]="{exact: true}" [matTooltip]="userService.utente.nome"
+            routerLink="account">
+            <mat-icon>person</mat-icon>
+          </button>
+          <button mat-button class="menu-link2" matTooltip="Logout" (click)="logout()">
+            <mat-icon>person_outline</mat-icon>
+          </button>
+        </div>
       </div>
     </mat-toolbar>
-    <ng-content></ng-content>
+    <div class="space">
+      <ng-content></ng-content>
+    </div>
+    <div>
+      <app-footer *ngIf="footerCompare"></app-footer>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,3 +1,41 @@
-<p>
-  login works!
-</p>
+<!-- Form -->
+<form [formGroup]="loginForm" (ngSubmit)="login()" *ngIf="!passwordDimenticata">
+    <mat-card class="card">
+        <div class="contenuto">
+            <!-- Input -->
+            <h2>Login</h2>
+            <mat-form-field class="input">
+                <input matInput placeholder="Mail" formControlName="mail">
+            </mat-form-field>
+            <mat-form-field class="input">
+                <input matInput placeholder="Password" type="password" formControlName="password">
+            </mat-form-field>
+            <!-- Error -->
+            <p *ngIf="error">{{error.message}}</p>
+            <!-- Link password -->
+            <div>
+                <a (click)="passwordDimenticata = true">Password dimenticata?</a>
+            </div>
+            <!-- Button -->
+            <button mat-raised-button class="decorazioneBtn" color="primary" routerLink="/" type="button">Annulla</button>
+            <button mat-raised-button class="decorazioneBtn" color="primary" type="submit" [disabled]="!loginForm.valid">Entra</button>
+        </div>
+    </mat-card>
+</form>
+<!-- Form -->
+<form [formGroup]="recuperoForm" (ngSubmit)="recuperaPassword()" *ngIf="passwordDimenticata">
+    <mat-card class="card">
+        <div class="contenuto">
+            <!-- Input -->
+            <h2>Servizio Recupero Password</h2>
+            <mat-form-field class="input">
+                <input matInput placeholder="Mail di Recupero" formControlName="mail">
+            </mat-form-field>
+            <!-- Error -->
+            <p *ngIf="errorRecuperoPassword">{{errorRecuperoPassword.message}}</p>
+            <!-- Button -->
+            <button mat-raised-button class="decorazioneBtn" color="primary" type="button" (click)="passwordDimenticata = false" [disabled]="stoInviandoRichiestaRecupero">Annulla</button>
+            <button mat-raised-button class="decorazioneBtn" color="primary" type="submit" [disabled]="!recuperoForm.valid || stoInviandoRichiestaRecupero">Invia email</button>
+        </div>
+    </mat-card>
+</form>

@@ -1,0 +1,55 @@
+<h2>Account</h2>
+<mat-divider class="spaziatore"></mat-divider>
+<div *ngIf="mode==='see'">
+  <div>
+    <p class="capitalize">Nome: {{userService.utente.nome}}</p>
+    <p class="capitalize" *ngIf="userService.utente.cognome">Cognome: {{userService.utente.cognome}}</p>
+    <p>Mail: {{userService.utente.mail}}</p>
+    <p *ngIf="userService.utente.telefono">Telefono: {{userService.utente.telefono}}</p>
+    <p class="capitalize" *ngIf="userService.utente.scuola">Località: {{userService.utente.scuola}}</p>
+  </div>
+  <div class="divEsternoBtn">
+    <button mat-raised-button class="decorazioneBtn" color="primary" (click)="eliminaAccount()">Elimina Account</button>
+    <button mat-raised-button class="decorazioneBtn" color="primary" (click)="modificaDati()">Modifica Dati o Password</button>
+  </div>
+</div>
+<div *ngIf="mode==='edit'">
+  <form [formGroup]="accountForm" (ngSubmit)="submitAccount()">
+    <div class="inserimento">
+      <mat-form-field class="inputAccount">
+        <input matInput placeholder="Nome: " formControlName="nome">
+      </mat-form-field>
+      <mat-form-field class="inputAccount">
+        <input matInput placeholder="Cognome: " formControlName="cognome">
+      </mat-form-field>
+      <mat-form-field class="inputAccount">
+        <input matInput placeholder="Telefono: " formControlName="telefono">
+      </mat-form-field>
+      <mat-form-field class="inputAccount">
+        <input matInput placeholder="Località: " formControlName="scuola">
+      </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary" (click)="modificaPassword()" type="button">Modifica Password</button>
+    <div class="divEsternoBtn">
+      <button mat-raised-button class="decorazioneBtn" color="primary" (click)="mode='see'" type="reset" [disabled]="stoModificandoUtente">Annulla modifiche</button>
+      <button mat-raised-button class="decorazioneBtn" color="primary" [disabled]="!accountForm.valid || stoModificandoUtente" type="submit">Conferma modifiche</button>
+    </div>
+  </form>
+</div>
+<div class="secondaParte">
+<h3 id="mieiLibri">I Miei Libri</h3>
+<mat-divider class="spaziatore"></mat-divider>
+<br>
+<div class="inline">Clicca su un libro per modificare.</div>
+<div class="divEsternoBtn inline">
+  <button mat-raised-button class="decorazioneBtn" color="primary" routerLink="/new-book">Aggiungi Libro</button>
+</div>
+<br>
+<br>
+<br>
+</div>
+<div style="text-align: center">
+  <button class="paginator" (click)="cambiaPagina(nPage)" mat-mini-fab *ngFor="let nPage of nPages" [ngClass]="{'selezionato' : (nPage == paginaCorrente), 'disabilitato' : (myBooks && (nPage-1) > (myBooks.length/numRisultatiDaMostrare))}">{{ nPage }}</button>
+</div>
+<p *ngIf="myBooks && myBooks.length && (!myBooksDisplay || !myBooksDisplay.length)">Non hai caricato altri libri!</p>
+<app-libro *ngFor="let book of myBooksDisplay" [libro]="book"></app-libro>

@@ -1,23 +1,21 @@
-<mat-card class="card" routerLink="infoLibro" [queryParams]="{id: libro.id}">
-  <div style="display: block">
-    <img 
-    mat-card-image 
-    src="https://material.angular.io/assets/img/examples/shiba2.jpg" 
-    alt="Photo of a Shiba Inu" 
-    class="headerCard">
-    <p>
-      <b>{{libro.titolo}}</b>
-      <br><br>
-      {{libro.prezzo}} €
-    </p>
-  </div>
-  <p>
-    ISBN: {{libro.isbn}}
-  </p>
-  
-<!--
-  <mat-card-header class="headerCard">
-    <mat-card-title>Shiba Inu</mat-card-title>
-    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-  </mat-card-header>
--->
+<mat-card *ngIf="libro && libro.id"
+  class="card" 
+  [routerLink]="['/infoLibro',libro.id]">
+  <mat-grid-list cols="34" rowHeight="1em">
+    <mat-grid-tile [colspan]="14" [rowspan]="8">
+      <img 
+      mat-card-image 
+      [src]="libro.imageUrl"
+      alt="No foto, ops :(">
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="16" [rowspan]="5" class="titolo capitalize">
+      {{libro.titolo  | cutText: 32}}
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="16" [rowspan]="1" class="prezzo">
+      Prezzo: {{libro.prezzo}} €
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="30" [rowspan]="1" class="isbn">
+      ISBN: {{libro.isbn}}
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-card>
