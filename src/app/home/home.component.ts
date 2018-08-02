@@ -94,6 +94,6 @@ export class HomeComponent {
   cambiaPaginaData(num) {
     this.paginaCorrenteData = num;
     this.booksDataDisplay = this.paginatorService.impostaPaginaCorrente(this.booksData, this.paginaCorrenteData, this.numRisultatiDaMostrare);
-    console.log(this.booksDataDisplay);
+    //console.log(this.booksDataDisplay);
   }
 }
