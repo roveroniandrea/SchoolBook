@@ -9,8 +9,6 @@ import { UserService } from '../servizi/utente.service';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { CanComponentDeactivate } from '../servizi/canDeactivate-guard.service';
 import { Observable } from '../../../node_modules/rxjs';
-import { resolve } from 'url';
-import { StringService } from '../servizi/string.service';
 import { ValidatorInteger } from '../servizi/only-number.validator';
 import { LibroUrlService } from '../servizi/libro-url.service';
 
@@ -35,6 +33,7 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
   urlNuovaFoto = "";
   pathVecchiaFoto = "";  //path e url della foto originale quando viene rimossa
   urlVecchiaFoto = "";
+  isAutorizzato = false; //è impostato a true solo se il libro è nuovo oppure l'utente corrisponde all'autore
 
   modificheEffettuate = false; //se true chiede prima di lasciare la pagina
 
@@ -52,6 +51,9 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
     if (this.idLibroDaURL) {
       this.stoCercandoLibroDaModificare = true;   //mostro mat-spinner
       this.cercaLibro();
+    }
+    else{
+      this.isAutorizzato = true; //è un nuovo libro quindi viene autorizzato
     }
     this.uploadForm = new FormGroup({
       "titolo": new FormControl("", Validators.required),
@@ -71,6 +73,14 @@ export class NuovoLibroComponent implements OnInit, CanComponentDeactivate {
         "prezzo": this.newLibro.prezzo,
         "descrizione": this.newLibro.descrizione
       });
+      //console.log("id libro: "+this.newLibro.id_utente + " id utente:"+this.userService.utente.uid,this.newLibro.id_utente == this.userService.utente.uid)
+      if(this.newLibro.id_utente == this.userService.utente.uid){
+        this.isAutorizzato = true;
+      }
+      else{
+        this.isAutorizzato = false;
+        this.router.navigateByUrl("/");   //se gli id non corrispondono non è lo stesso utente e viene reindirizzato
+      }
       this.stoCercandoLibroDaModificare = false;
     })
   }
