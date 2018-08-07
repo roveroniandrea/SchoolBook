@@ -40,7 +40,7 @@
     <p class="error">*Campi Obbligatori</p>
     <div class="divEsternoBtn">
       <button mat-raised-button class="decorazioneBtn" color="primary" (click)="annullaForm()" type="button">Annulla</button>
-      <button mat-raised-button class="decorazioneBtn" color="primary" type="submit" [disabled]="!uploadForm.valid || stoCaricandoImmagine">Salva</button>
+      <button mat-raised-button class="decorazioneBtn" color="primary" type="submit" [disabled]="!uploadForm.valid || stoCaricandoImmagine || !isAutorizzato">Salva</button>
     </div>
   </form>
   <mat-spinner *ngIf="stoCercandoLibroDaModificare"></mat-spinner>

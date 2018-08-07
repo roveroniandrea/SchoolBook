@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserService } from '../servizi/utente.service';
 import { PerditaModificheComponent } from '../perdita-modifiche/perdita-modifiche.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router, ActivatedRoute, NavigationEnd } from '../../../node_modules/@angular/router';
 
@@ -26,7 +26,8 @@ export class MainMenuComponent {
     public userService: UserService,
     private breakpointObserver: BreakpointObserver,
     private matDialog: MatDialog,
-    private router: Router) {
+    private router: Router,
+    private snackBar : MatSnackBar) {
     router.events.subscribe(val => {
       if (val instanceof NavigationEnd) { //se siamo in navigation end
         const url = val.urlAfterRedirects;
@@ -48,6 +49,7 @@ export class MainMenuComponent {
           .catch(error => {
           })
           .then(result => {
+            this.snackBar.open("Logout effettuato con successo","",{duration: 5000});
             this.router.navigateByUrl("/", { queryParams: { "utenteLoggato": 0 } })
           })
       }
